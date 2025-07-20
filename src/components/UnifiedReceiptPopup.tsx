@@ -314,7 +314,18 @@ export const UnifiedReceiptPopup = ({
                     <Separator className="border-dashed" />
                   </div>
 
-                  {/* Footer */}
+                   {/* Print Button */}
+                  <div className="no-print flex justify-center py-3">
+                    <Button
+                      onClick={handlePrint}
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2"
+                    >
+                      <Printer className="h-4 w-4 mr-2" />
+                      Print Receipt & KOT
+                    </Button>
+                  </div>
+
+                   {/* Footer */}
                   <div className="text-center space-y-1">
                     <p className="text-xs font-medium">Thank you for visiting Hadir's Cafe!</p>
                     <p className="text-xs text-muted-foreground">We hope to see you again soon</p>
