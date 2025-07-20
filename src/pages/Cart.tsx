@@ -20,8 +20,7 @@ import {
   ChefHat
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { ReceiptPopup } from "@/components/ReceiptPopup";
-import { KotPopup } from "@/components/KotPopup";
+import { UnifiedReceiptPopup } from "@/components/UnifiedReceiptPopup";
 import { Link } from "react-router-dom";
 
 interface MenuItem {
@@ -49,9 +48,7 @@ interface CartItem extends MenuItem {
 const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [receiptData, setReceiptData] = useState<any>(null);
-  const [kotData, setKotData] = useState<any>(null);
-  const [showReceipt, setShowReceipt] = useState(false);
-  const [showKot, setShowKot] = useState(false);
+  const [showUnifiedReceipt, setShowUnifiedReceipt] = useState(false);
   const [orderCounter, setOrderCounter] = useState(() => {
     const stored = localStorage.getItem('orderCounter');
     return stored ? parseInt(stored) : 1;
@@ -308,7 +305,7 @@ const Cart = () => {
     const subtotal = getSubtotal();
     const finalTotal = getFinalTotal();
 
-    // Generate receipt
+    // Generate receipt (contains both receipt and KOT data)
     const receipt = {
       id: `ORD-${orderCounter.toString().padStart(4, '0')}`,
       items: cart,
@@ -319,16 +316,9 @@ const Cart = () => {
       paymentMethod: method,
       timestamp: new Date(),
       cashier: 'Mohammed Haris T A',
-      customerDetails
-    };
-
-    // Generate KOT data
-    const kot = {
-      id: `ORD-${orderCounter.toString().padStart(4, '0')}`,
-      items: cart,
-      timestamp: new Date(),
-      cashier: 'Mohammed Haris T A',
-      customerDetails
+      customerDetails,
+      tax: 0,
+      taxRate: 0
     };
 
     // Store order in history for analytics
@@ -352,9 +342,8 @@ const Cart = () => {
       description: `Order completed successfully with ${method} payment`,
     });
 
-    // Store the receipt and KOT data and mark order as completed
+    // Store the receipt data and mark order as completed
     setReceiptData(receipt);
-    setKotData(kot);
     setOrderCompleted(true);
     
     // Clear cart from localStorage as well
@@ -366,7 +355,6 @@ const Cart = () => {
   const startNewOrder = () => {
     setOrderCompleted(false);
     setReceiptData(null);
-    setKotData(null);
   };
 
   return (
@@ -605,18 +593,10 @@ const Cart = () => {
                 <Button 
                   variant="outline" 
                   className="w-full"
-                  onClick={() => setShowReceipt(true)}
+                  onClick={() => setShowUnifiedReceipt(true)}
                 >
                   <Eye className="mr-2 h-4 w-4" />
-                  View Receipt
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={() => setShowKot(true)}
-                >
-                  <ChefHat className="mr-2 h-4 w-4" />
-                  View KOT
+                  View Receipt & KOT
                 </Button>
                 <Button 
                   variant="outline" 
@@ -624,7 +604,7 @@ const Cart = () => {
                   onClick={() => handlePrintReceipt(receiptData)}
                 >
                   <Printer className="mr-2 h-4 w-4" />
-                  Print Receipt
+                  Print Receipt & KOT
                 </Button>
               </div>
             </Card>
@@ -644,18 +624,11 @@ const Cart = () => {
         )}
       </div>
 
-      {/* Receipt Popup */}
-      <ReceiptPopup 
-        isOpen={showReceipt}
-        onClose={() => setShowReceipt(false)}
+      {/* Unified Receipt & KOT Popup */}
+      <UnifiedReceiptPopup 
+        isOpen={showUnifiedReceipt}
+        onClose={() => setShowUnifiedReceipt(false)}
         receipt={receiptData}
-      />
-
-      {/* KOT Popup */}
-      <KotPopup 
-        isOpen={showKot}
-        onClose={() => setShowKot(false)}
-        kotData={kotData}
       />
     </div>
   );
