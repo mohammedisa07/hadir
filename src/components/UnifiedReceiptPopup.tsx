@@ -48,14 +48,6 @@ export const UnifiedReceiptPopup = ({
 
   if (!receipt) return null;
 
-  const handlePrint = () => {
-    window.print();
-    toast({
-      title: "Receipt & KOT sent to printer",
-      description: "Both customer receipt and kitchen order ticket have been printed.",
-    });
-  };
-
   return (
     <>
       {/* Print styles */}
@@ -153,19 +145,11 @@ export const UnifiedReceiptPopup = ({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={handlePrint}
+                  onClick={onClose}
                   className="h-8 px-3"
                 >
-                  <Printer className="h-4 w-4 mr-1" />
-                  Print Both
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onClose}
-                  className="h-6 w-6 p-0"
-                >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4 mr-1" />
+                  Close
                 </Button>
               </div>
             </DialogTitle>
@@ -314,17 +298,6 @@ export const UnifiedReceiptPopup = ({
                     <Separator className="border-dashed" />
                   </div>
 
-                   {/* Print Button */}
-                  <div className="no-print flex justify-center py-3">
-                    <Button
-                      onClick={handlePrint}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2"
-                    >
-                      <Printer className="h-4 w-4 mr-2" />
-                      Print Receipt & KOT
-                    </Button>
-                  </div>
-
                    {/* Footer */}
                   <div className="text-center space-y-1">
                     <p className="text-xs font-medium">Thank you for visiting Hadir's Cafe!</p>
@@ -340,117 +313,6 @@ export const UnifiedReceiptPopup = ({
                 </div>
               </CardContent>
             </Card>
-
-            {/* KOT SECTION - STARTS ON NEW PAGE */}
-            <div className="page-break">
-              <Card className="kot-container border-0 shadow-none">
-                <CardContent className="p-4 space-y-3">
-                  {/* Header */}
-                  <div className="print-header text-center space-y-2">
-                    <div className="flex justify-center mb-2">
-                      <div className="print-logo h-12 w-12 bg-white rounded-lg flex items-center justify-center p-1 border">
-                        <img 
-                          src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
-                          alt="Hadir's Cafe Logo" 
-                          className="w-full h-full object-contain" 
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <h1 className="print-title text-xl font-bold tracking-wide">HADIR'S CAFE</h1>
-                      <h2 className="text-lg font-bold text-orange-600">KITCHEN ORDER TICKET</h2>
-                    </div>
-                    <div className="kot-separator">
-                      <Separator className="border-2 border-black" />
-                    </div>
-                  </div>
-
-                  {/* Order Information */}
-                  <div className="space-y-2">
-                    <div className="kot-priority bg-yellow-200 border-2 border-black p-2 text-center">
-                      <p className="font-bold text-lg">ORDER #{receipt.id}</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div className="space-y-1">
-                        <div className="flex justify-between">
-                          <span className="font-semibold">Date:</span>
-                          <span>{receipt.timestamp.toLocaleDateString('en-IN')}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="font-semibold">Time:</span>
-                          <span>{receipt.timestamp.toLocaleTimeString('en-IN', { hour12: true })}</span>
-                        </div>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between">
-                          <span className="font-semibold">Cashier:</span>
-                          <span>{receipt.cashier}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="font-semibold">Customer:</span>
-                          <span>{receipt.customerDetails.name}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="kot-separator">
-                      <Separator className="border-dashed border-2" />
-                    </div>
-
-                    {/* Items for Kitchen */}
-                    <div className="kot-items">
-                      <h3 className="font-bold text-lg mb-3 text-center bg-gray-100 p-2">ITEMS TO PREPARE</h3>
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="border-b-2 border-black">
-                            <th className="text-left py-2 font-bold">Item Name</th>
-                            <th className="text-center py-2 font-bold w-16">Qty</th>
-                            <th className="text-left py-2 font-bold">Notes</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {receipt.items.map((item, index) => (
-                            <tr key={item.id} className="border-b border-gray-300">
-                              <td className="py-3 font-semibold text-base">{item.name}</td>
-                              <td className="py-3 text-center text-xl font-bold">{item.quantity}</td>
-                              <td className="py-3 text-sm">-</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    <div className="kot-separator">
-                      <Separator className="border-2 border-black" />
-                    </div>
-
-                    {/* Kitchen Instructions */}
-                    <div className="space-y-2">
-                      <div className="bg-red-100 border-2 border-red-500 p-3 text-center">
-                        <p className="font-bold text-lg">TOTAL ITEMS: {receipt.items.reduce((sum, item) => sum + item.quantity, 0)}</p>
-                      </div>
-                      
-                      <div className="text-center space-y-1 text-sm">
-                        <p className="font-semibold">Customer Phone: {receipt.customerDetails.phone}</p>
-                        <p className="text-xs text-muted-foreground">
-                          Time: {receipt.timestamp.toLocaleTimeString('en-IN')}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="text-center space-y-1 mt-4">
-                      <div className="kot-separator">
-                        <Separator className="border-dashed" />
-                      </div>
-                      <p className="text-sm font-bold">*** KITCHEN COPY ***</p>
-                      <p className="text-xs">Please prepare items as per order</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </DialogContent>
       </Dialog>

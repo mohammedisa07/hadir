@@ -23,15 +23,25 @@ export const DashboardHeader = ({ onRefresh, onResetData, onResetTodaysSales }: 
 
   const executeResetAction = () => {
     if (pendingAction === 'resetAll') {
-      // Clear all sales data
+      // Clear all relevant localStorage keys
       localStorage.removeItem('orderHistory');
+      localStorage.removeItem('menuItems');
+      localStorage.removeItem('cashiers');
+      localStorage.removeItem('adminPassword');
+      localStorage.removeItem('dailyCashEarned');
+      localStorage.removeItem('lastCashReset');
+      localStorage.removeItem('orderCounter');
+      localStorage.removeItem('user');
+      localStorage.removeItem('dailySales');
+      // Add any other relevant keys here
       onResetData();
-      
       toast({
         title: "All Data Reset",
-        description: "All sales data has been cleared.",
+        description: "All sales and system data has been cleared.",
         variant: "destructive"
       });
+      // Refresh the UI
+      setTimeout(() => window.location.reload(), 500);
     } else if (pendingAction === 'resetToday') {
       // Filter out today's orders
       const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');

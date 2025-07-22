@@ -36,9 +36,12 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import React from "react";
+// REMOVE: import { addMenuItem, updateMenuItem, deleteMenuItem, getMenuItems } from '../lib/api';
 
 interface MenuItem {
-  id: string;
+  id?: string;
+  _id?: string;
   name: string;
   price: number;
   category: string;
@@ -57,6 +60,7 @@ interface CustomerDetails {
 interface CartItem extends MenuItem {
   quantity: number;
   notes?: string;
+  _id?: string;
 }
 
 interface Category {
@@ -72,6 +76,8 @@ interface PosSystemProps {
   userRole: 'admin' | 'cashier';
   onCashEarned: (amount: number) => void;
   categories?: Category[];
+  menuItems: MenuItem[];
+  setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>;
 }
 
 const initialMenuItems: MenuItem[] = [
@@ -165,7 +171,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
                 className="h-6 w-6 p-0"
                 onClick={(e) => {
                   e.stopPropagation();
-                  onToggleAvailability(item.id);
+                  onToggleAvailability(item.id || item._id || '');
                 }}
               >
                 <AlertTriangle className="h-3 w-3" />
@@ -229,7 +235,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
                       className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onUpdateQuantity(item.id, -1);
+                        onUpdateQuantity(item.id || item._id || '', -1);
                       }}
                     >
                       <Minus className="h-3 w-3" />
@@ -258,9 +264,8 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
   );
 };
 
-export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories = [] }: PosSystemProps) => {
+export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories = [], menuItems, setMenuItems }: PosSystemProps) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   
   const { addToCart, cart, updateQuantity } = useCart();
@@ -295,8 +300,8 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
     
     if (active.id !== over.id) {
       setMenuItems((items) => {
-        const oldIndex = items.findIndex(item => item.id === active.id);
-        const newIndex = items.findIndex(item => item.id === over.id);
+        const oldIndex = items.findIndex(item => item.id === active.id || item._id === active.id);
+        const newIndex = items.findIndex(item => item.id === over.id || item._id === over.id);
         
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -304,32 +309,50 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   };
 
   const toggleItemAvailability = (id: string) => {
-    setMenuItems(prev => prev.map(item => 
-      item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
-    ));
+    setMenuItems(prev => {
+      const updated = prev.map(item =>
+        item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
+      );
+      localStorage.setItem('menuItems', JSON.stringify(updated));
+      return updated;
+    });
     toast({
       title: "Item availability updated",
       description: "Menu item status has been changed",
     });
   };
 
-
-
-
   const handleMenuItemSave = (itemData: Omit<MenuItem, 'id'> & { id?: string }) => {
     if (itemData.id) {
       // Update existing item
-      setMenuItems(prev => prev.map(item => 
-        item.id === itemData.id ? { ...itemData, id: itemData.id } as MenuItem : item
-      ));
+      setMenuItems(prev => {
+        const updated = prev.map(item =>
+          item.id === itemData.id ? { ...itemData, id: itemData.id } as MenuItem : item
+        );
+        localStorage.setItem('menuItems', JSON.stringify(updated));
+        return updated;
+      });
     } else {
       // Add new item
       const newItem: MenuItem = {
         ...itemData,
         id: `item-${Date.now()}`,
       };
-      setMenuItems(prev => [...prev, newItem]);
+      setMenuItems(prev => {
+        const updated = [...prev, newItem];
+        localStorage.setItem('menuItems', JSON.stringify(updated));
+        return updated;
+      });
     }
+  };
+
+  // Optionally, add a delete handler if you support deleting menu items
+  const handleDeleteMenuItem = (id: string) => {
+    setMenuItems(prev => {
+      const updated = prev.filter(item => item.id !== id);
+      localStorage.setItem('menuItems', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   return (
@@ -373,17 +396,17 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
           onDragEnd={handleDragEnd}
         >
           <SortableContext 
-            items={filteredItems.map(item => item.id)}
+            items={filteredItems.map(item => item.id || item._id || '')}
             strategy={verticalListSortingStrategy}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
               {filteredItems.map((item) => {
-                const cartItem = cart.find(cartItem => cartItem.id === item.id);
+                const cartItem = cart.find(cartItem => cartItem.id === item.id || cartItem._id === item._id);
                 const cartQuantity = cartItem ? cartItem.quantity : 0;
                 
                 return (
                   <SortableMenuItem
-                    key={item.id}
+                    key={item.id || item._id || ''}
                     item={item}
                     onEdit={handleMenuItemSave}
                     onToggleAvailability={toggleItemAvailability}
@@ -408,12 +431,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
               {outOfStockItems.map((item) => {
-                const cartItem = cart.find(cartItem => cartItem.id === item.id);
+                const cartItem = cart.find(cartItem => cartItem.id === item.id || cartItem._id === item._id);
                 const cartQuantity = cartItem ? cartItem.quantity : 0;
                 
                 return (
                   <SortableMenuItem
-                    key={item.id}
+                    key={item.id || item._id || ''}
                     item={item}
                     onEdit={handleMenuItemSave}
                     onToggleAvailability={toggleItemAvailability}

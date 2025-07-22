@@ -14,7 +14,7 @@ interface PasswordDialogProps {
   description?: string;
 }
 
-const ADMIN_PASSWORD = "Haris1234";
+const getAdminPassword = () => localStorage.getItem('adminPassword') || 'Haris1234';
 
 export const PasswordDialog = ({ isOpen, onClose, onSuccess, title, description }: PasswordDialogProps) => {
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ export const PasswordDialog = ({ isOpen, onClose, onSuccess, title, description 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (password === ADMIN_PASSWORD) {
+    if (password === getAdminPassword()) {
       onSuccess();
       onClose();
       setPassword('');

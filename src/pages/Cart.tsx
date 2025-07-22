@@ -22,6 +22,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { UnifiedReceiptPopup } from "@/components/UnifiedReceiptPopup";
 import { Link } from "react-router-dom";
+// REMOVE: import { placeOrder } from '../lib/api';
 
 interface MenuItem {
   id: string;
@@ -131,152 +132,202 @@ const Cart = () => {
       return;
     }
 
+    // --- Customer Receipt ---
+    const customerReceipt = `
+      <div class="receipt-container receipt-section">
+        <div class="header">
+          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 8px;">
+            <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="Hadir's Cafe Logo" style="height: 40px; width: 40px; object-fit: contain;" />
+          </div>
+          <div class="cafe-name">HADIR'S CAFE</div>
+          <div class="tagline">Love at first sip</div>
+          <div class="address">
+            No.8/117, Sudha Residency, Metro Nagar 4th Avenue,<br>
+            Alapakkam, Chennai, Tamil Nadu 600116<br>
+            Phone: +91 99418 39385
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="receipt-details">
+          <div class="detail-row">
+            <span>Receipt #:</span>
+            <span>${receiptData.id}</span>
+          </div>
+          <div class="detail-row">
+            <span>Date:</span>
+            <span>${receiptData.timestamp.toLocaleDateString()}</span>
+          </div>
+          <div class="detail-row">
+            <span>Time:</span>
+            <span>${receiptData.timestamp.toLocaleTimeString()}</span>
+          </div>
+          <div class="detail-row">
+            <span>Cashier:</span>
+            <span>${receiptData.cashier}</span>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="customer-section">
+          <div><strong>Customer Details</strong></div>
+          <div class="detail-row">
+            <span>Name:</span>
+            <span>${receiptData.customerDetails.name}</span>
+          </div>
+          <div class="detail-row">
+            <span>Phone:</span>
+            <span>${receiptData.customerDetails.phone}</span>
+          </div>
+          ${receiptData.customerDetails.email ? `
+            <div class="detail-row">
+              <span>Email:</span>
+              <span>${receiptData.customerDetails.email}</span>
+            </div>
+          ` : ''}
+        </div>
+        <div class="separator"></div>
+        <div class="items-section">
+          ${receiptData.items.map(item => `
+            <div class="item">
+              <div class="detail-row">
+                <span class="item-name">${item.name}</span>
+                <span>₹${item.quantity * item.price}</span>
+              </div>
+              <div class="item-details">${item.quantity} x ₹${item.price}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="separator"></div>
+        <div class="totals">
+          <div class="total-row">
+            <span>Subtotal:</span>
+            <span>₹${Math.round(receiptData.total)}</span>
+          </div>
+          ${receiptData.discount && receiptData.discount > 0 ? `
+            <div class="total-row" style="color: green;">
+              <span>Discount (${receiptData.discount}%):</span>
+              <span>-₹${Math.round(receiptData.total - receiptData.subtotal)}</span>
+            </div>
+            <div class="total-row">
+              <span>After Discount:</span>
+              <span>₹${Math.round(receiptData.subtotal)}</span>
+            </div>
+          ` : ''}
+          <div class="total-row final-total">
+            <span>TOTAL:</span>
+            <span>₹${Math.round(receiptData.finalTotal)}</span>
+          </div>
+          <div class="total-row">
+            <span>Payment Method:</span>
+            <span>${receiptData.paymentMethod.toUpperCase()}</span>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="footer">
+          <div>Thank you for visiting!</div>
+          <div>Visit us again soon.</div>
+        </div>
+      </div>
+    `;
+
+    // --- KOT (Kitchen Order Ticket) ---
+    const kot = `
+      <div class="receipt-container kot-section">
+        <div class="header">
+          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 8px;">
+            <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="Hadir's Cafe Logo" style="height: 40px; width: 40px; object-fit: contain;" />
+          </div>
+          <div class="cafe-name">HADIR'S CAFE - KOT</div>
+        </div>
+        <div class="separator"></div>
+        <div class="receipt-details">
+          <div class="detail-row">
+            <span>Order #:</span>
+            <span>${receiptData.id}</span>
+          </div>
+          <div class="detail-row">
+            <span>Date:</span>
+            <span>${receiptData.timestamp.toLocaleDateString()}</span>
+          </div>
+          <div class="detail-row">
+            <span>Time:</span>
+            <span>${receiptData.timestamp.toLocaleTimeString()}</span>
+          </div>
+          <div class="detail-row">
+            <span>Customer:</span>
+            <span>${receiptData.customerDetails.name}</span>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="items-section">
+          <div><strong>Order Items</strong></div>
+          ${receiptData.items.map(item => `
+            <div class="item">
+              <div class="detail-row">
+                <span class="item-name">${item.name}</span>
+                <span>Qty: ${item.quantity}</span>
+              </div>
+              ${item.notes ? `<div class="item-details">Notes: ${item.notes}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+        <div class="separator"></div>
+        <div class="footer">
+          <div>KOT generated for kitchen use only</div>
+        </div>
+      </div>
+    `;
+
     const printContent = `
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Receipt - ${receiptData.id}</title>
+          <title>Receipt & KOT - ${receiptData.id}</title>
           <style>
             body { 
               margin: 0; 
-              padding: 20px; 
+              padding: 0; 
               font-family: system-ui, -apple-system, sans-serif;
               background: white;
-              font-size: 14px;
+              font-size: 13px;
               line-height: 1.4;
             }
             .receipt-container {
-              max-width: 400px;
-              margin: 0 auto;
+              width: 58mm;
+              max-width: 58mm;
+              margin: 0 auto 16px auto;
               background: white;
+              padding: 0 4px;
             }
-            .header { text-align: center; margin-bottom: 20px; }
-            .cafe-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
-            .tagline { font-style: italic; color: #666; margin-bottom: 10px; }
-            .fssai { font-size: 10px; color: #666; margin-bottom: 5px; }
-            .address { font-size: 10px; color: #666; margin-bottom: 20px; }
-            .separator { border-top: 1px dashed #666; margin: 15px 0; }
-            .receipt-details { margin-bottom: 15px; }
-            .detail-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-            .customer-section { margin-bottom: 15px; }
-            .items-section { margin-bottom: 15px; }
-            .item { margin-bottom: 10px; }
-            .item-name { font-weight: 600; }
-            .item-details { font-size: 12px; color: #666; padding-left: 10px; }
-            .totals { margin-bottom: 15px; }
-            .total-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
-            .final-total { font-weight: bold; font-size: 16px; border-top: 1px solid #333; padding-top: 5px; }
-            .footer { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
+            .header { text-align: center; margin-bottom: 10px; }
+            .cafe-name { font-size: 15px; font-weight: bold; margin-bottom: 2px; }
+            .tagline { font-style: italic; color: #666; margin-bottom: 4px; font-size: 11px; }
+            .address { font-size: 9px; color: #666; margin-bottom: 8px; }
+            .separator { border-top: 1px dashed #666; margin: 8px 0; }
+            .receipt-details { margin-bottom: 8px; font-size: 11px; }
+            .detail-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
+            .customer-section { margin-bottom: 8px; font-size: 11px; }
+            .items-section { margin-bottom: 8px; }
+            .item { margin-bottom: 6px; }
+            .item-name { font-weight: 600; font-size: 12px; }
+            .item-details { font-size: 10px; color: #666; padding-left: 8px; }
+            .totals { margin-bottom: 8px; font-size: 12px; }
+            .total-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
+            .final-total { font-weight: bold; font-size: 13px; border-top: 1px solid #333; padding-top: 3px; }
+            .footer { text-align: center; color: #666; font-size: 10px; margin-top: 10px; }
+            .receipt-section { page-break-after: always; }
+            .kot-section { page-break-before: always; }
+            .print-logo img { display: block; margin: 0 auto; }
           </style>
         </head>
         <body>
-          <div class="receipt-container">
-            <div class="header">
-              <div class="cafe-name">HADIR'S CAFE</div>
-              <div class="tagline">Love at first sip</div>
-              <div class="address">
-                No.8/117, Sudha Residency, Metro Nagar 4th Avenue,<br>
-                Alapakkam, Chennai, Tamil Nadu 600116<br>
-                Phone: +91 99418 39385
-              </div>
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="receipt-details">
-              <div class="detail-row">
-                <span>Receipt #:</span>
-                <span>${receiptData.id}</span>
-              </div>
-              <div class="detail-row">
-                <span>Date:</span>
-                <span>${receiptData.timestamp.toLocaleDateString()}</span>
-              </div>
-              <div class="detail-row">
-                <span>Time:</span>
-                <span>${receiptData.timestamp.toLocaleTimeString()}</span>
-              </div>
-              <div class="detail-row">
-                <span>Cashier:</span>
-                <span>${receiptData.cashier}</span>
-              </div>
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="customer-section">
-              <div><strong>Customer Details</strong></div>
-              <div class="detail-row">
-                <span>Name:</span>
-                <span>${receiptData.customerDetails.name}</span>
-              </div>
-              <div class="detail-row">
-                <span>Phone:</span>
-                <span>${receiptData.customerDetails.phone}</span>
-              </div>
-              ${receiptData.customerDetails.email ? `
-                <div class="detail-row">
-                  <span>Email:</span>
-                  <span>${receiptData.customerDetails.email}</span>
-                </div>
-              ` : ''}
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="items-section">
-              ${receiptData.items.map(item => `
-                <div class="item">
-                  <div class="detail-row">
-                    <span class="item-name">${item.name}</span>
-                    <span>₹${item.quantity * item.price}</span>
-                  </div>
-                  <div class="item-details">${item.quantity} x ₹${item.price}</div>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="totals">
-              <div class="total-row">
-                <span>Subtotal:</span>
-                <span>₹${Math.round(receiptData.total)}</span>
-              </div>
-              ${receiptData.discount && receiptData.discount > 0 ? `
-                <div class="total-row" style="color: green;">
-                  <span>Discount (${receiptData.discount}%):</span>
-                  <span>-₹${Math.round(receiptData.total - receiptData.subtotal)}</span>
-                </div>
-                <div class="total-row">
-                  <span>After Discount:</span>
-                  <span>₹${Math.round(receiptData.subtotal)}</span>
-                </div>
-              ` : ''}
-              <div class="total-row final-total">
-                <span>TOTAL:</span>
-                <span>₹${Math.round(receiptData.finalTotal)}</span>
-              </div>
-              <div class="total-row">
-                <span>Payment Method:</span>
-                <span>${receiptData.paymentMethod.toUpperCase()}</span>
-              </div>
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="footer">
-              <div>Thank you for visiting!</div>
-              <div>Visit us again soon.</div>
-            </div>
-          </div>
+          ${customerReceipt}
+          ${kot}
         </body>
       </html>
     `;
 
     printWindow.document.write(printContent);
     printWindow.document.close();
-    
     setTimeout(() => {
       printWindow.print();
       printWindow.close();
@@ -345,7 +396,6 @@ const Cart = () => {
     // Store the receipt data and mark order as completed
     setReceiptData(receipt);
     setOrderCompleted(true);
-    
     // Clear cart from localStorage as well
     clearCart();
     setCustomerDetails({ name: '', phone: '', email: '' });

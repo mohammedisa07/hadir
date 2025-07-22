@@ -12,6 +12,10 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from 'jspdf';
+import { useState } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface QuickActionsProps {
   onRefresh?: () => void;
@@ -29,6 +33,51 @@ export const QuickActions = ({
   onNavigateToAnalytics 
 }: QuickActionsProps) => {
   const { toast } = useToast();
+
+  // Add state for modals
+  const [showCashierModal, setShowCashierModal] = useState(false);
+  const [showAdminPwModal, setShowAdminPwModal] = useState(false);
+
+  // Cashier management state
+  const [cashiers, setCashiers] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('cashiers') || '[]');
+    } catch { return []; }
+  });
+  const [newCashier, setNewCashier] = useState({ username: '', password: '' });
+
+  const addCashier = () => {
+    if (!newCashier.username || !newCashier.password) return;
+    const updated = [...cashiers, { ...newCashier }];
+    setCashiers(updated);
+    localStorage.setItem('cashiers', JSON.stringify(updated));
+    setNewCashier({ username: '', password: '' });
+  };
+  const removeCashier = (username: string) => {
+    const updated = cashiers.filter(c => c.username !== username);
+    setCashiers(updated);
+    localStorage.setItem('cashiers', JSON.stringify(updated));
+  };
+
+  // Admin password change state
+  const [oldPw, setOldPw] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [pwError, setPwError] = useState('');
+  const handleAdminPwChange = () => {
+    const stored = localStorage.getItem('adminPassword') || 'Haris1234';
+    if (oldPw !== stored) {
+      setPwError('Old password incorrect');
+      return;
+    }
+    if (!newPw) {
+      setPwError('New password required');
+      return;
+    }
+    localStorage.setItem('adminPassword', newPw);
+    setOldPw(''); setNewPw(''); setPwError('');
+    setShowAdminPwModal(false);
+    toast({ title: 'Password Changed', description: 'Admin password updated.' });
+  };
 
   // Export data to CSV
   const exportToCSV = () => {
@@ -226,12 +275,24 @@ export const QuickActions = ({
         
       case 'reset-all':
         if (confirm('Are you sure you want to reset ALL data? This cannot be undone.')) {
+          // Clear all relevant localStorage keys
+          localStorage.removeItem('orderHistory');
+          localStorage.removeItem('menuItems');
+          localStorage.removeItem('cashiers');
+          localStorage.removeItem('adminPassword');
+          localStorage.removeItem('dailyCashEarned');
+          localStorage.removeItem('lastCashReset');
+          localStorage.removeItem('orderCounter');
+          localStorage.removeItem('user');
+          localStorage.removeItem('dailySales');
+          // Add any other relevant keys here
           onResetData?.();
           toast({
             title: "All Data Reset",
             description: "All dashboard data has been cleared",
             variant: "destructive"
           });
+          setTimeout(() => window.location.reload(), 500);
         }
         break;
         
@@ -366,6 +427,39 @@ export const QuickActions = ({
           </Button>
         </div>
       </CardContent>
+      <Dialog open={showCashierModal} onOpenChange={setShowCashierModal}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Manage Cashiers</DialogTitle></DialogHeader>
+          <div className="space-y-2">
+            <div className="flex space-x-2">
+              <Input placeholder="Username" value={newCashier.username} onChange={e => setNewCashier({ ...newCashier, username: e.target.value })} />
+              <Input placeholder="Password" type="password" value={newCashier.password} onChange={e => setNewCashier({ ...newCashier, password: e.target.value })} />
+              <Button onClick={addCashier}>Add</Button>
+            </div>
+            <ul className="space-y-1">
+              {cashiers.map((c, i) => (
+                <li key={i} className="flex items-center justify-between border p-2 rounded">
+                  <span>{c.username}</span>
+                  <Button variant="destructive" size="sm" onClick={() => removeCashier(c.username)}>Remove</Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={showAdminPwModal} onOpenChange={setShowAdminPwModal}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Change Admin Password</DialogTitle></DialogHeader>
+          <div className="space-y-2">
+            <Label>Old Password</Label>
+            <Input type="password" value={oldPw} onChange={e => { setOldPw(e.target.value); setPwError(''); }} />
+            <Label>New Password</Label>
+            <Input type="password" value={newPw} onChange={e => { setNewPw(e.target.value); setPwError(''); }} />
+            {pwError && <div className="text-destructive text-sm">{pwError}</div>}
+            <div className="flex justify-end"><Button onClick={handleAdminPwChange}>Change Password</Button></div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

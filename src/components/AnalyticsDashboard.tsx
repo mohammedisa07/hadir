@@ -31,6 +31,8 @@ import { DateComparison } from "./admin/DateComparison";
 import { ProductSalesAnalysis } from "./admin/ProductSalesAnalysis";
 import { QuickStats } from "./admin/QuickStats";
 import { QuickActions } from "./admin/QuickActions";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { UnifiedReceiptPopup } from './UnifiedReceiptPopup';
 
 interface Order {
   id: string;
@@ -66,6 +68,8 @@ interface AnalyticsDashboardProps {
 export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardProps = {}) => {
   const [comparisonStartDate, setComparisonStartDate] = useState<Date | undefined>(new Date());
   const [comparisonEndDate, setComparisonEndDate] = useState<Date | undefined>(new Date());
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [showOrderModal, setShowOrderModal] = useState(false);
 
   // Get real data from localStorage
   const getStoredOrders = (): Order[] => {
@@ -516,7 +520,7 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
                   .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
                   .slice(0, 10)
                   .map((order) => (
-                  <div key={order.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                  <div key={order.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted" onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }}>
                     <div>
                       <p className="font-medium text-foreground">{order.id}</p>
                       <p className="text-sm text-muted-foreground">
@@ -539,6 +543,33 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
           </CardContent>
         </Card>
       </div>
+      {/* Order Details Modal */}
+      <Dialog open={showOrderModal} onOpenChange={setShowOrderModal}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Order Details</DialogTitle>
+          </DialogHeader>
+          {selectedOrder && (
+            <div>
+              <h3 className="font-semibold mb-2">Order #{selectedOrder.id}</h3>
+              <div className="mb-4">
+                <p><strong>Date:</strong> {selectedOrder.timestamp.toLocaleString()}</p>
+                <p><strong>Customer:</strong> {selectedOrder.customerDetails.name} ({selectedOrder.customerDetails.phone})</p>
+                <p><strong>Payment:</strong> {selectedOrder.paymentMethod}</p>
+                <p><strong>Total:</strong> ₹{Math.round(selectedOrder.finalTotal)}</p>
+              </div>
+              <h4 className="font-semibold mb-1">Items</h4>
+              <ul className="mb-4">
+                {selectedOrder.items.map(item => (
+                  <li key={item.id} className="text-sm">{item.name} x {item.quantity} — ₹{item.price * item.quantity}</li>
+                ))}
+              </ul>
+              {/* Only show receipt view, not print */}
+              <UnifiedReceiptPopup isOpen={true} onClose={() => setShowOrderModal(false)} receipt={selectedOrder} showPrint={false} />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

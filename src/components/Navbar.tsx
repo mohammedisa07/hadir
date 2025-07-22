@@ -63,6 +63,11 @@ export const Navbar = ({
   const handlePasswordSuccess = () => {
     onRoleChange('admin');
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    window.location.reload();
+  };
   return <nav className="h-16 bg-card border-b border-border flex items-center justify-between px-6 shadow-sm">
       {/* Brand Section */}
       <div className="flex items-center space-x-4">
@@ -145,7 +150,7 @@ export const Navbar = ({
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem className="text-destructive" onClick={handleLogout}>
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </DropdownMenuItem>

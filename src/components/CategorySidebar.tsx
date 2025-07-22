@@ -22,6 +22,7 @@ interface CategorySidebarProps {
   userRole: 'admin' | 'cashier';
   categories?: Category[];
   onCategoriesChange?: (categories: Category[]) => void;
+  menuItems?: any[];
 }
 
 const defaultCategories: Category[] = [
@@ -33,7 +34,7 @@ const defaultCategories: Category[] = [
   { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 10, color: 'bg-cafe-gold' },
 ];
 
-export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, categories: propCategories, onCategoriesChange }: CategorySidebarProps) => {
+export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, categories: propCategories, onCategoriesChange, menuItems }: CategorySidebarProps) => {
   const [categories, setCategories] = useState<Category[]>(propCategories || defaultCategories);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -47,6 +48,18 @@ export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, 
       setCategories(propCategories);
     }
   }, [propCategories]);
+
+  // Dynamically update itemCount based on menuItems
+  useEffect(() => {
+    if (menuItems) {
+      setCategories(prevCats => prevCats.map(cat => {
+        if (cat.id === 'all') {
+          return { ...cat, itemCount: menuItems.length };
+        }
+        return { ...cat, itemCount: menuItems.filter(item => item.category === cat.id).length };
+      }));
+    }
+  }, [menuItems]);
 
   // Notify parent of changes
   useEffect(() => {
