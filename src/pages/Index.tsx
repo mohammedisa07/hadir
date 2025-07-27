@@ -79,7 +79,12 @@ const Index = () => {
   });
   // Save menuItems to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('menuItems', JSON.stringify(menuItems));
+    // Only store image as a URL or empty string
+    const safeMenuItems = menuItems.map(item => ({
+      ...item,
+      image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+    }));
+    localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
   }, [menuItems]);
   const [categories, setCategories] = useState<Category[]>(() => {
     try {

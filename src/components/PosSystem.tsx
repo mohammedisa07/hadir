@@ -307,7 +307,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
       const updated = prev.map(item =>
         item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
       );
-      localStorage.setItem('menuItems', JSON.stringify(updated));
+      // Only store image as a URL or empty string
+      const safeMenuItems = updated.map(item => ({
+        ...item,
+        image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+      }));
+      localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
       return updated;
     });
     toast({
@@ -323,7 +328,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
         const updated = prev.map(item =>
           item.id === itemData.id ? { ...itemData, id: itemData.id } as MenuItem : item
         );
-        localStorage.setItem('menuItems', JSON.stringify(updated));
+        // Only store image as a URL or empty string
+        const safeMenuItems = updated.map(item => ({
+          ...item,
+          image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+        }));
+        localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
         return updated;
       });
     } else {
@@ -334,7 +344,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
       };
       setMenuItems(prev => {
         const updated = [...prev, newItem];
-        localStorage.setItem('menuItems', JSON.stringify(updated));
+        // Only store image as a URL or empty string
+        const safeMenuItems = updated.map(item => ({
+          ...item,
+          image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+        }));
+        localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
         return updated;
       });
     }
@@ -344,7 +359,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   const handleDeleteMenuItem = (id: string) => {
     setMenuItems(prev => {
       const updated = prev.filter(item => item.id !== id);
-      localStorage.setItem('menuItems', JSON.stringify(updated));
+      // Only store image as a URL or empty string
+      const safeMenuItems = updated.map(item => ({
+        ...item,
+        image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+      }));
+      localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
       return updated;
     });
   };
