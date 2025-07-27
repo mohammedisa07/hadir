@@ -11,71 +11,51 @@ interface ImageUploadProps {
   className?: string;
 }
 
-export const ImageUpload = ({ currentImage, onImageChange, className = "" }: ImageUploadProps) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(currentImage || null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => {
+  const [imagePreview, setImagePreview] = useState(currentImage || "");
+  const [isLinkMode, setIsLinkMode] = useState(false);
+  const [linkInput, setLinkInput] = useState("");
+  const fileInputRef = useRef(null);
   const { toast } = useToast();
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toast({
-        title: "Invalid file type",
-        description: "Please select an image file",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast({
-        title: "File too large",
-        description: "Please select an image smaller than 5MB",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      setImagePreview(result);
-      onImageChange(result);
-      toast({
-        title: "Image uploaded",
-        description: "Image has been successfully uploaded",
-      });
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleRemoveImage = () => {
-    setImagePreview(null);
-    onImageChange(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-    toast({
-      title: "Image removed",
-      description: "Image has been removed",
-    });
-  };
-
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
 
   // Defensive: always use a string for imagePreview
   const safeImagePreview = typeof imagePreview === 'string' && imagePreview ? imagePreview : '';
 
+  const handleButtonClick = () => {
+    if (!isLinkMode) fileInputRef.current?.click();
+  };
+
+  const handleLinkSubmit = (e) => {
+    e.preventDefault();
+    if (linkInput && (linkInput.startsWith('http://') || linkInput.startsWith('https://'))) {
+      setImagePreview(linkInput);
+      onImageChange(linkInput);
+    }
+  };
+
   return (
     <div className={`space-y-4 ${className}`}>
       <Label className="text-sm font-medium">Item Image</Label>
+      <div className="flex space-x-2">
+        <Button type="button" variant={!isLinkMode ? "default" : "outline"} size="sm" onClick={() => setIsLinkMode(false)}>
+          Upload File
+        </Button>
+        <Button type="button" variant={isLinkMode ? "default" : "outline"} size="sm" onClick={() => setIsLinkMode(true)}>
+          Upload via Link
+        </Button>
+      </div>
+      {isLinkMode ? (
+        <form onSubmit={handleLinkSubmit} className="flex space-x-2">
+          <Input
+            type="url"
+            placeholder="Paste image URL here"
+            value={linkInput}
+            onChange={e => setLinkInput(e.target.value)}
+            className="flex-1"
+          />
+          <Button type="submit" size="sm">Set</Button>
+        </form>
+      ) : null}
       {safeImagePreview ? (
         <div className="relative w-full h-32 border border-border rounded-lg overflow-hidden bg-muted">
           <img 
@@ -88,24 +68,26 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }: Ima
             variant="destructive"
             size="sm"
             className="absolute top-2 right-2 h-6 w-6 p-0"
-            onClick={handleRemoveImage}
+            onClick={() => { setImagePreview(""); setLinkInput(""); onImageChange(""); }}
           >
             <X className="h-3 w-3" />
           </Button>
         </div>
       ) : (
-        <div 
-          className="w-full h-32 border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
-          onClick={handleButtonClick}
-        >
-          <ImageIcon className="h-8 w-8 text-muted-foreground mb-2" />
-          <p className="text-sm text-muted-foreground text-center">
-            Click to upload image
-          </p>
-          <p className="text-xs text-muted-foreground">
-            PNG, JPG up to 5MB
-          </p>
-        </div>
+        !isLinkMode && (
+          <div 
+            className="w-full h-32 border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+            onClick={handleButtonClick}
+          >
+            <ImageIcon className="h-8 w-8 text-muted-foreground mb-2" />
+            <p className="text-sm text-muted-foreground text-center">
+              Click to upload image
+            </p>
+            <p className="text-xs text-muted-foreground">
+              PNG, JPG up to 5MB
+            </p>
+          </div>
+        )
       )}
       <Input
         ref={fileInputRef}
@@ -117,16 +99,18 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }: Ima
             const reader = new FileReader();
             reader.onload = (ev) => {
               const result = typeof ev.target?.result === 'string' ? ev.target.result : '';
+              setImagePreview(result);
               onImageChange(result);
             };
             reader.readAsDataURL(file);
           } else {
-            onImageChange('');
+            setImagePreview("");
+            onImageChange("");
           }
         }}
         className="hidden"
       />
-      {!safeImagePreview && (
+      {!safeImagePreview && !isLinkMode && (
         <Button 
           variant="outline" 
           onClick={handleButtonClick}
