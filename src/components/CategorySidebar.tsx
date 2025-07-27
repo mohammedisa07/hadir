@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Plus, Search, Coffee, Cookie, Sandwich, Salad, Wine, ChefHat, Edit3, Trash2, Save, X } from "lucide-react";
+import { Plus, Search, Coffee, Cookie, Sandwich, Salad, Wine, ChefHat, Edit3, Trash2, Save, X, GripVertical } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Category {
   id: string;
@@ -34,267 +37,152 @@ const defaultCategories: Category[] = [
   { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 10, color: 'bg-cafe-gold' },
 ];
 
-export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, categories: propCategories, onCategoriesChange, menuItems }: CategorySidebarProps) => {
-  const [categories, setCategories] = useState<Category[]>(propCategories || defaultCategories);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-  const [editName, setEditName] = useState("");
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const { toast } = useToast();
-
-  // Update local state when prop changes
-  useEffect(() => {
-    if (propCategories) {
-      setCategories(propCategories);
-    }
-  }, [propCategories]);
-
-  // Dynamically update itemCount based on menuItems
-  useEffect(() => {
-    if (menuItems) {
-      setCategories(prevCats => prevCats.map(cat => {
-        if (cat.id === 'all') {
-          return { ...cat, itemCount: menuItems.length };
-        }
-        return { ...cat, itemCount: menuItems.filter(item => item.category === cat.id).length };
-      }));
-    }
-  }, [menuItems]);
-
-  // Notify parent of changes
-  useEffect(() => {
-    if (onCategoriesChange) {
-      onCategoriesChange(categories);
-    }
-    // Only store serializable properties
-    const serializableCategories = categories.map(({id, name, itemCount, color}) => ({id, name, itemCount, color}));
-    localStorage.setItem('categories', JSON.stringify(serializableCategories));
-  }, [categories, onCategoriesChange]);
-
-  const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+// Sortable Category Item (for admin)
+function SortableCategoryItem({ category, isSelected, onCategorySelect, listeners, attributes, setNodeRef, style }) {
+  const IconComponent = category.icon;
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      key={category.id}
+      className={`group relative flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+        isSelected ? 'bg-primary text-primary-foreground shadow-md' : 'hover:bg-muted/50'
+      }`}
+      onClick={() => onCategorySelect(category.id)}
+    >
+      <div className="flex items-center space-x-3 flex-1">
+        {category.id !== 'all' && (
+          <GripVertical className="h-4 w-4 mr-2 cursor-grab text-muted-foreground opacity-60 group-hover:opacity-100" />
+        )}
+        <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary-foreground/20' : category.color} transition-colors`}>
+          <IconComponent className={`h-4 w-4 ${isSelected ? 'text-primary-foreground' : 'text-white'}`} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className={`font-medium truncate ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>{category.name}</p>
+          <p className={`text-sm ${isSelected ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{category.itemCount} items</p>
+        </div>
+      </div>
+      <Badge variant={isSelected ? "secondary" : "outline"} className="h-6 text-xs">{category.itemCount}</Badge>
+    </div>
   );
+}
 
-  const addNewCategory = () => {
-    const newCategory: Category = {
-      id: `category-${Date.now()}`,
-      name: `New Category`,
-      icon: ChefHat,
-      itemCount: 0,
-      color: 'bg-muted'
-    };
-    const updatedCategories = [...categories, newCategory];
-    setCategories(updatedCategories);
-    
-    // Immediately open edit dialog for the new category
-    setEditingCategory(newCategory);
-    setEditName(newCategory.name);
-    setIsEditDialogOpen(true);
+export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, categories = [], onCategoriesChange }) => {
+  const allItemsCategory = {
+    id: 'all',
+    name: 'All Items',
+    icon: ChefHat,
+    itemCount: categories.reduce((sum, cat) => sum + (cat.itemCount || 0), 0),
+    color: 'bg-primary',
   };
+  const sidebarCategories = [allItemsCategory, ...categories];
 
-  const deleteCategory = (categoryId: string) => {
-    if (categoryId === 'all') return; // Don't allow deleting "All Items"
-    const updatedCategories = categories.filter(cat => cat.id !== categoryId);
-    setCategories(updatedCategories);
-    if (selectedCategory === categoryId) {
-      onCategorySelect('all');
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active && over && active.id !== over.id) {
+      if (active.id === 'all' || over.id === 'all') return;
+      const oldIndex = categories.findIndex(cat => cat.id === active.id);
+      const newIndex = categories.findIndex(cat => cat.id === over.id);
+      const newCategories = arrayMove(categories, oldIndex, newIndex);
+      if (onCategoriesChange) {
+        onCategoriesChange(newCategories);
+      }
     }
-    toast({
-      title: "Category deleted",
-      description: "Category has been removed successfully",
-    });
-  };
-
-  const openEditDialog = (category: Category) => {
-    setEditingCategory(category);
-    setEditName(category.name);
-    setIsEditDialogOpen(true);
-  };
-
-  const saveCategory = () => {
-    if (!editingCategory || !editName.trim()) {
-      toast({
-        title: "Invalid name",
-        description: "Please enter a valid category name",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const updatedCategories = categories.map(cat =>
-      cat.id === editingCategory.id
-        ? { ...cat, name: editName.trim() }
-        : cat
-    );
-    setCategories(updatedCategories);
-    setIsEditDialogOpen(false);
-    setEditingCategory(null);
-    setEditName("");
-    
-    toast({
-      title: "Category updated",
-      description: "Category name has been updated successfully",
-    });
-  };
-
-  const cancelEdit = () => {
-    setIsEditDialogOpen(false);
-    setEditingCategory(null);
-    setEditName("");
   };
 
   return (
-    <div className="w-80 bg-card border-r border-border h-full flex flex-col">
-      {/* Header */}
-      <div className="p-6 border-b border-border">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-foreground">Categories</h2>
-          {userRole === 'admin' && (
-            <Button 
-              size="sm" 
-              variant="outline"
-              onClick={addNewCategory}
-              className="h-8 w-8 p-0"
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-        
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search categories..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-      </div>
-
-      {/* Categories List */}
+    <div className="w-80 min-w-[16rem] max-w-xs bg-card border-r border-border h-full flex flex-col">
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-2">
-          {filteredCategories.map((category) => {
-            const IconComponent = category.icon;
-            const isSelected = selectedCategory === category.id;
-            
-            return (
-              <div
-                key={category.id}
-                className={`group relative flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${
-                  isSelected 
-                    ? 'bg-primary text-primary-foreground shadow-md' 
-                    : 'hover:bg-muted/50'
-                }`}
-                onClick={() => onCategorySelect(category.id)}
-              >
-                <div className="flex items-center space-x-3 flex-1">
-                  <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary-foreground/20' : category.color} transition-colors`}>
-                    <IconComponent className={`h-4 w-4 ${isSelected ? 'text-primary-foreground' : 'text-white'}`} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className={`font-medium truncate ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>
-                      {category.name}
-                    </p>
-                    <p className={`text-sm ${isSelected ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
-                      {category.itemCount} items
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-1">
-                  <Badge 
-                    variant={isSelected ? "secondary" : "outline"} 
-                    className="h-6 text-xs"
-                  >
-                    {category.itemCount}
-                  </Badge>
-                  
-                  {userRole === 'admin' && category.id !== 'all' && (
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 ml-2">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 w-6 p-0 hover:bg-muted"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openEditDialog(category);
-                        }}
+          {userRole === 'admin' ? (
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <SortableContext items={sidebarCategories.map(cat => cat.id)} strategy={verticalListSortingStrategy}>
+                {sidebarCategories.map(category => {
+                  if (category.id === 'all') {
+                    const IconComponent = category.icon;
+                    const isSelected = selectedCategory === category.id;
+                    return (
+                      <div
+                        key={category.id}
+                        className={`group relative flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                          isSelected ? 'bg-primary text-primary-foreground shadow-md' : 'hover:bg-muted/50'
+                        }`}
+                        onClick={() => onCategorySelect(category.id)}
                       >
-                        <Edit3 className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 w-6 p-0 hover:bg-destructive hover:text-destructive-foreground"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteCategory(category.id);
-                        }}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
+                        <div className="flex items-center space-x-3 flex-1">
+                          <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary-foreground/20' : category.color} transition-colors`}>
+                            <IconComponent className={`h-4 w-4 ${isSelected ? 'text-primary-foreground' : 'text-white'}`} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium truncate ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>{category.name}</p>
+                            <p className={`text-sm ${isSelected ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{category.itemCount} items</p>
+                          </div>
+                        </div>
+                        <Badge variant={isSelected ? "secondary" : "outline"} className="h-6 text-xs">{category.itemCount}</Badge>
+                      </div>
+                    );
+                  }
+                  const sortable = useSortable({ id: category.id });
+                  const isSelected = selectedCategory === category.id;
+                  return (
+                    <SortableCategoryItem
+                      key={category.id}
+                      category={category}
+                      isSelected={isSelected}
+                      onCategorySelect={onCategorySelect}
+                      {...sortable}
+                      style={{
+                        transform: CSS.Transform.toString(sortable.transform),
+                        transition: sortable.transition,
+                      }}
+                    />
+                  );
+                })}
+              </SortableContext>
+            </DndContext>
+          ) : (
+            sidebarCategories.map((category) => {
+              const IconComponent = category.icon;
+              const isSelected = selectedCategory === category.id;
+              return (
+                <div
+                  key={category.id}
+                  className={`group relative flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                    isSelected 
+                      ? 'bg-primary text-primary-foreground shadow-md' 
+                      : 'hover:bg-muted/50'
+                  }`}
+                  onClick={() => onCategorySelect(category.id)}
+                >
+                  <div className="flex items-center space-x-3 flex-1">
+                    <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary-foreground/20' : category.color} transition-colors`}>
+                      <IconComponent className={`h-4 w-4 ${isSelected ? 'text-primary-foreground' : 'text-white'}`} />
                     </div>
-                  )}
+                    <div className="flex-1 min-w-0">
+                      <p className={`font-medium truncate ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>{category.name}</p>
+                      <p className={`text-sm ${isSelected ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{category.itemCount} items</p>
+                    </div>
+                  </div>
+                  <Badge variant={isSelected ? "secondary" : "outline"} className="h-6 text-xs">{category.itemCount}</Badge>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </ScrollArea>
-
-      {/* Footer Stats */}
-      <div className="p-4 border-t border-border bg-muted/30">
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground">
-            Total Categories: <span className="font-medium text-foreground">{categories.length}</span>
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            Total Items: <span className="font-medium text-foreground">
-              {categories.filter(cat => cat.id !== 'all').reduce((sum, cat) => sum + cat.itemCount, 0)}
-            </span>
-          </p>
-        </div>
+      {/* Footer with total items and categories */}
+      <div className="p-4 border-t border-border bg-muted/30 text-center">
+        <p className="text-sm text-muted-foreground">
+          All items: <span className="font-medium text-foreground">{sidebarCategories[0].itemCount}</span>
+        </p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Categories: <span className="font-medium text-foreground">{sidebarCategories.length - 1}</span>
+        </p>
       </div>
-
-      {/* Edit Category Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Edit Category</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="categoryName">Category Name</Label>
-              <Input
-                id="categoryName"
-                value={editName}
-                onChange={(e) => setEditName(e.target.value)}
-                placeholder="Enter category name"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    saveCategory();
-                  } else if (e.key === 'Escape') {
-                    cancelEdit();
-                  }
-                }}
-              />
-            </div>
-            <div className="flex space-x-2">
-              <Button onClick={saveCategory} className="flex-1">
-                <Save className="mr-2 h-4 w-4" />
-                Save
-              </Button>
-              <Button variant="outline" onClick={cancelEdit}>
-                <X className="mr-2 h-4 w-4" />
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

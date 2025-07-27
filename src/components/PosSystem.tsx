@@ -275,7 +275,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
 
   // Filter menu items based on category and search
   const filteredItems = menuItems.filter(item => {
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'all' || (item.category && item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase());
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const availabilityFilter = showOutOfStock ? true : item.isAvailable;
     return matchesCategory && matchesSearch && availabilityFilter;
@@ -284,7 +284,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   // Get only out of stock items
   const outOfStockItems = menuItems.filter(item => 
     !item.isAvailable && 
-    (selectedCategory === 'all' || item.category === selectedCategory) &&
+    (selectedCategory === 'all' || (item.category && item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase())) &&
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

@@ -16,12 +16,107 @@ interface Category {
 }
 
 const defaultCategories: Category[] = [
-  { id: 'all', name: 'All Items', icon: ChefHat, itemCount: 24, color: 'bg-primary' },
-  { id: 'coffee', name: 'Coffee & Tea', icon: Coffee, itemCount: 12, color: 'bg-cafe-espresso' },
-  { id: 'pastries', name: 'Pastries', icon: Cookie, itemCount: 8, color: 'bg-cafe-cinnamon' },
-  { id: 'sandwiches', name: 'Sandwiches', icon: Sandwich, itemCount: 6, color: 'bg-accent' },
-  { id: 'salads', name: 'Fresh Salads', icon: Salad, itemCount: 4, color: 'bg-success' },
-  { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 10, color: 'bg-cafe-gold' },
+  { id: 'hotbeverages', name: 'HOT BEVERAGES', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
+  { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
+  { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
+  { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-success' },
+  { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+];
+
+const defaultMenuItems = [
+  // HOT BEVERAGES
+  { id: '1', name: 'Cappuccino', price: 100, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '2', name: 'Vennila Cappuccino', price: 130, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '3', name: 'Hazelnut Cappuccino', price: 130, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '4', name: 'Latte', price: 120, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '5', name: 'Vennila Latte', price: 140, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '6', name: 'Hazelnut Latte', price: 140, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '7', name: 'Hot Mocha', price: 80, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '8', name: 'Hot Chocolate', price: 100, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '9', name: 'Americano', price: 80, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '10', name: 'Espresso', price: 30, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '11', name: 'Espresso Romano', price: 40, category: 'hotbeverages', image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '80', name: 'Wippy Hot Mocha', price: 100, category: 'hotbeverages', image: '/placeholder.svg', isAvailable: true },
+  // COLD BEVERAGES
+  { id: '12', name: 'Cold Coffee', price: 120, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '13', name: 'Hazelnut Frappe', price: 140, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '14', name: 'Iced Latte', price: 120, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '15', name: 'Iced Mocha', price: 120, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '71', name: 'H3 Devils', price: 200, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '72', name: 'Strawberry Frappe', price: 200, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '73', name: 'Mango Frappe', price: 200, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '74', name: 'Choco Frappy', price: 180, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  { id: '75', name: 'Peanut Choco Frappe', price: 200, category: 'coldbeverages', image: '/placeholder.svg', isAvailable: true },
+  // SPARKLINGS
+  { id: '16', name: 'Iced Americano', price: 80, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '17', name: 'Lemon Iced Tea', price: 80, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '18', name: 'Strawberry Iced Tea', price: 120, category: 'sparklings', image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80', isAvailable: true },
+  { id: '19', name: 'Mojito', price: 100, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '20', name: 'Green Apple Mojito', price: 120, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '21', name: 'Orange Mojito', price: 90, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '22', name: 'Strawberry Mojito', price: 120, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '23', name: 'Strawberry Basil Mojito', price: 130, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  { id: '24', name: 'Blue Lady', price: 100, category: 'sparklings', image: '/placeholder.svg', isAvailable: true },
+  // VEG SNACKS
+  { id: '25', name: 'Cheese Garlic Bomb(Korean)', price: 60, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '26', name: 'Cheese Balls', price: 80, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '27', name: 'Avo Toast', price: 120, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '28', name: 'Chilli Garlic Bread', price: 120, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '29', name: 'Cheese Garlic Bread', price: 130, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '30', name: 'Veg Wrap', price: 140, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '31', name: 'Veg Burger', price: 140, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '32', name: 'Spicy Veg Burger', price: 150, category: 'vegsnacks', image: '/placeholder.svg', isAvailable: true },
+  // NON-VEG SNACKS
+  { id: '33', name: 'Golden Chicky Wrap', price: 150, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '34', name: 'Chicky Wrap', price: 140, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '35', name: 'Eggbell Wrap', price: 130, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '36', name: 'Spring Fry(Hot Dog)', price: 140, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '37', name: 'Chicky Cheese Garlic Bomb(Korean)', price: 100, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '38', name: 'Chicky Nuggets', price: 120, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '39', name: 'Chicky Burger', price: 120, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '40', name: 'Spicy Chicky Burger', price: 150, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  { id: '41', name: 'Chicky Pops', price: 100, category: 'nonvegsnacks', image: '/placeholder.svg', isAvailable: true },
+  // VEG FRIES
+  { id: '42', name: 'French Fries', price: 70, category: 'vegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '43', name: 'Cheesy Fries', price: 100, category: 'vegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '44', name: 'Peri Peri Fries', price: 120, category: 'vegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '45', name: 'Veg Loaded Fries', price: 150, category: 'vegfries', image: '/placeholder.svg', isAvailable: true },
+  // NON-VEG FRIES
+  { id: '46', name: 'Chicky Loaded Fries', price: 160, category: 'nonvegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '47', name: 'Peri Peri Chicky Loaded Fries', price: 170, category: 'nonvegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '48', name: 'Chicky Garlic Loaded Fries', price: 180, category: 'nonvegfries', image: '/placeholder.svg', isAvailable: true },
+  { id: '49', name: 'Sausage Loaded Fries', price: 200, category: 'nonvegfries', image: '/placeholder.svg', isAvailable: true },
+  // DESSERTS
+  { id: '50', name: 'Vennila Scope', price: 30, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '51', name: 'Vennila Honey', price: 50, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '52', name: 'Affogato', price: 60, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '53', name: 'Coffee Crisp Bowl', price: 150, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '54', name: 'Honey Crisp Bowl', price: 170, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '55', name: 'Strawberry Crisp Bowl', price: 200, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '56', name: 'Orange Hon-Crisp Bowl', price: 180, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '57', name: 'Nutty Hon-Crisp Bowl', price: 200, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '58', name: 'Figgy Hon-Crisp Bowl', price: 200, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '59', name: 'Banana Hon-Crisp Bowl', price: 150, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '60', name: 'Brownie', price: 50, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '76', name: 'Mango Topped Ice Cream', price: 50, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '77', name: 'Strawberry Topped Ice Cream', price: 50, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '78', name: 'Brownie with Ice Cream', price: 60, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  { id: '79', name: 'Choco Topped Ice Cream', price: 50, category: 'desserts', image: '/placeholder.svg', isAvailable: true },
+  // ADD-ONS
+  { id: '61', name: 'Chocolate Sauce', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '62', name: 'Mango Sauce', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '63', name: 'Strawberry Sauce', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '64', name: 'Brownie', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '65', name: 'Biscoff', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '66', name: 'Orea', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '67', name: 'Fresh Cream', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '68', name: 'Vennila Scope', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '69', name: 'Cheese', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
+  { id: '70', name: 'Mayo', price: 30, category: 'addons', image: '/placeholder.svg', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -61,22 +156,25 @@ const Index = () => {
     }
   }, []);
 
-  const [menuItems, setMenuItems] = useState(() => {
-    const saved = localStorage.getItem('menuItems');
-    if (saved) return JSON.parse(saved);
-    return [
-      { id: '1', name: 'Espresso', price: 180, category: 'coffee', isPopular: true, isAvailable: true, description: 'Rich and bold', image: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&h=300&fit=crop' },
-      { id: '2', name: 'Cappuccino', price: 220, category: 'coffee', isPopular: true, isAvailable: true, description: 'Creamy with milk foam', image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?w=400&h=300&fit=crop' },
-      { id: '3', name: 'Latte', price: 250, category: 'coffee', isAvailable: true, description: 'Smooth and milky', image: 'https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=400&h=300&fit=crop' },
-      { id: '4', name: 'Americano', price: 200, category: 'coffee', isAvailable: true, description: 'Classic black coffee', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop' },
-      { id: '5', name: 'Croissant', price: 150, category: 'pastries', isAvailable: true, description: 'Buttery and flaky', image: 'https://images.unsplash.com/photo-1555507036-ab794f4ade0a?w=400&h=300&fit=crop' },
-      { id: '6', name: 'Chocolate Muffin', price: 180, category: 'pastries', isPopular: true, isAvailable: true, description: 'Rich chocolate flavor', image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&h=300&fit=crop' },
-      { id: '7', name: 'Club Sandwich', price: 350, category: 'sandwiches', isAvailable: true, description: 'Triple layer delight', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400&h=300&fit=crop' },
-      { id: '8', name: 'Caesar Salad', price: 280, category: 'salads', isAvailable: true, description: 'Fresh romaine with dressing', image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop' },
-      { id: '9', name: 'Iced Tea', price: 120, category: 'beverages', isAvailable: true, description: 'Refreshing cold brew', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop' },
-      { id: '10', name: 'Fresh Orange Juice', price: 160, category: 'beverages', isAvailable: true, description: 'Freshly squeezed', image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400&h=300&fit=crop' },
-    ];
-  });
+  const [categories, setCategories] = useState(defaultCategories);
+  const [menuItems, setMenuItems] = useState(defaultMenuItems);
+
+  // Dynamically calculate itemCount for each category
+  const categoriesWithCounts = categories.map(cat => ({
+    ...cat,
+    itemCount: menuItems.filter(item =>
+      item.category && item.category.trim().toLowerCase() === cat.id.trim().toLowerCase()
+    ).length
+  }));
+
+  // Robust filtering logic
+  const filteredMenuItems = selectedCategory === 'all'
+    ? menuItems
+    : menuItems.filter(item =>
+        item.category &&
+        item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
+      );
+
   // Save menuItems to localStorage whenever they change
   useEffect(() => {
     // Only store image as a URL or empty string
@@ -86,37 +184,6 @@ const Index = () => {
     }));
     localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
   }, [menuItems]);
-  const [categories, setCategories] = useState<Category[]>(() => {
-    try {
-      const saved = localStorage.getItem('categories');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.every(cat => cat && typeof cat.id === 'string')) {
-          // Map icon property to correct React component
-          return parsed.map(cat => ({
-            ...cat,
-            icon: iconMap[cat.id] || ChefHat,
-          }));
-        }
-      }
-    } catch (e) {
-      console.error('Failed to load categories from localStorage:', e);
-    }
-    // fallback to defaults
-    const cats: Record<string, Category> = {
-      all: { id: 'all', name: 'All Items', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
-      coffee: { id: 'coffee', name: 'Coffee & Tea', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
-      pastries: { id: 'pastries', name: 'Pastries', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-      sandwiches: { id: 'sandwiches', name: 'Sandwiches', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-      salads: { id: 'salads', name: 'Fresh Salads', icon: Salad, itemCount: 0, color: 'bg-success' },
-      beverages: { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-    };
-    menuItems.forEach(item => {
-      cats.all.itemCount++;
-      if (cats[item.category]) cats[item.category].itemCount++;
-    });
-    return Object.values(cats);
-  });
   const { getTotalItems, cart } = useCart();
 
   // Fetch menu items from backend on load
@@ -190,7 +257,7 @@ const Index = () => {
               selectedCategory={selectedCategory}
               onCategorySelect={setSelectedCategory}
               userRole={userRole}
-              categories={categories}
+              categories={categoriesWithCounts}
               onCategoriesChange={setCategories}
               menuItems={menuItems}
             />
@@ -198,8 +265,8 @@ const Index = () => {
               selectedCategory={selectedCategory} 
               userRole={userRole}
               onCashEarned={handleCashEarned}
-              categories={categories}
-              menuItems={menuItems}
+              categories={categoriesWithCounts}
+              menuItems={filteredMenuItems}
               setMenuItems={setMenuItems}
             />
           </>
