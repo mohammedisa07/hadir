@@ -19,6 +19,8 @@ export const TaxSettings = () => {
 
   const handleSaveTaxRate = () => {
     localStorage.setItem('taxRate', taxRate.toString());
+    // Trigger a custom event to notify other components about tax rate change
+    window.dispatchEvent(new CustomEvent('taxRateChanged', { detail: taxRate }));
     toast({
       title: "Tax Rate Updated",
       description: `Tax rate set to ${taxRate}%`,

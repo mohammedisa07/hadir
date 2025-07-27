@@ -64,10 +64,23 @@ const Cart = () => {
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [pendingDiscount, setPendingDiscount] = useState(0);
+  const [, forceUpdate] = useState({});
   
   const { toast } = useToast();
   const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice, getTotalItems } = useCart();
   const navigate = useNavigate();
+
+  // Listen for tax rate changes
+  useEffect(() => {
+    const handleTaxRateChange = () => {
+      forceUpdate({});
+    };
+    
+    window.addEventListener('taxRateChanged', handleTaxRateChange);
+    return () => {
+      window.removeEventListener('taxRateChanged', handleTaxRateChange);
+    };
+  }, []);
 
   const applyDiscount = (discount: number) => {
     // Check if user is in cashier mode (not admin)
@@ -107,7 +120,20 @@ const Cart = () => {
   };
 
   const getFinalTotal = () => {
-    return getSubtotal();
+    const subtotal = getSubtotal();
+    const taxRate = parseFloat(localStorage.getItem('taxRate') || '18');
+    const tax = subtotal * (taxRate / 100);
+    return subtotal + tax;
+  };
+
+  const getTaxAmount = () => {
+    const subtotal = getSubtotal();
+    const taxRate = parseFloat(localStorage.getItem('taxRate') || '18');
+    return subtotal * (taxRate / 100);
+  };
+
+  const getTaxRate = () => {
+    return parseFloat(localStorage.getItem('taxRate') || '18');
   };
 
   const handlePrintReceipt = (receiptData: any) => {
@@ -185,18 +211,18 @@ const Cart = () => {
         <div class="totals">
           <div class="total-row">
             <span>Subtotal:</span>
-            <span>₹${Math.round(receiptData.total)}</span>
+            <span>₹${Math.round(receiptData.subtotal)}</span>
           </div>
           ${receiptData.discount && receiptData.discount > 0 ? `
             <div class="total-row" style="color: green;">
               <span>Discount (${receiptData.discount}%):</span>
               <span>-₹${Math.round(receiptData.total - receiptData.subtotal)}</span>
             </div>
-            <div class="total-row">
-              <span>After Discount:</span>
-              <span>₹${Math.round(receiptData.subtotal)}</span>
-            </div>
           ` : ''}
+          <div class="total-row">
+            <span>Tax (${receiptData.taxRate}%):</span>
+            <span>₹${Math.round(receiptData.tax)}</span>
+          </div>
           <div class="total-row final-total">
             <span>TOTAL:</span>
             <span>₹${Math.round(receiptData.finalTotal)}</span>
@@ -339,6 +365,8 @@ const Cart = () => {
     }
 
     const subtotal = getSubtotal();
+    const taxAmount = getTaxAmount();
+    const taxRate = getTaxRate();
     const finalTotal = getFinalTotal();
 
     // Generate receipt (contains both receipt and KOT data)
@@ -353,8 +381,8 @@ const Cart = () => {
       timestamp: new Date(),
       cashier: 'Mohammed Haris T A',
       customerDetails,
-      tax: 0,
-      taxRate: 0
+      tax: taxAmount,
+      taxRate: taxRate
     };
 
     // Store order in history for analytics
@@ -564,7 +592,7 @@ const Cart = () => {
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal:</span>
-                        <span>₹{Math.round(getTotalPrice())}</span>
+                        <span>₹{Math.round(getSubtotal())}</span>
                       </div>
                       {appliedDiscount > 0 && (
                         <div className="flex justify-between text-sm text-green-600">
@@ -572,6 +600,10 @@ const Cart = () => {
                           <span>-₹{Math.round(getTotalPrice() - getSubtotal())}</span>
                         </div>
                       )}
+                      <div className="flex justify-between text-sm">
+                        <span>Tax ({getTaxRate()}%):</span>
+                        <span>₹{Math.round(getTaxAmount())}</span>
+                      </div>
                       <Separator />
                       <div className="flex justify-between text-lg font-bold">
                         <span>Total:</span>
