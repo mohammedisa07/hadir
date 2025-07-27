@@ -15,6 +15,7 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => 
   const [imagePreview, setImagePreview] = useState(currentImage || "");
   const [isLinkMode, setIsLinkMode] = useState(false);
   const [linkInput, setLinkInput] = useState("");
+  const [imageError, setImageError] = useState(false);
   const fileInputRef = useRef(null);
   const { toast } = useToast();
 
@@ -29,8 +30,15 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => 
     e.preventDefault();
     if (linkInput && (linkInput.startsWith('http://') || linkInput.startsWith('https://'))) {
       setImagePreview(linkInput);
+      setImageError(false);
       onImageChange(linkInput);
     }
+  };
+
+  // Reset error when link changes
+  const handleLinkInputChange = (e) => {
+    setLinkInput(e.target.value);
+    setImageError(false);
   };
 
   return (
@@ -50,7 +58,7 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => 
             type="url"
             placeholder="Paste image URL here"
             value={linkInput}
-            onChange={e => setLinkInput(e.target.value)}
+            onChange={handleLinkInputChange}
             className="flex-1"
           />
           <Button type="submit" size="sm">Set</Button>
@@ -62,16 +70,18 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => 
             src={safeImagePreview || '/placeholder.svg'} 
             alt="Preview" 
             className="w-full h-full object-cover"
-            onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
+            onError={e => { setImageError(true); e.currentTarget.src = '/placeholder.svg'; }}
+            onLoad={() => setImageError(false)}
           />
           <Button
             variant="destructive"
             size="sm"
             className="absolute top-2 right-2 h-6 w-6 p-0"
-            onClick={() => { setImagePreview(""); setLinkInput(""); onImageChange(""); }}
+            onClick={() => { setImagePreview(""); setLinkInput(""); setImageError(false); onImageChange(""); }}
           >
             <X className="h-3 w-3" />
           </Button>
+          {imageError && <div className="text-red-500 text-xs absolute bottom-2 left-2 bg-white/80 px-2 py-1 rounded">Image could not be loaded. Please check the link.</div>}
         </div>
       ) : (
         !isLinkMode && (
@@ -100,11 +110,13 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }) => 
             reader.onload = (ev) => {
               const result = typeof ev.target?.result === 'string' ? ev.target.result : '';
               setImagePreview(result);
+              setImageError(false);
               onImageChange(result);
             };
             reader.readAsDataURL(file);
           } else {
             setImagePreview("");
+            setImageError(false);
             onImageChange("");
           }
         }}
