@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 interface MenuItem {
-  id: string;
+  id?: string;
+  _id?: string;
   name: string;
   price: number;
   category: string;
@@ -14,6 +15,7 @@ interface MenuItem {
 interface CartItem extends MenuItem {
   quantity: number;
   notes?: string;
+  _id?: string;
 }
 
 export const useCart = () => {
@@ -23,7 +25,14 @@ export const useCart = () => {
   useEffect(() => {
     const savedCart = localStorage.getItem('currentCart');
     if (savedCart) {
-      setCart(JSON.parse(savedCart));
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        setCart(parsedCart);
+      } catch (error) {
+        console.error('Error parsing saved cart:', error);
+        localStorage.removeItem('currentCart');
+        setCart([]);
+      }
     }
   }, []);
 
@@ -33,21 +42,24 @@ export const useCart = () => {
   }, [cart]);
 
   const addToCart = (item: MenuItem) => {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    const itemId = item.id || item._id || '';
+    const existingItem = cart.find(cartItem => 
+      cartItem.id === itemId || cartItem._id === itemId
+    );
     if (existingItem) {
-      setCart(cart.map(cartItem => 
-        cartItem.id === item.id 
+      setCart(prevCart => prevCart.map(cartItem => 
+        (cartItem.id === itemId || cartItem._id === itemId)
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
       ));
     } else {
-      setCart([...cart, { ...item, quantity: 1 }]);
+      setCart(prevCart => [...prevCart, { ...item, id: itemId, quantity: 1 }]);
     }
   };
 
   const updateQuantity = (id: string, change: number) => {
-    setCart(cart.map(item => {
-      if (item.id === id) {
+    setCart(prevCart => prevCart.map(item => {
+      if (item.id === id || item._id === id) {
         const newQuantity = item.quantity + change;
         return { ...item, quantity: newQuantity };
       }
@@ -56,7 +68,7 @@ export const useCart = () => {
   };
 
   const removeFromCart = (id: string) => {
-    setCart(cart.filter(item => item.id !== id));
+    setCart(prevCart => prevCart.filter(item => item.id !== id && item._id !== id));
   };
 
   const clearCart = () => {

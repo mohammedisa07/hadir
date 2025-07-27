@@ -57,18 +57,27 @@ export const Navbar = ({
     } else {
       // Switching to cashier doesn't require password
       onRoleChange('cashier');
+      localStorage.setItem('userRole', 'cashier');
     }
+  };
+
+  // Ensure admin mode always requires password when accessed
+  const handleAdminAccess = () => {
+    setShowPasswordDialog(true);
   };
 
   const handlePasswordSuccess = () => {
     onRoleChange('admin');
+    localStorage.setItem('userRole', 'admin');
   };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     window.location.reload();
   };
-  return <nav className="h-16 bg-card border-b border-border flex items-center justify-between px-6 shadow-sm">
+  return <nav className={`h-16 border-b border-border flex items-center justify-between px-6 shadow-sm ${
+    userRole === 'admin' ? 'admin-navbar' : 'bg-card'
+  }`}>
       {/* Brand Section */}
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-3">
@@ -76,8 +85,8 @@ export const Navbar = ({
             <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="H3 Cafe Logo" className="w-full h-full object-contain" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">Hadir's Cafe</h1>
-            <p className="text-sm text-muted-foreground italic">love at first sip</p>
+            <h1 className={`text-xl font-bold ${userRole === 'admin' ? 'text-dark-red' : 'text-foreground'}`}>Hadir's Cafe</h1>
+            <p className="text-sm text-muted-foreground italic">Love at First Sip</p>
           </div>
         </div>
       </div>
@@ -113,9 +122,11 @@ export const Navbar = ({
 
       {/* User Section */}
       <div className="flex items-center space-x-4">
-        <Badge variant={userRole === 'admin' ? 'default' : 'secondary'} className="flex items-center space-x-1">
+        <Badge variant={userRole === 'admin' ? 'default' : 'secondary'} className={`flex items-center space-x-1 ${
+          userRole === 'admin' ? 'bg-primary text-primary-foreground shadow-lg' : 'bg-secondary text-secondary-foreground'
+        }`}>
           {userRole === 'admin' ? <Shield className="h-3 w-3" /> : <User className="h-3 w-3" />}
-          <span className="capitalize">{userRole}</span>
+          <span className="capitalize font-medium">{userRole}</span>
         </Badge>
 
         <DropdownMenu>

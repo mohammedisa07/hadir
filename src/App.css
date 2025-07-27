@@ -40,3 +40,116 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Admin Dark Theme - Sunset Orange */
+.admin-dark {
+  background: #ff6600 !important;
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-background {
+  background: #ff6600 !important;
+}
+
+.admin-dark .bg-card {
+  background: #ff8533 !important;
+  border-color: #ff8533 !important;
+}
+
+.admin-dark .text-foreground {
+  color: #ffffff !important;
+}
+
+.admin-dark .text-muted-foreground {
+  color: #ffffff !important;
+}
+
+.admin-dark .border-border {
+  border-color: #ff8533 !important;
+}
+
+.admin-dark .bg-primary {
+  background: #ffffff !important;
+  color: #ff6600 !important;
+}
+
+.admin-dark .text-primary {
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-secondary {
+  background: #ff8533 !important;
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-accent {
+  background: #ff8533 !important;
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-muted {
+  background: #ff8533 !important;
+}
+
+.admin-dark .hover\:bg-accent:hover {
+  background: #ff8533 !important;
+}
+
+.admin-dark .hover\:bg-muted:hover {
+  background: #ff8533 !important;
+}
+
+.admin-dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(255, 102, 0, 0.3) !important;
+}
+
+.admin-dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(255, 102, 0, 0.3) !important;
+}
+
+.admin-dark input {
+  background: #ff8533 !important;
+  border-color: #ff8533 !important;
+  color: #ffffff !important;
+}
+
+.admin-dark input::placeholder {
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-gradient-to-r {
+  background: linear-gradient(to right, #ff6600, #ff8533) !important;
+}
+
+.admin-dark .bg-success {
+  background: #ffffff !important;
+  color: #ff6600 !important;
+}
+
+.admin-dark .text-success {
+  color: #ffffff !important;
+}
+
+.admin-dark .bg-destructive {
+  background: #ffffff !important;
+  color: #ff6600 !important;
+}
+
+.admin-dark .text-destructive {
+  color: #ffffff !important;
+}
+
+.admin-navbar {
+  background: #ff6600 !important;
+  color: #fff !important;
+}
+
+.admin-card {
+  background: #ff8533 !important;
+  color: #fff !important;
+  border-color: #ff8533 !important;
+}
+
+.text-dark-red {
+  color: #B20000 !important; /* blood red */
+}

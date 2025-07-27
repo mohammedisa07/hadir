@@ -8,7 +8,8 @@ import {
   Coffee,
   BarChart3,
   Package,
-  Users
+  Users,
+  Lock
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from 'jspdf';
@@ -274,22 +275,18 @@ export const QuickActions = ({
         break;
         
       case 'reset-all':
-        if (confirm('Are you sure you want to reset ALL data? This cannot be undone.')) {
-          // Clear all relevant localStorage keys
+        if (confirm('Are you sure you want to reset ALL sales data? This will clear all orders and sales history but keep your menu items.')) {
+          // Clear only sales-related localStorage keys, preserve menu items
           localStorage.removeItem('orderHistory');
-          localStorage.removeItem('menuItems');
-          localStorage.removeItem('cashiers');
-          localStorage.removeItem('adminPassword');
           localStorage.removeItem('dailyCashEarned');
           localStorage.removeItem('lastCashReset');
           localStorage.removeItem('orderCounter');
-          localStorage.removeItem('user');
           localStorage.removeItem('dailySales');
-          // Add any other relevant keys here
+          // Note: NOT removing 'menuItems' to preserve added items
           onResetData?.();
           toast({
-            title: "All Data Reset",
-            description: "All dashboard data has been cleared",
+            title: "Sales Data Reset",
+            description: "All sales data has been cleared. Menu items have been preserved.",
             variant: "destructive"
           });
           setTimeout(() => window.location.reload(), 500);
@@ -316,6 +313,10 @@ export const QuickActions = ({
           title: "Analytics View",
           description: "You're already viewing the analytics dashboard",
         });
+        break;
+        
+      case 'reset-password':
+        setShowAdminPwModal(true);
         break;
     }
   };
@@ -402,6 +403,16 @@ export const QuickActions = ({
           >
             <BarChart3 className="h-4 w-4 mr-2" />
             Analytics
+          </Button>
+
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full justify-start"
+            onClick={() => handleQuickAction('reset-password')}
+          >
+            <Lock className="h-4 w-4 mr-2" />
+            Reset Admin Password
           </Button>
         </div>
 

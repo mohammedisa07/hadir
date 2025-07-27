@@ -271,7 +271,7 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 admin-dark">
       {/* Header */}
       <DashboardHeader onRefresh={refreshData} onResetData={resetData} onResetTodaysSales={resetTodaysSales} />
 

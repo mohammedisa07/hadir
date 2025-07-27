@@ -66,6 +66,9 @@ export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, 
     if (onCategoriesChange) {
       onCategoriesChange(categories);
     }
+    // Only store serializable properties
+    const serializableCategories = categories.map(({id, name, itemCount, color}) => ({id, name, itemCount, color}));
+    localStorage.setItem('categories', JSON.stringify(serializableCategories));
   }, [categories, onCategoriesChange]);
 
   const filteredCategories = categories.filter(category =>
@@ -250,7 +253,7 @@ export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, 
           </p>
           <p className="text-xs text-muted-foreground mt-1">
             Total Items: <span className="font-medium text-foreground">
-              {categories.reduce((sum, cat) => sum + cat.itemCount, 0)}
+              {categories.filter(cat => cat.id !== 'all').reduce((sum, cat) => sum + cat.itemCount, 0)}
             </span>
           </p>
         </div>

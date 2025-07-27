@@ -165,7 +165,7 @@ export const ReceiptPopup = ({
                   </div>
                   <div>
                     <h1 className="print-title text-xl font-bold tracking-wide">HADIR'S CAFE</h1>
-                    <p className="text-xs italic text-muted-foreground">"Love at first sip"</p>
+                    <p className="text-xs italic text-muted-foreground">"Love at First Sip"</p>
                   </div>
                   <div className="space-y-0.5 text-xs text-muted-foreground">
                     <p>No.8/117, Sudha Residency, Metro Nagar 4th Avenue</p>

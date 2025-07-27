@@ -2,8 +2,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, User, X, Printer, ChefHat } from "lucide-react";
+import { Calendar, Clock, User, X, Printer, ChefHat, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 interface CartItem {
   id: string;
@@ -142,6 +143,16 @@ export const UnifiedReceiptPopup = ({
             <DialogTitle className="text-center flex items-center justify-between">
               Receipt & KOT
               <div className="flex gap-2">
+                <Link to="/">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 px-3"
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    More Items
+                  </Button>
+                </Link>
                 <Button
                   variant="outline"
                   size="sm"
@@ -172,7 +183,7 @@ export const UnifiedReceiptPopup = ({
                   </div>
                   <div>
                     <h1 className="print-title text-xl font-bold tracking-wide">HADIR'S CAFE</h1>
-                    <p className="text-xs italic text-muted-foreground">"Love at first sip"</p>
+                    <p className="text-xs italic text-muted-foreground">"Love at First Sip"</p>
                   </div>
                   <div className="space-y-0.5 text-xs text-muted-foreground">
                     <p>No.8/117, Sudha Residency, Metro Nagar 4th Avenue</p>

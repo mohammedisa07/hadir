@@ -24,11 +24,43 @@ const defaultCategories: Category[] = [
   { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 10, color: 'bg-cafe-gold' },
 ];
 
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  all: ChefHat,
+  coffee: Coffee,
+  pastries: Cookie,
+  sandwiches: Sandwich,
+  salads: Salad,
+  beverages: Wine,
+};
+
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [userRole, setUserRole] = useState<'admin' | 'cashier'>('admin');
+  const [userRole, setUserRole] = useState<'admin' | 'cashier'>(() => {
+    const savedRole = localStorage.getItem('userRole');
+    return (savedRole === 'admin' || savedRole === 'cashier') ? savedRole : 'cashier';
+  });
   const [currentView, setCurrentView] = useState<'pos' | 'dashboard'>('pos');
   const [userName] = useState('Mohammed Haris T A');
+  
+  // Initialize user role in localStorage
+  useEffect(() => {
+    localStorage.setItem('userRole', userRole);
+  }, [userRole]);
+
+  // Debug: Log when userRole changes
+  useEffect(() => {
+    console.log('User role changed to:', userRole);
+  }, [userRole]);
+
+  // Ensure userRole is properly initialized and persisted
+  useEffect(() => {
+    const savedRole = localStorage.getItem('userRole');
+    if (savedRole && (savedRole === 'admin' || savedRole === 'cashier') && savedRole !== userRole) {
+      console.log('Restoring saved role:', savedRole);
+      setUserRole(savedRole as 'admin' | 'cashier');
+    }
+  }, []);
+
   const [menuItems, setMenuItems] = useState(() => {
     const saved = localStorage.getItem('menuItems');
     if (saved) return JSON.parse(saved);
@@ -49,8 +81,23 @@ const Index = () => {
   useEffect(() => {
     localStorage.setItem('menuItems', JSON.stringify(menuItems));
   }, [menuItems]);
-  // Dynamically generate categories from menuItems
   const [categories, setCategories] = useState<Category[]>(() => {
+    try {
+      const saved = localStorage.getItem('categories');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.every(cat => cat && typeof cat.id === 'string')) {
+          // Map icon property to correct React component
+          return parsed.map(cat => ({
+            ...cat,
+            icon: iconMap[cat.id] || ChefHat,
+          }));
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load categories from localStorage:', e);
+    }
+    // fallback to defaults
     const cats: Record<string, Category> = {
       all: { id: 'all', name: 'All Items', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
       coffee: { id: 'coffee', name: 'Coffee & Tea', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
@@ -65,7 +112,7 @@ const Index = () => {
     });
     return Object.values(cats);
   });
-  const { getTotalItems } = useCart();
+  const { getTotalItems, cart } = useCart();
 
   // Fetch menu items from backend on load
   // useEffect(() => {
@@ -73,21 +120,21 @@ const Index = () => {
   // }, []);
 
   // Update categories when menuItems change
-  useEffect(() => {
-    const cats: Record<string, Category> = {
-      all: { id: 'all', name: 'All Items', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
-      coffee: { id: 'coffee', name: 'Coffee & Tea', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
-      pastries: { id: 'pastries', name: 'Pastries', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-      sandwiches: { id: 'sandwiches', name: 'Sandwiches', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-      salads: { id: 'salads', name: 'Fresh Salads', icon: Salad, itemCount: 0, color: 'bg-success' },
-      beverages: { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-    };
-    menuItems.forEach(item => {
-      cats.all.itemCount++;
-      if (cats[item.category]) cats[item.category].itemCount++;
-    });
-    setCategories(Object.values(cats));
-  }, [menuItems]);
+  // useEffect(() => {
+  //   const cats: Record<string, Category> = {
+  //     all: { id: 'all', name: 'All Items', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
+  //     coffee: { id: 'coffee', name: 'Coffee & Tea', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
+  //     pastries: { id: 'pastries', name: 'Pastries', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  //     sandwiches: { id: 'sandwiches', name: 'Sandwiches', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  //     salads: { id: 'salads', name: 'Fresh Salads', icon: Salad, itemCount: 0, color: 'bg-success' },
+  //     beverages: { id: 'beverages', name: 'Cold Drinks', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
+  //   };
+  //   menuItems.forEach(item => {
+  //     cats.all.itemCount++;
+  //     if (cats[item.category]) cats[item.category].itemCount++;
+  //   });
+  //   setCategories(Object.values(cats));
+  // }, [menuItems]);
 
   // Calculate today's sales from order history
   const [dailyCashEarned, setDailyCashEarned] = useState(0);
@@ -117,8 +164,11 @@ const Index = () => {
     setDailyCashEarned(0);
   };
 
+  // Force re-render when cart changes to update cart count
+  const cartItemCount = getTotalItems();
+
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className={`min-h-screen flex flex-col ${userRole === 'admin' ? 'admin-dark' : 'bg-background'}`}>
       <Navbar 
         userRole={userRole}
         onRoleChange={setUserRole}
@@ -126,7 +176,7 @@ const Index = () => {
         currentView={currentView}
         userName={userName}
         dailyCashEarned={dailyCashEarned}
-        cartItemCount={getTotalItems()}
+        cartItemCount={cartItemCount}
       />
       <div className="flex flex-1 overflow-hidden">
         {currentView === 'pos' && (

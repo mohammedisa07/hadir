@@ -20,8 +20,10 @@ import {
   ChefHat
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/hooks/useCart";
 import { UnifiedReceiptPopup } from "@/components/UnifiedReceiptPopup";
-import { Link } from "react-router-dom";
+import { PasswordDialog } from "@/components/PasswordDialog";
+import { Link, useNavigate } from "react-router-dom";
 // REMOVE: import { placeOrder } from '../lib/api';
 
 interface MenuItem {
@@ -47,7 +49,6 @@ interface CartItem extends MenuItem {
 }
 
 const Cart = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
   const [receiptData, setReceiptData] = useState<any>(null);
   const [showUnifiedReceipt, setShowUnifiedReceipt] = useState(false);
   const [orderCounter, setOrderCounter] = useState(() => {
@@ -61,55 +62,39 @@ const Cart = () => {
   });
   const [appliedDiscount, setAppliedDiscount] = useState(0);
   const [orderCompleted, setOrderCompleted] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [pendingDiscount, setPendingDiscount] = useState(0);
   
   const { toast } = useToast();
-
-  // Load cart from localStorage on component mount
-  useEffect(() => {
-    const savedCart = localStorage.getItem('currentCart');
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
-
-  // Save cart to localStorage whenever cart changes
-  useEffect(() => {
-    localStorage.setItem('currentCart', JSON.stringify(cart));
-  }, [cart]);
-
-  const updateQuantity = (id: string, change: number) => {
-    setCart(cart.map(item => {
-      if (item.id === id) {
-        const newQuantity = item.quantity + change;
-        return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-      }
-      return item;
-    }).filter(item => item.quantity > 0));
-  };
-
-  const removeFromCart = (id: string) => {
-    setCart(cart.filter(item => item.id !== id));
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    localStorage.removeItem('currentCart');
-  };
-
-  const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  };
-
-  const getTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
+  const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice, getTotalItems } = useCart();
+  const navigate = useNavigate();
 
   const applyDiscount = (discount: number) => {
-    setAppliedDiscount(discount);
+    // Check if user is in cashier mode (not admin)
+    const userRole = localStorage.getItem('userRole') || 'cashier';
+    
+    if (userRole === 'cashier') {
+      // In cashier mode, require admin password for discounts
+      setPendingDiscount(discount);
+      setShowPasswordDialog(true);
+    } else {
+      // In admin mode, apply discount directly
+      setAppliedDiscount(discount);
+      toast({
+        title: `${discount}% discount applied`,
+        description: "Discount has been applied to the order",
+      });
+    }
+  };
+
+  const handlePasswordSuccess = () => {
+    setAppliedDiscount(pendingDiscount);
     toast({
-      title: `${discount}% discount applied`,
+      title: `${pendingDiscount}% discount applied`,
       description: "Discount has been applied to the order",
     });
+    setShowPasswordDialog(false);
+    setPendingDiscount(0);
   };
 
   const calculateDiscountedPrice = (price: number) => {
@@ -140,7 +125,7 @@ const Cart = () => {
             <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="Hadir's Cafe Logo" style="height: 40px; width: 40px; object-fit: contain;" />
           </div>
           <div class="cafe-name">HADIR'S CAFE</div>
-          <div class="tagline">Love at first sip</div>
+          <div class="tagline">Love at First Sip</div>
           <div class="address">
             No.8/117, Sudha Residency, Metro Nagar 4th Avenue,<br>
             Alapakkam, Chennai, Tamil Nadu 600116<br>
@@ -405,6 +390,7 @@ const Cart = () => {
   const startNewOrder = () => {
     setOrderCompleted(false);
     setReceiptData(null);
+    navigate('/');
   };
 
   return (
@@ -448,54 +434,60 @@ const Cart = () => {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Cart Items */}
                 <div className="lg:col-span-2">
-                  <h2 className="text-xl font-semibold mb-4">Order Items</h2>
-                  <ScrollArea className="h-96">
-                    <div className="space-y-4">
-                      {cart.map((item) => (
-                        <Card key={item.id} className="p-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h4 className="font-medium text-foreground">{item.name}</h4>
-                              <p className="text-sm text-muted-foreground">₹{item.price} each</p>
-                            </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-semibold">Order Items</h2>
+                    <Link to="/">
+                      <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Add More Items</span>
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="space-y-4">
+                    {cart.map((item) => (
+                      <Card key={item.id} className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <h4 className="font-medium text-foreground">{item.name}</h4>
+                            <p className="text-sm text-muted-foreground">₹{item.price} each</p>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                            onClick={() => removeFromCart(item.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mt-3">
+                          <div className="flex items-center space-x-3">
                             <Button
-                              variant="ghost"
+                              variant="outline"
                               size="sm"
-                              className="h-6 w-6 p-0 text-destructive hover:text-destructive"
-                              onClick={() => removeFromCart(item.id)}
+                              className="h-8 w-8 p-0"
+                              onClick={() => updateQuantity(item.id, -1)}
                             >
-                              <Trash2 className="h-3 w-3" />
+                              <Minus className="h-3 w-3" />
+                            </Button>
+                            <span className="font-medium min-w-[2rem] text-center">{item.quantity}</span>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 w-8 p-0"
+                              onClick={() => updateQuantity(item.id, 1)}
+                            >
+                              <Plus className="h-3 w-3" />
                             </Button>
                           </div>
-                          
-                          <div className="flex items-center justify-between mt-3">
-                            <div className="flex items-center space-x-3">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0"
-                                onClick={() => updateQuantity(item.id, -1)}
-                              >
-                                <Minus className="h-3 w-3" />
-                              </Button>
-                              <span className="font-medium min-w-[2rem] text-center">{item.quantity}</span>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0"
-                                onClick={() => updateQuantity(item.id, 1)}
-                              >
-                                <Plus className="h-3 w-3" />
-                              </Button>
-                            </div>
-                            <span className="font-bold text-primary text-lg">
-                              ₹{item.price * item.quantity}
-                            </span>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  </ScrollArea>
+                          <span className="font-bold text-primary text-lg">
+                            ₹{item.price * item.quantity}
+                          </span>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Order Summary */}
@@ -679,6 +671,15 @@ const Cart = () => {
         isOpen={showUnifiedReceipt}
         onClose={() => setShowUnifiedReceipt(false)}
         receipt={receiptData}
+      />
+
+      {/* Password Dialog */}
+      <PasswordDialog 
+        isOpen={showPasswordDialog}
+        onClose={() => setShowPasswordDialog(false)}
+        onSuccess={handlePasswordSuccess}
+        title="Admin Authorization Required"
+        description={`Please enter the admin password to apply ${pendingDiscount}% discount.`}
       />
     </div>
   );

@@ -123,7 +123,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
       style={style}
       className={`cursor-pointer hover:shadow-md transition-all duration-200 group relative overflow-hidden h-full ${
         !item.isAvailable ? 'opacity-50 grayscale' : ''
-      }`}
+      } ${userRole === 'admin' ? 'admin-card' : ''}`}
       onClick={() => item.isAvailable && onAddToCart(item)}
     >
       <CardContent className="p-0 h-full flex flex-col">
@@ -232,7 +232,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
                     <Button 
                       size="sm" 
                       variant="outline"
-                      className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                      className="h-6 w-6 p-0 flex-shrink-0"
                       onClick={(e) => {
                         e.stopPropagation();
                         onUpdateQuantity(item.id || item._id || '', -1);
@@ -247,7 +247,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
                 )}
                 <Button 
                   size="sm" 
-                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                  className="h-6 w-6 p-0 flex-shrink-0"
                   onClick={(e) => {
                     e.stopPropagation();
                     onAddToCart(item);
@@ -356,7 +356,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
+    <div className={`flex-1 flex flex-col overflow-hidden ${userRole === 'admin' ? 'admin-dark' : ''}`}>
       <div className="p-6 flex-shrink-0">
         {/* Search Bar & Admin Controls */}
         <div className="mb-6 space-y-4">
@@ -401,7 +401,8 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
               {filteredItems.map((item) => {
-                const cartItem = cart.find(cartItem => cartItem.id === item.id || cartItem._id === item._id);
+                // Find the cart item for this menu item
+                const cartItem = cart.find(cartItem => (cartItem.id && cartItem.id === item.id) || (cartItem._id && cartItem._id === item._id));
                 const cartQuantity = cartItem ? cartItem.quantity : 0;
                 
                 return (

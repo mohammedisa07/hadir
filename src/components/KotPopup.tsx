@@ -2,8 +2,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
-import { Clock, User, X, Printer, ChefHat } from "lucide-react";
+import { Clock, User, X, Printer, ChefHat, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 interface CartItem {
   id: string;
@@ -123,6 +124,16 @@ export const KotPopup = ({
                 Kitchen Order Ticket
               </div>
               <div className="flex gap-2">
+                <Link to="/">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 px-3"
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    More Items
+                  </Button>
+                </Link>
                 <Button
                   variant="outline"
                   size="sm"

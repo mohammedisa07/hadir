@@ -23,21 +23,17 @@ export const DashboardHeader = ({ onRefresh, onResetData, onResetTodaysSales }: 
 
   const executeResetAction = () => {
     if (pendingAction === 'resetAll') {
-      // Clear all relevant localStorage keys
+      // Clear only sales-related localStorage keys, preserve menu items
       localStorage.removeItem('orderHistory');
-      localStorage.removeItem('menuItems');
-      localStorage.removeItem('cashiers');
-      localStorage.removeItem('adminPassword');
       localStorage.removeItem('dailyCashEarned');
       localStorage.removeItem('lastCashReset');
       localStorage.removeItem('orderCounter');
-      localStorage.removeItem('user');
       localStorage.removeItem('dailySales');
-      // Add any other relevant keys here
+      // Note: NOT removing 'menuItems' to preserve added items
       onResetData();
       toast({
-        title: "All Data Reset",
-        description: "All sales and system data has been cleared.",
+        title: "Sales Data Reset",
+        description: "All sales data has been cleared. Menu items have been preserved.",
         variant: "destructive"
       });
       // Refresh the UI
