@@ -70,14 +70,16 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }: Ima
     fileInputRef.current?.click();
   };
 
+  // Defensive: always use a string for imagePreview
+  const safeImagePreview = typeof imagePreview === 'string' && imagePreview ? imagePreview : '';
+
   return (
     <div className={`space-y-4 ${className}`}>
       <Label className="text-sm font-medium">Item Image</Label>
-      
-      {imagePreview ? (
+      {safeImagePreview ? (
         <div className="relative w-full h-32 border border-border rounded-lg overflow-hidden bg-muted">
           <img 
-            src={imagePreview || '/placeholder.svg'} 
+            src={safeImagePreview || '/placeholder.svg'} 
             alt="Preview" 
             className="w-full h-full object-cover"
             onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
@@ -105,16 +107,26 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }: Ima
           </p>
         </div>
       )}
-
       <Input
         ref={fileInputRef}
         type="file"
         accept="image/*"
-        onChange={handleFileSelect}
+        onChange={e => {
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const result = typeof ev.target?.result === 'string' ? ev.target.result : '';
+              onImageChange(result);
+            };
+            reader.readAsDataURL(file);
+          } else {
+            onImageChange('');
+          }
+        }}
         className="hidden"
       />
-      
-      {!imagePreview && (
+      {!safeImagePreview && (
         <Button 
           variant="outline" 
           onClick={handleButtonClick}

@@ -83,7 +83,9 @@ export const MenuItemForm = ({ item, onSave, trigger, categories }: MenuItemForm
       return;
     }
 
-    onSave({ ...formData, id: item?.id });
+    // Defensive: always save image as a string
+    const safeImage = typeof formData.image === 'string' ? formData.image : '';
+    onSave({ ...formData, id: item?.id, image: safeImage });
     setIsOpen(false);
     toast({
       title: item ? "Item updated" : "Item added",
@@ -160,8 +162,8 @@ export const MenuItemForm = ({ item, onSave, trigger, categories }: MenuItemForm
           </div>
 
           <ImageUpload
-            currentImage={formData.image}
-            onImageChange={(imageUrl) => setFormData({ ...formData, image: imageUrl || '' })}
+            currentImage={formData.image || ''}
+            onImageChange={(imageUrl) => setFormData({ ...formData, image: typeof imageUrl === 'string' ? imageUrl : '' })}
           />
 
           <div className="grid grid-cols-2 gap-4">
