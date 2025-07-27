@@ -9,24 +9,47 @@ function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+// Helper function for API calls with better error handling
+async function apiCall(url: string, options: RequestInit = {}) {
+  try {
+    console.log(`Making API call to: ${url}`);
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
+    
+    if (!response.ok) {
+      console.error(`API Error: ${response.status} ${response.statusText}`);
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    console.log(`API Response from ${url}:`, data);
+    return data;
+  } catch (error) {
+    console.error(`API Call failed for ${url}:`, error);
+    throw error;
+  }
+}
+
 // Auth
 export async function register(name: string, email: string, password: string) {
-  const res = await fetch(`${API_BASE}/auth/register`, {
+  return apiCall(`${API_BASE}/auth/register`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, password })
   });
-  return res.json();
 }
 
 export async function login(email: string, password: string) {
-  const res = await fetch(`${API_BASE}/auth/login`, {
+  const data = await apiCall(`${API_BASE}/auth/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
-  const data = await res.json();
-  if (res.ok && data.token) {
+  
+  if (data.token) {
     localStorage.setItem('token', data.token);
   }
   return data;
@@ -38,75 +61,63 @@ export function logout() {
 
 // Menu
 export async function getMenuItems() {
-  const res = await fetch(`${API_BASE}/menu`);
-  return res.json();
+  return apiCall(`${API_BASE}/menu`);
 }
 
 export async function addMenuItem(item) {
-  const res = await fetch(`${API_BASE}/menu`, {
+  return apiCall(`${API_BASE}/menu`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(item)
   });
-  return res.json();
 }
 
 export async function updateMenuItem(id, item) {
-  const res = await fetch(`${API_BASE}/menu/${id}`, {
+  return apiCall(`${API_BASE}/menu/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(item)
   });
-  return res.json();
 }
 
 export async function deleteMenuItem(id) {
-  const res = await fetch(`${API_BASE}/menu/${id}`, {
+  return apiCall(`${API_BASE}/menu/${id}`, {
     method: 'DELETE'
   });
-  return res.json();
 }
 
 // Orders
 export async function placeOrder(items: any[]) {
-  const res = await fetch(`${API_BASE}/orders`, {
+  return apiCall(`${API_BASE}/orders`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    headers: authHeaders(),
     body: JSON.stringify({ items })
   });
-  return res.json();
 }
 
 export async function getMyOrders() {
-  const res = await fetch(`${API_BASE}/orders/my`, {
+  return apiCall(`${API_BASE}/orders/my`, {
     headers: authHeaders()
   });
-  return res.json();
 }
 
 export async function getOrder(id: string) {
-  const res = await fetch(`${API_BASE}/orders/${id}`, {
+  return apiCall(`${API_BASE}/orders/${id}`, {
     headers: authHeaders()
   });
-  return res.json();
 }
 
 export async function getAllOrders() {
-  const res = await fetch(`${API_BASE}/orders`);
-  return res.json();
+  return apiCall(`${API_BASE}/orders`);
 }
 
 // Receipts
 export async function getMyReceipts() {
-  const res = await fetch(`${API_BASE}/receipts/my`, {
+  return apiCall(`${API_BASE}/receipts/my`, {
     headers: authHeaders()
   });
-  return res.json();
 }
 
 export async function getReceipt(id: string) {
-  const res = await fetch(`${API_BASE}/receipts/${id}`, {
+  return apiCall(`${API_BASE}/receipts/${id}`, {
     headers: authHeaders()
   });
-  return res.json();
 } 
