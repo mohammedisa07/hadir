@@ -119,21 +119,81 @@ const Cart = () => {
     return calculateDiscountedPrice(baseTotal);
   };
 
+  const getTaxConfig = () => {
+    const taxType = localStorage.getItem('taxType') || 'gst';
+    const gstEnabled = localStorage.getItem('gstEnabled') === 'true';
+    const cgstRate = parseFloat(localStorage.getItem('cgstRate') || '9');
+    const sgstRate = parseFloat(localStorage.getItem('sgstRate') || '9');
+    const igstRate = parseFloat(localStorage.getItem('igstRate') || '18');
+    const simpleTaxRate = parseFloat(localStorage.getItem('taxRate') || '18');
+    
+    return { taxType, gstEnabled, cgstRate, sgstRate, igstRate, simpleTaxRate };
+  };
+
   const getFinalTotal = () => {
     const subtotal = getSubtotal();
-    const taxRate = parseFloat(localStorage.getItem('taxRate') || '18');
-    const tax = subtotal * (taxRate / 100);
-    return subtotal + tax;
+    const { taxType, gstEnabled, cgstRate, sgstRate, igstRate, simpleTaxRate } = getTaxConfig();
+    
+    if (taxType === 'simple') {
+      const tax = subtotal * (simpleTaxRate / 100);
+      return subtotal + tax;
+    } else if (taxType === 'gst' && gstEnabled) {
+      // For now, using CGST + SGST (same state)
+      const totalGstRate = cgstRate + sgstRate;
+      const tax = subtotal * (totalGstRate / 100);
+      return subtotal + tax;
+    }
+    
+    return subtotal; // No tax
   };
 
   const getTaxAmount = () => {
     const subtotal = getSubtotal();
-    const taxRate = parseFloat(localStorage.getItem('taxRate') || '18');
-    return subtotal * (taxRate / 100);
+    const { taxType, gstEnabled, cgstRate, sgstRate, igstRate, simpleTaxRate } = getTaxConfig();
+    
+    if (taxType === 'simple') {
+      return subtotal * (simpleTaxRate / 100);
+    } else if (taxType === 'gst' && gstEnabled) {
+      const totalGstRate = cgstRate + sgstRate;
+      return subtotal * (totalGstRate / 100);
+    }
+    
+    return 0;
   };
 
-  const getTaxRate = () => {
-    return parseFloat(localStorage.getItem('taxRate') || '18');
+  const getTaxBreakdown = () => {
+    const subtotal = getSubtotal();
+    const { taxType, gstEnabled, cgstRate, sgstRate, igstRate, simpleTaxRate } = getTaxConfig();
+    
+    if (taxType === 'simple') {
+      return {
+        type: 'Simple Tax',
+        rate: simpleTaxRate,
+        amount: subtotal * (simpleTaxRate / 100),
+        breakdown: null
+      };
+    } else if (taxType === 'gst' && gstEnabled) {
+      const cgstAmount = subtotal * (cgstRate / 100);
+      const sgstAmount = subtotal * (sgstRate / 100);
+      const totalGstAmount = cgstAmount + sgstAmount;
+      
+      return {
+        type: 'GST',
+        rate: cgstRate + sgstRate,
+        amount: totalGstAmount,
+        breakdown: {
+          cgst: { rate: cgstRate, amount: cgstAmount },
+          sgst: { rate: sgstRate, amount: sgstAmount }
+        }
+      };
+    }
+    
+    return {
+      type: 'No Tax',
+      rate: 0,
+      amount: 0,
+      breakdown: null
+    };
   };
 
   const handlePrintReceipt = (receiptData: any) => {
@@ -220,7 +280,7 @@ const Cart = () => {
             </div>
           ` : ''}
           <div class="total-row">
-            <span>Tax (${receiptData.taxRate}%):</span>
+            <span>Tax (${receiptData.taxType === 'gst' ? 'GST' : 'Tax'} ${receiptData.taxRate}%):</span>
             <span>₹${Math.round(receiptData.tax)}</span>
           </div>
           <div class="total-row final-total">
@@ -365,8 +425,7 @@ const Cart = () => {
     }
 
     const subtotal = getSubtotal();
-    const taxAmount = getTaxAmount();
-    const taxRate = getTaxRate();
+    const taxBreakdown = getTaxBreakdown();
     const finalTotal = getFinalTotal();
 
     // Generate receipt (contains both receipt and KOT data)
@@ -381,8 +440,9 @@ const Cart = () => {
       timestamp: new Date(),
       cashier: 'Mohammed Haris T A',
       customerDetails,
-      tax: taxAmount,
-      taxRate: taxRate
+      tax: taxBreakdown.amount,
+      taxRate: taxBreakdown.rate,
+      taxType: taxBreakdown.type
     };
 
     // Store order in history for analytics
@@ -601,7 +661,7 @@ const Cart = () => {
                         </div>
                       )}
                       <div className="flex justify-between text-sm">
-                        <span>Tax ({getTaxRate()}%):</span>
+                        <span>Tax ({getTaxBreakdown().rate}%):</span>
                         <span>₹{Math.round(getTaxAmount())}</span>
                       </div>
                       <Separator />
