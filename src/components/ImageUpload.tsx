@@ -77,9 +77,10 @@ export const ImageUpload = ({ currentImage, onImageChange, className = "" }: Ima
       {imagePreview ? (
         <div className="relative w-full h-32 border border-border rounded-lg overflow-hidden bg-muted">
           <img 
-            src={imagePreview} 
+            src={imagePreview || '/placeholder.svg'} 
             alt="Preview" 
             className="w-full h-full object-cover"
+            onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
           />
           <Button
             variant="destructive"

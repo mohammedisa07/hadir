@@ -166,6 +166,7 @@ export const KotPopup = ({
                         src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
                         alt="Hadir's Cafe Logo" 
                         className="w-full h-full object-contain" 
+                        onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
                       />
                     </div>
                   </div>

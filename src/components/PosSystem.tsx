@@ -140,18 +140,12 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
 
         {/* Image */}
         <div className="relative h-32 bg-muted overflow-hidden flex-shrink-0">
-          {item.image ? (
-            <img 
-              src={item.image} 
-              alt={item.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-muted">
-              <ImageIcon className="h-8 w-8 text-muted-foreground" />
-            </div>
-          )}
-
+          <img 
+            src={item.image || '/placeholder.svg'} 
+            alt={item.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
+          />
           {/* Out of Stock Overlay */}
           {!item.isAvailable && (
             <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
