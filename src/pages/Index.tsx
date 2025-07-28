@@ -80,6 +80,7 @@ const defaultMenuItems = [
   { id: '39', name: 'Chicky Burger', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: '40', name: 'Spicy Chicky Burger', price: 150, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '41', name: 'Chicky Pops', price: 100, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg', isAvailable: true },
+  { id: '81', name: 'Chicky Cheese ball', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/c8/cd/a9/c8cda9673f5e3a4ade8369db5bc22894.jpg', isAvailable: true },
   // VEG FRIES
   { id: '42', name: 'French Fries', price: 70, category: 'vegfries', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
   { id: '43', name: 'Cheesy Fries', price: 100, category: 'vegfries', image: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg', isAvailable: true },
@@ -117,6 +118,7 @@ const defaultMenuItems = [
   { id: '68', name: 'Vennila Scope', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
   { id: '69', name: 'Cheese', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg', isAvailable: true },
   { id: '70', name: 'Mayo', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/f1/88/39/f18839bd715a7e845831ae52cbac18dc.jpg', isAvailable: true },
+  { id: '82', name: 'water bottle', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/35/d3/fb/35d3fb719e4c55f8051d14be92eace47.jpg', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
