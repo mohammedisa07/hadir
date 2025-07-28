@@ -77,8 +77,8 @@ const defaultMenuItems = [
   { id: '36', name: 'Spring Fry(Hot Dog)', price: 140, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/2e/61/58/2e615816d7a6a2d7a2d28bb4b1f79f4e.jpg', isAvailable: true },
   { id: '37', name: 'Chicky Cheese Garlic Bomb(Korean)', price: 100, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/ea/e8/34/eae83495a307b0c89fb40a75ac2c861d.jpg', isAvailable: true },
   { id: '38', name: 'Chicky Nuggets', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
-  { id: '39', name: 'Chicky Burger', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
-  { id: '40', name: 'Spicy Chicky Burger', price: 150, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
+  { id: '39', name: 'Chicky Burger', price: 150, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
+  { id: '40', name: 'Spicy Chicky Burger', price: 160, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '41', name: 'Chicky Pops', price: 100, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg', isAvailable: true },
   { id: '81', name: 'Chicky Cheese ball', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/c8/cd/a9/c8cda9673f5e3a4ade8369db5bc22894.jpg', isAvailable: true },
   // VEG FRIES
