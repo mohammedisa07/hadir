@@ -113,7 +113,7 @@ const defaultMenuItems = [
   { id: '63', name: 'Strawberry Sauce', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/32/c2/a2/32c2a2cc40b48348f5cb6d6578e8efae.jpg', isAvailable: true },
   { id: '64', name: 'Brownie', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/3f/b0/eb/3fb0eb836ff71a4bb8c0a32824e58a85.jpg', isAvailable: true },
   { id: '65', name: 'Biscoff', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/4f/77/27/4f7727f267edb731b1e7be749a6b643e.jpg', isAvailable: true },
-  { id: '66', name: 'Orea', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/d8/76/fc/d876fc2380c6af9d6b4ffeb3c799848a.jpg', isAvailable: true },
+  { id: '66', name: 'Oreo', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/d8/76/fc/d876fc2380c6af9d6b4ffeb3c799848a.jpg', isAvailable: true },
   { id: '67', name: 'Fresh Cream', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg', isAvailable: true },
   { id: '68', name: 'Vennila Scope', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
   { id: '69', name: 'Cheese', price: 30, category: 'addons', image: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg', isAvailable: true },
