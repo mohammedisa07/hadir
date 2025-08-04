@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Logo to Git</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        button { padding: 15px 30px; font-size: 18px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Add Logo to Git</h1>
+    <p>Click the button below to add logo.jpg to your Git repository:</p>
+    <button onclick="runGit()">Add Logo to Git</button>
+    
+    <script>
+        function runGit() {
+            // This will open the batch file
+            window.open('file:///' + window.location.pathname.replace('run-git.html', 'add-logo.bat'));
+        }
+    </script>
+</body>
+</html> 

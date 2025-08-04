@@ -1,0 +1,9 @@
+@echo off
+echo Adding logo.jpg to Git...
+git add public/logo.jpg
+echo Committing logo file...
+git commit -m "Add logo.jpg for receipt and cart display"
+echo Pushing to remote repository...
+git push
+echo Logo file has been successfully added and pushed to Git!
+pause 
