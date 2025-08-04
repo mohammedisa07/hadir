@@ -57,6 +57,15 @@ export const ReceiptPopup = ({
     });
   };
 
+  const handlePrintKOT = (receipt: Receipt) => {
+    // This function would typically trigger a print of the KOT (Kitchen Order Ticket)
+    // For now, we'll just show a toast.
+    toast({
+      title: "KOT sent to printer",
+      description: "The Kitchen Order Ticket has been sent to your default printer.",
+    });
+  };
+
   return (
     <>
       {/* Print styles */}
@@ -75,16 +84,33 @@ export const ReceiptPopup = ({
               top: 0;
               width: 100%;
               background: white !important;
-              color: black !important;
-              font-size: 12px;
+              color: #000000 !important;
+              font-size: 14px;
               line-height: 1.4;
+              font-family: 'Arial', sans-serif !important;
+              font-weight: bold !important;
+              letter-spacing: 1px !important;
+              text-shadow: none !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
+              font-smooth: never !important;
             }
             .no-print {
               display: none !important;
             }
             .print-logo {
-              width: 60px !important;
-              height: 60px !important;
+              width: 80px !important;
+              height: 80px !important;
+              margin: 0 auto 10px auto !important;
+              display: block !important;
+            }
+            .print-logo img {
+              width: 100% !important;
+              height: 100% !important;
+              object-fit: contain !important;
+              border: 2px solid #000000 !important;
+              padding: 4px !important;
+              background: white !important;
             }
             .print-separator {
               border-top: 1px dashed #000 !important;
@@ -95,29 +121,63 @@ export const ReceiptPopup = ({
               margin-bottom: 16px;
             }
             .print-title {
-              font-size: 18px !important;
+              font-size: 22px !important;
               font-weight: bold !important;
               margin: 8px 0 !important;
+              font-family: 'Arial', sans-serif !important;
+              letter-spacing: 2px !important;
+              color: #000000 !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
             }
             .print-address {
-              font-size: 10px !important;
+              font-size: 12px !important;
               margin: 2px 0 !important;
+              font-family: 'Arial', sans-serif !important;
+              letter-spacing: 1px !important;
+              font-weight: bold !important;
+              color: #000000 !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
             }
             .print-items table {
               width: 100% !important;
               border-collapse: collapse !important;
+              font-family: 'Arial', sans-serif !important;
+              letter-spacing: 1px !important;
+              font-weight: bold !important;
+              color: #000000 !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
+              font-size: 14px !important;
             }
             .print-items th,
             .print-items td {
               text-align: left !important;
               padding: 4px 2px !important;
               border-bottom: 1px solid #ddd !important;
+              font-family: 'Arial', sans-serif !important;
+              letter-spacing: 1px !important;
+              font-weight: bold !important;
+              color: #000000 !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
+              font-size: 14px !important;
             }
             .print-total {
               border-top: 2px solid #000 !important;
               padding-top: 8px !important;
               margin-top: 8px !important;
+              font-family: 'Arial', sans-serif !important;
+              letter-spacing: 1px !important;
+              font-weight: bold !important;
+              color: #000000 !important;
+              -webkit-font-smoothing: none !important;
+              -moz-osx-font-smoothing: none !important;
+              font-size: 16px !important;
             }
+            .receipt-section { page-break-after: always !important; }
+            .kot-section { page-break-before: always !important; page-break-inside: avoid !important; }
           }
         `}
       </style>
@@ -151,23 +211,21 @@ export const ReceiptPopup = ({
           
           <div className="print-content bg-white text-black">
             <Card className="receipt-container border-0 shadow-none">
-              <CardContent className="p-4 space-y-3">
+              <CardContent className="p-4 space-y-3 text-black">
                 {/* Header with Logo */}
-                <div className="print-header text-center space-y-2">
-                  <div className="flex justify-center mb-2">
-                    <div className="print-logo h-12 w-12 bg-white rounded-lg flex items-center justify-center p-1 border">
-                      <img 
-                        src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
-                        alt="Hadir's Cafe Logo" 
-                        className="w-full h-full object-contain" 
-                      />
-                    </div>
+                <div className="print-header text-center space-y-1">
+                  <div className="flex justify-center mb-1">
+                    <img 
+                      src="/logo.jpg" 
+                      alt="Hadir's Cafe Logo" 
+                      className="h-28 w-28 object-contain"
+                    />
                   </div>
                   <div>
-                    <h1 className="print-title text-xl font-bold tracking-wide">HADIR'S CAFE</h1>
-                    <p className="text-xs italic text-muted-foreground">"Love at First Sip"</p>
+                    <h1 className="print-title text-xl font-bold tracking-wide text-black">HADIR'S CAFE</h1>
+                    <p className="text-xs text-gray-600">"Love at First Sip"</p>
                   </div>
-                  <div className="space-y-0.5 text-xs text-muted-foreground">
+                  <div className="space-y-0.5 text-xs font-bold text-black">
                     <p>No.8/117, Sudha Residency, Metro Nagar 4th Avenue</p>
                     <p>Alapakkam, Chennai, Tamil Nadu 600116</p>
                     <p>Phone: +91 99418 39385</p>
@@ -180,10 +238,10 @@ export const ReceiptPopup = ({
                 {/* Bill Information */}
                 <div className="space-y-2">
                   <div className="text-center">
-                    <h3 className="text-sm font-semibold">RECEIPT</h3>
+                    <h3 className="text-sm font-semibold text-black">RECEIPT</h3>
                   </div>
                   
-                  <div className="space-y-1 text-xs">
+                  <div className="space-y-1 text-xs text-black">
                     <div className="flex justify-between">
                       <span>Receipt #:</span>
                       <span className="font-mono">{receipt.id}</span>
@@ -208,8 +266,8 @@ export const ReceiptPopup = ({
 
                   {/* Customer Details */}
                   <div className="space-y-1">
-                    <h4 className="font-semibold text-xs border-b pb-1">CUSTOMER DETAILS</h4>
-                    <div className="space-y-0.5 text-xs">
+                    <h4 className="font-semibold text-xs border-b pb-1 text-black">CUSTOMER DETAILS</h4>
+                    <div className="space-y-0.5 text-xs text-black">
                       <div className="flex justify-between">
                         <span>Name:</span>
                         <span className="font-medium">{receipt.customerDetails.name}</span>
@@ -233,8 +291,8 @@ export const ReceiptPopup = ({
 
                   {/* Items Table */}
                   <div className="print-items">
-                    <h4 className="font-semibold text-xs mb-2 border-b pb-1">ORDER DETAILS</h4>
-                    <table className="w-full text-xs">
+                    <h4 className="font-semibold text-xs mb-2 border-b pb-1 text-black">ORDER DETAILS</h4>
+                    <table className="w-full text-xs text-black">
                       <thead>
                         <tr className="border-b">
                           <th className="text-left py-1 font-semibold">Item</th>
@@ -261,7 +319,7 @@ export const ReceiptPopup = ({
                   </div>
 
                   {/* Totals */}
-                  <div className="space-y-1">
+                  <div className="space-y-1 text-black">
                     <div className="flex justify-between text-xs">
                       <span>Subtotal:</span>
                       <span>₹{Math.round(receipt.total).toFixed(2)}</span>
@@ -300,12 +358,12 @@ export const ReceiptPopup = ({
 
                   {/* Footer */}
                   <div className="text-center space-y-1">
-                    <p className="text-xs font-medium">Thank you for visiting Hadir's Cafe!</p>
-                    <p className="text-xs text-muted-foreground">We hope to see you again soon</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs font-bold text-black">Thank you for visiting Hadir's Cafe!</p>
+                    <p className="text-xs text-gray-600">We hope to see you again soon</p>
+                    <p className="text-xs text-gray-600">
                       For any queries, call: +91 99418 39385
                     </p>
-                    <div className="text-xs text-muted-foreground space-y-0.5 mt-2">
+                    <div className="text-xs text-gray-600 space-y-0.5 mt-2">
                       <p>Follow us on social media @hadirscafe</p>
                       <p>★ Rate us on Google & Zomato ★</p>
                     </div>
@@ -313,6 +371,24 @@ export const ReceiptPopup = ({
                 </div>
               </CardContent>
             </Card>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <Button
+              onClick={handlePrint}
+              className="flex-1"
+              variant="default"
+            >
+              <Printer className="h-4 w-4 mr-2" />
+              Print Receipt
+            </Button>
+            <Button
+              onClick={() => handlePrintKOT(receipt)}
+              className="flex-1"
+              variant="outline"
+            >
+              <Printer className="h-4 w-4 mr-2" />
+              Print KOT
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

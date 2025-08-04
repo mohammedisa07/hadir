@@ -203,16 +203,16 @@ const Cart = () => {
       return;
     }
 
-    // --- Customer Receipt ---
+    // --- Customer Receipt Only ---
     const customerReceipt = `
       <div class="receipt-container receipt-section">
         <div class="header">
-          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 8px;">
-            <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="Hadir's Cafe Logo" style="height: 40px; width: 40px; object-fit: contain;" />
+          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
+            <img src="/logo.jpg" alt="Hadir's Cafe Logo" style="height: 100px; width: 100px; object-fit: contain;" />
           </div>
           <div class="cafe-name">HADIR'S CAFE</div>
           <div class="tagline">Love at First Sip</div>
-          <div class="address">
+          <div class="address" style="font-weight: bold; color: #000000;">
             No.8/117, Sudha Residency, Metro Nagar 4th Avenue,<br>
             Alapakkam, Chennai, Tamil Nadu 600116<br>
             Phone: +91 99418 39385
@@ -294,18 +294,89 @@ const Cart = () => {
         </div>
         <div class="separator"></div>
         <div class="footer">
-          <div>Thank you for visiting!</div>
-          <div>Visit us again soon.</div>
+          <div style="font-weight: bold; color: #000000;">Thank you for visiting!</div>
+          <div style="color: #000000;">Visit us again soon.</div>
         </div>
       </div>
     `;
 
-    // --- KOT (Kitchen Order Ticket) ---
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Receipt - ${receiptData.id}</title>
+          <style>
+            body { 
+              margin: 0; 
+              padding: 0; 
+              font-family: 'Arial', sans-serif;
+              background: white;
+              color: #000000;
+              font-size: 15px;
+              line-height: 1.4;
+              font-weight: bold;
+              letter-spacing: 1px;
+              -webkit-font-smoothing: none;
+              -moz-osx-font-smoothing: none;
+            }
+            .receipt-container {
+              width: 58mm;
+              max-width: 58mm;
+              margin: 0 auto 16px auto;
+              background: white;
+              padding: 0 4px;
+              color: #000000;
+              font-weight: bold;
+              font-family: 'Arial', sans-serif;
+              -webkit-font-smoothing: none;
+              -moz-osx-font-smoothing: none;
+            }
+            .header { text-align: center; margin-bottom: 10px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .cafe-name { font-size: 18px; font-weight: bold; margin-bottom: 2px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 2px; }
+            .tagline { font-style: normal; color: #000000; margin-bottom: 4px; font-size: 13px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .address { font-size: 11px; color: #000000; margin-bottom: 8px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .separator { border-top: 1px dashed #666; margin: 8px 0; }
+            .receipt-details { margin-bottom: 8px; font-size: 13px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .detail-row { display: flex; justify-content: space-between; margin-bottom: 2px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .customer-section { margin-bottom: 8px; font-size: 13px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .items-section { margin-bottom: 8px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item { margin-bottom: 6px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item-name { font-weight: bold; font-size: 14px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item-details { font-size: 12px; color: #000000; padding-left: 8px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .totals { margin-bottom: 8px; font-size: 14px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .total-row { display: flex; justify-content: space-between; margin-bottom: 2px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .final-total { font-weight: bold; font-size: 16px; border-top: 1px solid #333; padding-top: 3px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .footer { text-align: center; color: #000000; font-size: 12px; margin-top: 10px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .print-logo img { display: block; margin: 0 auto; }
+          </style>
+        </head>
+        <body>
+          ${customerReceipt}
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 500);
+  };
+
+  const handlePrintKOT = (receiptData: any) => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      console.error("Could not open print window");
+      return;
+    }
+
+    // --- KOT (Kitchen Order Ticket) Only ---
     const kot = `
       <div class="receipt-container kot-section">
         <div class="header">
-          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 8px;">
-            <img src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" alt="Hadir's Cafe Logo" style="height: 40px; width: 40px; object-fit: contain;" />
+          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
+            <img src="/logo.jpg" alt="Hadir's Cafe Logo" style="height: 100px; width: 100px; object-fit: contain;" />
           </div>
           <div class="cafe-name">HADIR'S CAFE - KOT</div>
         </div>
@@ -352,15 +423,20 @@ const Cart = () => {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Receipt & KOT - ${receiptData.id}</title>
+          <title>KOT - ${receiptData.id}</title>
           <style>
             body { 
               margin: 0; 
               padding: 0; 
-              font-family: system-ui, -apple-system, sans-serif;
+              font-family: 'Arial', sans-serif;
               background: white;
-              font-size: 13px;
+              color: #000000;
+              font-size: 15px;
               line-height: 1.4;
+              font-weight: bold;
+              letter-spacing: 1px;
+              -webkit-font-smoothing: none;
+              -moz-osx-font-smoothing: none;
             }
             .receipt-container {
               width: 58mm;
@@ -368,30 +444,32 @@ const Cart = () => {
               margin: 0 auto 16px auto;
               background: white;
               padding: 0 4px;
+              color: #000000;
+              font-weight: bold;
+              font-family: 'Arial', sans-serif;
+              -webkit-font-smoothing: none;
+              -moz-osx-font-smoothing: none;
             }
-            .header { text-align: center; margin-bottom: 10px; }
-            .cafe-name { font-size: 15px; font-weight: bold; margin-bottom: 2px; }
-            .tagline { font-style: italic; color: #666; margin-bottom: 4px; font-size: 11px; }
-            .address { font-size: 9px; color: #666; margin-bottom: 8px; }
+            .header { text-align: center; margin-bottom: 10px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .cafe-name { font-size: 18px; font-weight: bold; margin-bottom: 2px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 2px; }
+            .tagline { font-style: normal; color: #000000; margin-bottom: 4px; font-size: 13px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .address { font-size: 11px; color: #000000; margin-bottom: 8px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
             .separator { border-top: 1px dashed #666; margin: 8px 0; }
-            .receipt-details { margin-bottom: 8px; font-size: 11px; }
-            .detail-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
-            .customer-section { margin-bottom: 8px; font-size: 11px; }
-            .items-section { margin-bottom: 8px; }
-            .item { margin-bottom: 6px; }
-            .item-name { font-weight: 600; font-size: 12px; }
-            .item-details { font-size: 10px; color: #666; padding-left: 8px; }
-            .totals { margin-bottom: 8px; font-size: 12px; }
-            .total-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
-            .final-total { font-weight: bold; font-size: 13px; border-top: 1px solid #333; padding-top: 3px; }
-            .footer { text-align: center; color: #666; font-size: 10px; margin-top: 10px; }
-            .receipt-section { page-break-after: always; }
-            .kot-section { page-break-before: always; }
+            .receipt-details { margin-bottom: 8px; font-size: 13px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .detail-row { display: flex; justify-content: space-between; margin-bottom: 2px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .customer-section { margin-bottom: 8px; font-size: 13px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .items-section { margin-bottom: 8px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item { margin-bottom: 6px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item-name { font-weight: bold; font-size: 14px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .item-details { font-size: 12px; color: #000000; padding-left: 8px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .totals { margin-bottom: 8px; font-size: 14px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .total-row { display: flex; justify-content: space-between; margin-bottom: 2px; color: #000000; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .final-total { font-weight: bold; font-size: 16px; border-top: 1px solid #333; padding-top: 3px; color: #000000; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
+            .footer { text-align: center; color: #000000; font-size: 12px; margin-top: 10px; font-weight: bold; font-family: 'Arial', sans-serif; -webkit-font-smoothing: none; -moz-osx-font-smoothing: none; letter-spacing: 1px; }
             .print-logo img { display: block; margin: 0 auto; }
           </style>
         </head>
         <body>
-          ${customerReceipt}
           ${kot}
         </body>
       </html>
@@ -733,12 +811,20 @@ const Cart = () => {
                   View Receipt & KOT
                 </Button>
                 <Button 
-                  variant="outline" 
+                  variant="default" 
                   className="w-full"
                   onClick={() => handlePrintReceipt(receiptData)}
                 >
                   <Printer className="mr-2 h-4 w-4" />
-                  Print Receipt & KOT
+                  Print Receipt
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => handlePrintKOT(receiptData)}
+                >
+                  <Printer className="mr-2 h-4 w-4" />
+                  Print KOT
                 </Button>
               </div>
             </Card>
@@ -775,6 +861,6 @@ const Cart = () => {
       />
     </div>
   );
-};
-
-export default Cart;
+  };
+  
+  export default Cart;
