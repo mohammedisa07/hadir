@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Download, Calendar, FileText } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import Papa from 'papaparse';
 
 interface Order {
   id: string;
@@ -98,6 +99,99 @@ export const ExportOptions = () => {
     });
   };
 
+  // Export all orders as CSV
+  const exportAllOrders = () => {
+    const orders = getStoredOrders();
+    if (orders.length === 0) {
+      toast({
+        title: "No Data Found",
+        description: "No orders found to export.",
+        variant: "destructive"
+      });
+      return;
+    }
+    const csvHeaders = [
+      'Order ID', 'Date', 'Time', 'Customer Name', 'Customer Phone', 
+      'Items', 'Total Amount', 'Payment Method', 'Cashier'
+    ];
+    const csvRows = orders.map(order => [
+      order.id,
+      order.timestamp.toLocaleDateString(),
+      order.timestamp.toLocaleTimeString(),
+      order.customerDetails.name,
+      order.customerDetails.phone,
+      order.items.map(item => `${item.name} (${item.quantity}x)`).join('; '),
+      order.finalTotal.toFixed(2),
+      order.paymentMethod.toUpperCase(),
+      order.cashier
+    ]);
+    const csvContent = [
+      csvHeaders.join(','),
+      ...csvRows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `all_orders.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({
+      title: "Export Successful",
+      description: `Exported ${orders.length} orders as all_orders.csv`,
+    });
+  };
+
+  // Import orders from CSV
+  const importOrdersFromCSV = (file: File) => {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        try {
+          const orders = results.data.map((row: any) => ({
+            id: row['Order ID'],
+            timestamp: new Date(row['Date'] + ' ' + row['Time']),
+            customerDetails: {
+              name: row['Customer Name'],
+              phone: row['Customer Phone'],
+            },
+            items: (row['Items'] || '').split(';').map((item: string) => {
+              const match = item.match(/(.+) \((\d+)x\)/);
+              if (!match) return null;
+              return { name: match[1].trim(), quantity: parseInt(match[2]), price: 0, category: '' };
+            }).filter(Boolean),
+            finalTotal: parseFloat(row['Total Amount']),
+            paymentMethod: (row['Payment Method'] || '').toLowerCase(),
+            cashier: row['Cashier'],
+            // Add other fields as needed
+          }));
+          localStorage.setItem('orderHistory', JSON.stringify(orders));
+          toast({
+            title: "Import Successful",
+            description: `Imported ${orders.length} orders from CSV.`
+          });
+          window.location.reload();
+        } catch (e) {
+          toast({
+            title: "Import Failed",
+            description: "There was an error importing the CSV file.",
+            variant: "destructive"
+          });
+        }
+      },
+      error: function() {
+        toast({
+          title: "Import Failed",
+          description: "There was an error reading the CSV file.",
+          variant: "destructive"
+        });
+      }
+    });
+  };
+
   const generateMonthOptions = () => {
     const options = [];
     const currentDate = new Date();
@@ -143,6 +237,23 @@ export const ExportOptions = () => {
           <FileText className="mr-2 h-4 w-4" />
           Export Monthly Report
         </Button>
+        <Button onClick={exportAllOrders} className="w-full" variant="secondary">
+          <FileText className="mr-2 h-4 w-4" />
+          Export All Orders
+        </Button>
+        <div className="flex flex-col space-y-2 pt-2">
+          <label className="text-sm font-medium">Import Orders from CSV</label>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={e => {
+              if (e.target.files && e.target.files[0]) {
+                importOrdersFromCSV(e.target.files[0]);
+              }
+            }}
+            className="border rounded px-2 py-1"
+          />
+        </div>
       </CardContent>
     </Card>
   );

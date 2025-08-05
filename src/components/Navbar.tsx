@@ -83,8 +83,8 @@ export const Navbar = ({
         <div className="flex items-center space-x-3">
           <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center p-1">
             <img 
-              src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
-              alt="H3 Cafe Logo" 
+              src="/logo.jpg" 
+              alt="Hadir's Cafe Logo" 
               className="w-full h-full object-contain" 
               onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
             />

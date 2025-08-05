@@ -270,6 +270,19 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
     return `${sign}${change.toFixed(1)}%`;
   };
 
+  const setYesterday = () => {
+    const now = new Date();
+    const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    setComparisonStartDate(yesterday);
+    setComparisonEndDate(yesterday);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = new Date(e.target.value);
+    setComparisonStartDate(selected);
+    setComparisonEndDate(selected);
+  };
+
   return (
     <div className="p-6 space-y-6 admin-dark">
       {/* Header */}
@@ -279,6 +292,23 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <TaxSettings />
         <ExportOptions />
+      </div>
+
+      {/* Date-wise and Yesterday's Sale Controls */}
+      <div className="flex space-x-2 mb-4">
+        <Button variant="outline" onClick={setYesterday}>
+          Yesterday's Sale
+        </Button>
+        <label className="flex items-center space-x-2">
+          <Calendar className="h-4 w-4" />
+          <input
+            type="date"
+            onChange={handleDateChange}
+            className="border rounded px-2 py-1"
+            style={{ color: "black" }}
+          />
+          <span>Date-wise Sale</span>
+        </label>
       </div>
 
       {/* Key Metrics */}

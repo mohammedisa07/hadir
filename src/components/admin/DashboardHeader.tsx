@@ -67,8 +67,8 @@ export const DashboardHeader = ({ onRefresh, onResetData, onResetTodaysSales }: 
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
         <img 
-          src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
-          alt="H3 Logo" 
+          src="/logo.jpg" 
+          alt="Hadir's Cafe Logo" 
           className="h-12 w-auto"
         />
         <div>

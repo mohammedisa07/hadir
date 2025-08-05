@@ -163,7 +163,7 @@ export const KotPopup = ({
                   <div className="flex justify-center mb-2">
                     <div className="kot-logo h-12 w-12 bg-white rounded-lg flex items-center justify-center p-1 border">
                       <img 
-                        src="/lovable-uploads/ed8ea1fe-f3dd-493c-8d69-b86879fcac83.png" 
+                        src="/logo.jpg" 
                         alt="Hadir's Cafe Logo" 
                         className="w-full h-full object-contain" 
                         onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
