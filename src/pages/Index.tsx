@@ -21,6 +21,8 @@ const defaultCategories: Category[] = [
   { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
   { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-success' },
   { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
+  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
@@ -81,6 +83,18 @@ const defaultMenuItems = [
   { id: '42', name: 'Chicky Fingers', price: 100, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg', isAvailable: true },
   { id: '43', name: 'Chicky Sandwich', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
   
+  // VEG COMBOS
+  { id: '80', name: 'Veg Burger Meal', price: 250, category: 'vegcombos', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
+  { id: '81', name: 'Spicy Veg Burger Meal', price: 260, category: 'vegcombos', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
+  { id: '82', name: 'Paneer Veg Burger Meal', price: 270, category: 'vegcombos', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
+  { id: '83', name: 'Spicy Paneer Veg Burger Meal', price: 280, category: 'vegcombos', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
+
+  // NON-VEG COMBOS
+  { id: '84', name: 'Chicken Wrap Meal', price: 260, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
+  { id: '85', name: 'Spicy Chicken Wrap Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/3a/79/1d/3a791dbf354995dbbd437a4623690642.jpg', isAvailable: true },
+  { id: '86', name: 'Chicky Burger Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
+  { id: '87', name: 'Spicy Chicky Burger Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
+
   // VEG FRIES
   { id: '44', name: 'French Fries', price: 70, category: 'vegfries', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
   { id: '45', name: 'Cheesy Fries', price: 100, category: 'vegfries', image: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg', isAvailable: true },
