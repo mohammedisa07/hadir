@@ -17,6 +17,8 @@ const menuItems = [
   { name: 'Espresso', price: 0, imageUrl: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg' },
   { name: 'Espresso Romano', price: 0, imageUrl: 'https://i.pinimg.com/736x/db/35/1d/db351d7b69fe2ce291bbde648fcefec7.jpg' },
   { name: 'Wippy Hot Mocha', price: 0, imageUrl: 'https://i.pinimg.com/1200x/80/af/5f/80af5f93e6c721249c7f4ef83f1583d1.jpg' },
+  { name: 'Instant Coffee', price: 20, imageUrl: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg' },
+  { name: 'Milk', price: 15, imageUrl: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg' },
   // COLD BEVERAGES
   { name: 'Cold coffee', price: 0, imageUrl: 'https://i.pinimg.com/1200x/db/ae/64/dbae64ad1529f3f9b74b91b19f21620a.jpg' },
   { name: 'Hazelnut Frappe', price: 0, imageUrl: 'https://i.pinimg.com/736x/db/12/65/db1265b9e7b0f61b1580c47b4073e783.jpg' },
@@ -46,6 +48,8 @@ const menuItems = [
   { name: 'Veg Wrap', price: 0, imageUrl: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg' },
   { name: 'Veg Burger', price: 0, imageUrl: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg' },
   { name: 'Spicy Veg Burger', price: 0, imageUrl: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg' },
+  { name: 'Veg Twin Burger', price: 220, imageUrl: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg' },
+  { name: 'Spicy Veg Twin Burger', price: 240, imageUrl: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg' },
   // NON-VEG SNACKS
   { name: 'Golden Chicky Wrap', price: 160, imageUrl: 'https://i.pinimg.com/1200x/05/ba/6c/05ba6c08d8eb8d4b2035eb10462b6328.jpg' },
   { name: 'Chicky Wrap', price: 150, imageUrl: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg' },
@@ -57,6 +61,8 @@ const menuItems = [
   { name: 'Spicy Chicky Burger', price: 0, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg' },
   { name: 'Chicky Pops', price: 0, imageUrl: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg' },
   { name: 'Chicky Cheese ball', price: 0, imageUrl: 'https://i.pinimg.com/736x/c8/cd/a9/c8cda9673f5e3a4ade8369db5bc22894.jpg' },
+  { name: 'Non-Veg Twin Burger', price: 260, imageUrl: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg' },
+  { name: 'Spicy Non-Veg Twin Burger', price: 280, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg' },
   // VEG FRIES
   { name: 'French Fries', price: 0, imageUrl: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg' },
   { name: 'Cheesy Fries', price: 0, imageUrl: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg' },
@@ -94,6 +100,7 @@ const menuItems = [
   { name: 'Vennila Scope', price: 0, imageUrl: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg' },
   { name: 'Cheese', price: 0, imageUrl: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg' },
   { name: 'Mayo', price: 0, imageUrl: 'https://i.pinimg.com/1200x/f1/88/39/f18839bd715a7e845831ae52cbac18dc.jpg' },
+  { name: 'Mojito Swap', price: 10, imageUrl: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg' },
 ];
 
 async function seedMenu() {

@@ -37,6 +37,8 @@ const defaultMenuItems = [
   { id: '4', name: 'Wippy Hot Mocha', price: 90, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/80/af/5f/80af5f93e6c721249c7f4ef83f1583d1.jpg', isAvailable: true },
   { id: '5', name: 'Americano', price: 60, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/de/72/1c/de721cf98ef9c6a06906e094fe337f4e.jpg', isAvailable: true },
   { id: '6', name: 'Hot Chocolate', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg', isAvailable: true },
+  { id: '6a', name: 'Instant Coffee', price: 20, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg', isAvailable: true },
+  { id: '6b', name: 'Milk', price: 15, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg', isAvailable: true },
   
   // COLD BEVERAGES
   { id: '7', name: 'Cold Coffee', price: 120, category: 'coldbeverages', image: 'https://i.pinimg.com/1200x/db/ae/64/dbae64ad1529f3f9b74b91b19f21620a.jpg', isAvailable: true },
@@ -62,6 +64,8 @@ const defaultMenuItems = [
   { id: '23', name: 'Veg Wrap', price: 120, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
   { id: '24', name: 'Veg Burger', price: 130, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
   { id: '25', name: 'Spicy Veg Burger', price: 140, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
+  { id: '25a', name: 'Veg Twin Burger', price: 220, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
+  { id: '25b', name: 'Spicy Veg Twin Burger', price: 240, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
   { id: '26', name: 'Paneer Burger', price: 150, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
   { id: '27', name: 'Spicy Paneer Burger', price: 160, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
   { id: '28', name: 'Veg Nuggets', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
@@ -81,6 +85,8 @@ const defaultMenuItems = [
   { id: '40', name: 'Spicy Chicky Burger', price: 160, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '41', name: 'Chicky Pops', price: 80, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg', isAvailable: true },
   { id: '42', name: 'Chicky Fingers', price: 100, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/7c/16/ca/7c16caad0186eca4c385123aaf56bf64.jpg', isAvailable: true },
+  { id: '42a', name: 'Non-Veg Twin Burger', price: 260, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
+  { id: '42b', name: 'Spicy Non-Veg Twin Burger', price: 280, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '43', name: 'Chicky Sandwich', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
   
   // VEG COMBOS
@@ -138,6 +144,7 @@ const defaultMenuItems = [
   { id: '75', name: 'Vennila Scope', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
   { id: '76', name: 'Cheese', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg', isAvailable: true },
   { id: '77', name: 'Mayo', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/f1/88/39/f18839bd715a7e845831ae52cbac18dc.jpg', isAvailable: true },
+  { id: '77a', name: 'Mojito Swap', price: 10, category: 'addons', image: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', isAvailable: true },
   { id: '78', name: 'Small Water Bottle', price: 10, category: 'addons', image: 'https://i.pinimg.com/736x/f4/5e/d5/f45ed52b28cf16c2cf7840f31794c83b.jpg', isAvailable: true },
   { id: '79', name: 'Big Water Bottle', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/35/d3/fb/35d3fb719e4c55f8051d14be92eace47.jpg', isAvailable: true },
 ];
