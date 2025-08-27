@@ -21,7 +21,8 @@ import {
   TrendingDown,
   Percent,
   FileText,
-  BarChart3
+  BarChart3,
+  Printer
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { DashboardHeader } from "./admin/DashboardHeader";
@@ -550,19 +551,93 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
                   .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
                   .slice(0, 10)
                   .map((order) => (
-                  <div key={order.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted" onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }}>
-                    <div>
+                  <div key={order.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted">
+                    <div className="flex-1 cursor-pointer" onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }}>
                       <p className="font-medium text-foreground">{order.id}</p>
                       <p className="text-sm text-muted-foreground">
                         {order.timestamp.toLocaleTimeString()} • {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
                       </p>
                       <p className="text-xs text-muted-foreground">{order.customerDetails.name}</p>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-primary">₹{Math.round(order.finalTotal)}</p>
-                      <Badge variant="outline" className="text-xs bg-success text-success-foreground">
-                        {order.paymentMethod}
-                      </Badge>
+                    <div className="flex items-center space-x-2">
+                      <div className="text-right">
+                        <p className="font-semibold text-primary">₹{Math.round(order.finalTotal)}</p>
+                        <Badge variant="outline" className="text-xs bg-success text-success-foreground">
+                          {order.paymentMethod}
+                        </Badge>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Reprint receipt functionality
+                          const receiptPopup = document.createElement('div');
+                          receiptPopup.innerHTML = `
+                            <div class="unified-print-content">
+                              <div class="print-header">
+                                <div class="print-logo">
+                                  <img src="/logo.jpg" alt="Hadir's Cafe" />
+                                </div>
+                                <div class="print-title">HADIR'S CAFE</div>
+                                <div class="print-address">123 Main Street, City</div>
+                                <div class="print-address">Phone: +91 1234567890</div>
+                                <div class="print-address">GST: 123456789012345</div>
+                              </div>
+                              <div class="print-separator"></div>
+                              <div>
+                                <p><strong>Order #:</strong> ${order.id}</p>
+                                <p><strong>Date:</strong> ${order.timestamp.toLocaleString()}</p>
+                                <p><strong>Customer:</strong> ${order.customerDetails.name}</p>
+                                <p><strong>Phone:</strong> ${order.customerDetails.phone}</p>
+                              </div>
+                              <div class="print-separator"></div>
+                              <div class="print-items">
+                                <table>
+                                  <thead>
+                                    <tr>
+                                      <th>Item</th>
+                                      <th>Qty</th>
+                                      <th>Price</th>
+                                      <th>Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    ${order.items.map(item => `
+                                      <tr>
+                                        <td>${item.name}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>₹${item.price}</td>
+                                        <td>₹${item.price * item.quantity}</td>
+                                      </tr>
+                                    `).join('')}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div class="print-separator"></div>
+                              <div class="print-total">
+                                <p><strong>Subtotal:</strong> ₹${order.subtotal}</p>
+                                ${order.discount ? `<p><strong>Discount:</strong> ₹${order.discount}</p>` : ''}
+                                <p><strong>Tax (${order.taxRate || 0}%):</strong> ₹${order.tax}</p>
+                                <p><strong>Total:</strong> ₹${order.finalTotal}</p>
+                                <p><strong>Payment Method:</strong> ${order.paymentMethod.toUpperCase()}</p>
+                              </div>
+                              <div class="print-separator"></div>
+                              <div style="text-align: center; margin-top: 20px;">
+                                <p>Thank you for visiting Hadir's Cafe!</p>
+                                <p>Please visit again</p>
+                              </div>
+                            </div>
+                          `;
+                          document.body.appendChild(receiptPopup);
+                          window.print();
+                          document.body.removeChild(receiptPopup);
+                        }}
+                        className="h-8 w-8 p-0"
+                        title="Reprint Receipt"
+                      >
+                        <Printer className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
                 )) : (
@@ -594,8 +669,84 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
                   <li key={item.id} className="text-sm">{item.name} x {item.quantity} — ₹{item.price * item.quantity}</li>
                 ))}
               </ul>
-              {/* Only show receipt view, not print */}
-              <UnifiedReceiptPopup isOpen={true} onClose={() => setShowOrderModal(false)} receipt={selectedOrder} showPrint={false} />
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowOrderModal(false)}
+                >
+                  Close
+                </Button>
+                <Button 
+                  onClick={() => {
+                    setShowOrderModal(false);
+                    // Open receipt popup with print functionality
+                    const receiptPopup = document.createElement('div');
+                    receiptPopup.innerHTML = `
+                      <div class="unified-print-content">
+                        <div class="print-header">
+                          <div class="print-logo">
+                            <img src="/logo.jpg" alt="Hadir's Cafe" />
+                          </div>
+                          <div class="print-title">HADIR'S CAFE</div>
+                          <div class="print-address">123 Main Street, City</div>
+                          <div class="print-address">Phone: +91 1234567890</div>
+                          <div class="print-address">GST: 123456789012345</div>
+                        </div>
+                        <div class="print-separator"></div>
+                        <div>
+                          <p><strong>Order #:</strong> ${selectedOrder.id}</p>
+                          <p><strong>Date:</strong> ${selectedOrder.timestamp.toLocaleString()}</p>
+                          <p><strong>Customer:</strong> ${selectedOrder.customerDetails.name}</p>
+                          <p><strong>Phone:</strong> ${selectedOrder.customerDetails.phone}</p>
+                        </div>
+                        <div class="print-separator"></div>
+                        <div class="print-items">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              ${selectedOrder.items.map(item => `
+                                <tr>
+                                  <td>${item.name}</td>
+                                  <td>${item.quantity}</td>
+                                  <td>₹${item.price}</td>
+                                  <td>₹${item.price * item.quantity}</td>
+                                </tr>
+                              `).join('')}
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="print-separator"></div>
+                        <div class="print-total">
+                          <p><strong>Subtotal:</strong> ₹${selectedOrder.subtotal}</p>
+                          ${selectedOrder.discount ? `<p><strong>Discount:</strong> ₹${selectedOrder.discount}</p>` : ''}
+                          <p><strong>Tax (${selectedOrder.taxRate || 0}%):</strong> ₹${selectedOrder.tax}</p>
+                          <p><strong>Total:</strong> ₹${selectedOrder.finalTotal}</p>
+                          <p><strong>Payment Method:</strong> ${selectedOrder.paymentMethod.toUpperCase()}</p>
+                        </div>
+                        <div class="print-separator"></div>
+                        <div style="text-align: center; margin-top: 20px;">
+                          <p>Thank you for visiting Hadir's Cafe!</p>
+                          <p>Please visit again</p>
+                        </div>
+                      </div>
+                    `;
+                    document.body.appendChild(receiptPopup);
+                    window.print();
+                    document.body.removeChild(receiptPopup);
+                  }}
+                  className="flex items-center space-x-2"
+                >
+                  <Printer className="h-4 w-4" />
+                  Reprint Receipt
+                </Button>
+              </div>
             </div>
           )}
         </DialogContent>
