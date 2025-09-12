@@ -23,6 +23,7 @@ const defaultCategories: Category[] = [
   { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
   { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
@@ -100,6 +101,13 @@ const defaultMenuItems = [
   { id: '85', name: 'Spicy Chicken Wrap Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/3a/79/1d/3a791dbf354995dbbd437a4623690642.jpg', isAvailable: true },
   { id: '86', name: 'Chicky Burger Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: '87', name: 'Spicy Chicky Burger Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
+
+  // NOODLES
+  { id: '88', name: 'Classic Noodles', price: 40, category: 'noodles', image: 'https://i.pinimg.com/736x/02/50/76/025076c4a0c2bf3a8b6f9c8f7d6f4f2d.jpg', isAvailable: true },
+  { id: '89', name: 'Spicy Noodles', price: 50, category: 'noodles', image: 'https://i.pinimg.com/736x/1a/3b/9f/1a3b9fbf3d2a4c7e8f1a2b3c4d5e6f7a.jpg', isAvailable: true },
+  { id: '90', name: 'Cheesy Noodles', price: 60, category: 'noodles', image: 'https://i.pinimg.com/736x/3c/4d/5e/3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg', isAvailable: true },
+  { id: '91', name: 'Veg Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/736x/4e/5f/60/4e5f60718293a4b5c6d7e8f9a0b1c2d3.jpg', isAvailable: true },
+  { id: '92', name: 'Chicken Noodles', price: 80, category: 'noodles', image: 'https://i.pinimg.com/736x/5f/60/71/5f60718293a4b5c6d7e8f9a0b1c2d3e4.jpg', isAvailable: true },
 
   // VEG FRIES
   { id: '44', name: 'French Fries', price: 70, category: 'vegfries', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
