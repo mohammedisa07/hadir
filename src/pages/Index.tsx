@@ -24,6 +24,8 @@ const defaultCategories: Category[] = [
   { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
   { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
@@ -108,6 +110,14 @@ const defaultMenuItems = [
   { id: '90', name: 'Cheesy Noodles', price: 60, category: 'noodles', image: 'https://i.pinimg.com/736x/3c/4d/5e/3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg', isAvailable: true },
   { id: '91', name: 'Veg Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/736x/4e/5f/60/4e5f60718293a4b5c6d7e8f9a0b1c2d3.jpg', isAvailable: true },
   { id: '92', name: 'Chicken Noodles', price: 80, category: 'noodles', image: 'https://i.pinimg.com/736x/5f/60/71/5f60718293a4b5c6d7e8f9a0b1c2d3e4.jpg', isAvailable: true },
+
+  // VEG WRAPS
+  { id: '93', name: 'Paneer Wrap', price: 130, category: 'vegwraps', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
+  { id: '94', name: 'Spicy Paneer Wrap', price: 140, category: 'vegwraps', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
+
+  // NON-VEG WRAPS
+  { id: '95', name: 'Sausage Wrap', price: 150, category: 'nonvegwraps', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
+  { id: '96', name: 'Spicy Sausage Wrap', price: 160, category: 'nonvegwraps', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
 
   // VEG FRIES
   { id: '44', name: 'French Fries', price: 70, category: 'vegfries', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
