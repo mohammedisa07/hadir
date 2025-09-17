@@ -279,14 +279,14 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const availabilityFilter = showOutOfStock ? true : item.isAvailable;
     return matchesCategory && matchesSearch && availabilityFilter;
-  });
+  }).slice().sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
 
   // Get only out of stock items
   const outOfStockItems = menuItems.filter(item => 
     !item.isAvailable && 
     (selectedCategory === 'all' || (item.category && item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase())) &&
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ).slice().sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
 
   // New functions for enhanced features
   const handleDragEnd = (event: any) => {
