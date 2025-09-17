@@ -34,6 +34,7 @@ import { QuickStats } from "./admin/QuickStats";
 import { QuickActions } from "./admin/QuickActions";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { UnifiedReceiptPopup } from './UnifiedReceiptPopup';
+import { ReceiptPopup } from './ReceiptPopup';
 
 interface Order {
   id: string;
@@ -71,6 +72,8 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
   const [comparisonEndDate, setComparisonEndDate] = useState<Date | undefined>(new Date());
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [showOrderModal, setShowOrderModal] = useState(false);
+  const [showReceiptPopup, setShowReceiptPopup] = useState(false);
+  const [receiptToPrint, setReceiptToPrint] = useState<Order | null>(null);
 
   // Get real data from localStorage
   const getStoredOrders = (): Order[] => {
@@ -571,67 +574,8 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          // Reprint receipt functionality
-                          const receiptPopup = document.createElement('div');
-                          receiptPopup.innerHTML = `
-                            <div class="unified-print-content">
-                              <div class="print-header">
-                                <div class="print-logo">
-                                  <img src="/logo.jpg" alt="Hadir's Cafe" />
-                                </div>
-                                <div class="print-title">HADIR'S CAFE</div>
-                                <div class="print-address">123 Main Street, City</div>
-                                <div class="print-address">Phone: +91 1234567890</div>
-                                <div class="print-address">GST: 123456789012345</div>
-                              </div>
-                              <div class="print-separator"></div>
-                              <div>
-                                <p><strong>Order #:</strong> ${order.id}</p>
-                                <p><strong>Date:</strong> ${order.timestamp.toLocaleString()}</p>
-                                <p><strong>Customer:</strong> ${order.customerDetails.name}</p>
-                                <p><strong>Phone:</strong> ${order.customerDetails.phone}</p>
-                              </div>
-                              <div class="print-separator"></div>
-                              <div class="print-items">
-                                <table>
-                                  <thead>
-                                    <tr>
-                                      <th>Item</th>
-                                      <th>Qty</th>
-                                      <th>Price</th>
-                                      <th>Total</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    ${order.items.map(item => `
-                                      <tr>
-                                        <td>${item.name}</td>
-                                        <td>${item.quantity}</td>
-                                        <td>₹${item.price}</td>
-                                        <td>₹${item.price * item.quantity}</td>
-                                      </tr>
-                                    `).join('')}
-                                  </tbody>
-                                </table>
-                              </div>
-                              <div class="print-separator"></div>
-                              <div class="print-total">
-                                <p><strong>Subtotal:</strong> ₹${order.subtotal}</p>
-                                ${order.discount ? `<p><strong>Discount:</strong> ₹${order.discount}</p>` : ''}
-                                <p><strong>Tax (${order.taxRate || 0}%):</strong> ₹${order.tax}</p>
-                                <p><strong>Total:</strong> ₹${order.finalTotal}</p>
-                                <p><strong>Payment Method:</strong> ${order.paymentMethod.toUpperCase()}</p>
-                              </div>
-                              <div class="print-separator"></div>
-                              <div style="text-align: center; margin-top: 20px;">
-                                <p>Thank you for visiting Hadir's Cafe!</p>
-                                <p>Please visit again</p>
-                              </div>
-                            </div>
-                          `;
-                          document.body.appendChild(receiptPopup);
-                          window.print();
-                          document.body.removeChild(receiptPopup);
+                          setReceiptToPrint(order);
+                          setShowReceiptPopup(true);
                         }}
                         className="h-8 w-8 p-0"
                         title="Reprint Receipt"
@@ -679,67 +623,8 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
                 <Button 
                   onClick={() => {
                     setShowOrderModal(false);
-                    // Open receipt popup with print functionality
-                    const receiptPopup = document.createElement('div');
-                    receiptPopup.innerHTML = `
-                      <div class="unified-print-content">
-                        <div class="print-header">
-                          <div class="print-logo">
-                            <img src="/logo.jpg" alt="Hadir's Cafe" />
-                          </div>
-                          <div class="print-title">HADIR'S CAFE</div>
-                          <div class="print-address">123 Main Street, City</div>
-                          <div class="print-address">Phone: +91 1234567890</div>
-                          <div class="print-address">GST: 123456789012345</div>
-                        </div>
-                        <div class="print-separator"></div>
-                        <div>
-                          <p><strong>Order #:</strong> ${selectedOrder.id}</p>
-                          <p><strong>Date:</strong> ${selectedOrder.timestamp.toLocaleString()}</p>
-                          <p><strong>Customer:</strong> ${selectedOrder.customerDetails.name}</p>
-                          <p><strong>Phone:</strong> ${selectedOrder.customerDetails.phone}</p>
-                        </div>
-                        <div class="print-separator"></div>
-                        <div class="print-items">
-                          <table>
-                            <thead>
-                              <tr>
-                                <th>Item</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              ${selectedOrder.items.map(item => `
-                                <tr>
-                                  <td>${item.name}</td>
-                                  <td>${item.quantity}</td>
-                                  <td>₹${item.price}</td>
-                                  <td>₹${item.price * item.quantity}</td>
-                                </tr>
-                              `).join('')}
-                            </tbody>
-                          </table>
-                        </div>
-                        <div class="print-separator"></div>
-                        <div class="print-total">
-                          <p><strong>Subtotal:</strong> ₹${selectedOrder.subtotal}</p>
-                          ${selectedOrder.discount ? `<p><strong>Discount:</strong> ₹${selectedOrder.discount}</p>` : ''}
-                          <p><strong>Tax (${selectedOrder.taxRate || 0}%):</strong> ₹${selectedOrder.tax}</p>
-                          <p><strong>Total:</strong> ₹${selectedOrder.finalTotal}</p>
-                          <p><strong>Payment Method:</strong> ${selectedOrder.paymentMethod.toUpperCase()}</p>
-                        </div>
-                        <div class="print-separator"></div>
-                        <div style="text-align: center; margin-top: 20px;">
-                          <p>Thank you for visiting Hadir's Cafe!</p>
-                          <p>Please visit again</p>
-                        </div>
-                      </div>
-                    `;
-                    document.body.appendChild(receiptPopup);
-                    window.print();
-                    document.body.removeChild(receiptPopup);
+                    setReceiptToPrint(selectedOrder);
+                    setShowReceiptPopup(true);
                   }}
                   className="flex items-center space-x-2"
                 >
@@ -844,6 +729,13 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
           </CardContent>
         </Card>
       </div>
+
+      {/* Receipt Popup */}
+      <ReceiptPopup
+        isOpen={showReceiptPopup}
+        onClose={() => setShowReceiptPopup(false)}
+        receipt={receiptToPrint}
+      />
     </div>
   );
 };

@@ -78,64 +78,82 @@ export const ReceiptPopup = ({
             .print-content, .print-content * {
               visibility: visible;
             }
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            @page {
+              margin: 0 !important;
+              size: auto !important;
+              page-break-inside: avoid !important;
+            }
             .print-content {
               position: absolute;
               left: 0;
               top: 0;
               width: 100%;
+              max-height: 100vh !important;
               background: white !important;
               color: #000000 !important;
-              font-size: 14px;
-              line-height: 1.4;
+              font-size: 10px;
+              line-height: 1.1;
               font-family: 'Arial', sans-serif !important;
-              font-weight: bold !important;
-              letter-spacing: 1px !important;
+              font-weight: normal !important;
+              letter-spacing: 0px !important;
               text-shadow: none !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
               font-smooth: never !important;
+              margin: 0 !important;
+              padding: 2px !important;
+              box-sizing: border-box !important;
+              overflow: hidden !important;
+              page-break-inside: avoid !important;
+              page-break-after: avoid !important;
+              page-break-before: avoid !important;
             }
             .no-print {
               display: none !important;
             }
             .print-logo {
-              width: 80px !important;
-              height: 80px !important;
-              margin: 0 auto 10px auto !important;
+              width: 40px !important;
+              height: 40px !important;
+              margin: 0 auto 2px auto !important;
               display: block !important;
             }
             .print-logo img {
               width: 100% !important;
               height: 100% !important;
               object-fit: contain !important;
-              border: 2px solid #000000 !important;
-              padding: 4px !important;
+              border: 1px solid #000000 !important;
+              padding: 1px !important;
               background: white !important;
             }
             .print-separator {
               border-top: 1px dashed #000 !important;
-              margin: 8px 0 !important;
+              margin: 1px 0 !important;
             }
             .print-header {
               text-align: center;
-              margin-bottom: 16px;
+              margin-bottom: 3px;
+              margin-top: 0 !important;
             }
             .print-title {
-              font-size: 22px !important;
+              font-size: 16px !important;
               font-weight: bold !important;
-              margin: 8px 0 !important;
+              margin: 1px 0 !important;
               font-family: 'Arial', sans-serif !important;
-              letter-spacing: 2px !important;
+              letter-spacing: 0px !important;
               color: #000000 !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
             }
             .print-address {
-              font-size: 12px !important;
-              margin: 2px 0 !important;
+              font-size: 8px !important;
+              margin: 0px 0 !important;
               font-family: 'Arial', sans-serif !important;
-              letter-spacing: 1px !important;
-              font-weight: bold !important;
+              letter-spacing: 0px !important;
+              font-weight: normal !important;
               color: #000000 !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
@@ -144,40 +162,55 @@ export const ReceiptPopup = ({
               width: 100% !important;
               border-collapse: collapse !important;
               font-family: 'Arial', sans-serif !important;
-              letter-spacing: 1px !important;
-              font-weight: bold !important;
+              letter-spacing: 0px !important;
+              font-weight: normal !important;
               color: #000000 !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
-              font-size: 14px !important;
+              font-size: 10px !important;
             }
             .print-items th,
             .print-items td {
               text-align: left !important;
-              padding: 4px 2px !important;
+              padding: 1px 0px !important;
               border-bottom: 1px solid #ddd !important;
               font-family: 'Arial', sans-serif !important;
-              letter-spacing: 1px !important;
-              font-weight: bold !important;
+              letter-spacing: 0px !important;
+              font-weight: normal !important;
               color: #000000 !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
-              font-size: 14px !important;
+              font-size: 10px !important;
             }
             .print-total {
-              border-top: 2px solid #000 !important;
-              padding-top: 8px !important;
-              margin-top: 8px !important;
+              border-top: 1px solid #000 !important;
+              padding-top: 2px !important;
+              margin-top: 2px !important;
               font-family: 'Arial', sans-serif !important;
-              letter-spacing: 1px !important;
-              font-weight: bold !important;
+              letter-spacing: 0px !important;
+              font-weight: normal !important;
               color: #000000 !important;
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
-              font-size: 16px !important;
+              font-size: 12px !important;
             }
-            .receipt-section { page-break-after: always !important; }
-            .kot-section { page-break-before: always !important; page-break-inside: avoid !important; }
+            .receipt-section { page-break-inside: avoid !important; }
+            .kot-section { page-break-inside: avoid !important; }
+            .print-receipt-card {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-shadow: none !important;
+            }
+            .print-receipt-content {
+              padding: 0px !important;
+              margin: 0 !important;
+            }
+            .print-receipt-content > * {
+              margin-bottom: 1px !important;
+            }
+            .print-receipt-content > *:last-child {
+              margin-bottom: 0 !important;
+            }
           }
         `}
       </style>
@@ -210,8 +243,8 @@ export const ReceiptPopup = ({
           </DialogHeader>
           
           <div className="print-content bg-white text-black">
-            <Card className="receipt-container border-0 shadow-none">
-              <CardContent className="p-4 space-y-3 text-black">
+            <Card className="receipt-container border-0 shadow-none print-receipt-card">
+              <CardContent className="p-4 space-y-2 text-black print-receipt-content">
                 {/* Header with Logo */}
                 <div className="print-header text-center space-y-1">
                   <div className="flex justify-center mb-1">

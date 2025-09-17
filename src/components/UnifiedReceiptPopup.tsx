@@ -72,11 +72,20 @@ export const UnifiedReceiptPopup = ({
             .unified-print-content, .unified-print-content * {
               visibility: visible;
             }
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            @page {
+              margin: 0.5in !important;
+              size: auto !important;
+            }
             .unified-print-content {
               position: absolute;
               left: 0;
               top: 0;
               width: 100%;
+              height: 100%;
               background: white !important;
               color: #000000 !important;
               font-size: 14px;
@@ -88,6 +97,9 @@ export const UnifiedReceiptPopup = ({
               -webkit-font-smoothing: none !important;
               -moz-osx-font-smoothing: none !important;
               font-smooth: never !important;
+              margin: 0 !important;
+              padding: 20px !important;
+              box-sizing: border-box !important;
             }
             .no-print {
               display: none !important;
@@ -108,16 +120,17 @@ export const UnifiedReceiptPopup = ({
             }
             .print-separator {
               border-top: 1px dashed #000 !important;
-              margin: 8px 0 !important;
+              margin: 4px 0 !important;
             }
             .print-header {
               text-align: center;
               margin-bottom: 16px;
+              margin-top: 0 !important;
             }
             .print-title {
               font-size: 22px !important;
               font-weight: bold !important;
-              margin: 8px 0 !important;
+              margin: 4px 0 !important;
               font-family: 'Arial', sans-serif !important;
               letter-spacing: 2px !important;
               color: #000000 !important;
@@ -126,7 +139,7 @@ export const UnifiedReceiptPopup = ({
             }
             .print-address {
               font-size: 12px !important;
-              margin: 2px 0 !important;
+              margin: 1px 0 !important;
               font-family: 'Arial', sans-serif !important;
               letter-spacing: 1px !important;
               font-weight: bold !important;
@@ -207,6 +220,21 @@ export const UnifiedReceiptPopup = ({
             }
             .receipt-section { page-break-after: always !important; }
             .kot-section { page-break-before: always !important; page-break-inside: avoid !important; }
+            .print-receipt-card {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-shadow: none !important;
+            }
+            .print-receipt-content {
+              padding: 10px !important;
+              margin: 0 !important;
+            }
+            .print-receipt-content > * {
+              margin-bottom: 8px !important;
+            }
+            .print-receipt-content > *:last-child {
+              margin-bottom: 0 !important;
+            }
           }
         `}
       </style>
@@ -242,8 +270,8 @@ export const UnifiedReceiptPopup = ({
           
           <div className="unified-print-content bg-white text-black">
             {/* CUSTOMER RECEIPT */}
-            <Card className="receipt-container border-0 shadow-none">
-              <CardContent className="p-4 space-y-3 text-black">
+            <Card className="receipt-container border-0 shadow-none print-receipt-card">
+              <CardContent className="p-4 space-y-2 text-black print-receipt-content">
                 {/* Header with Logo */}
                 <div className="print-header text-center space-y-1">
                   <div className="flex justify-center mb-1">

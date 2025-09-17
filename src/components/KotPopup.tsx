@@ -62,15 +62,27 @@ export const KotPopup = ({
             .kot-print-content, .kot-print-content * {
               visibility: visible;
             }
+            body {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            @page {
+              margin: 0.5in !important;
+              size: auto !important;
+            }
             .kot-print-content {
               position: absolute;
               left: 0;
               top: 0;
               width: 100%;
+              height: 100%;
               background: white !important;
               color: black !important;
               font-size: 14px;
               line-height: 1.4;
+              margin: 0 !important;
+              padding: 20px !important;
+              box-sizing: border-box !important;
             }
             .no-print {
               display: none !important;
@@ -81,16 +93,17 @@ export const KotPopup = ({
             }
             .kot-separator {
               border-top: 2px solid #000 !important;
-              margin: 8px 0 !important;
+              margin: 4px 0 !important;
             }
             .kot-header {
               text-align: center;
               margin-bottom: 16px;
+              margin-top: 0 !important;
             }
             .kot-title {
               font-size: 20px !important;
               font-weight: bold !important;
-              margin: 8px 0 !important;
+              margin: 4px 0 !important;
             }
             .kot-items table {
               width: 100% !important;
