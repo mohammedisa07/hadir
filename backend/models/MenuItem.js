@@ -5,8 +5,10 @@ const menuItemSchema = new mongoose.Schema({
   description: { type: String },
   price: { type: Number, required: true },
   imageUrl: { type: String },
+  category: { type: String },
+  isPopular: { type: Boolean, default: false },
   available: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('MenuItem', menuItemSchema); 
+module.exports = mongoose.model('MenuItem', menuItemSchema);

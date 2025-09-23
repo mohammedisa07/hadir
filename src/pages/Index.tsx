@@ -17,6 +17,7 @@ interface Category {
 
 const defaultCategories: Category[] = [
   { id: 'hotbeverages', name: 'HOT BEVERAGES', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
+  { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
   { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
   { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
   { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
@@ -34,6 +35,12 @@ const defaultCategories: Category[] = [
 ];
 
 const defaultMenuItems = [
+  // COFFEE LOVER
+  { id: 'cl-1', name: 'Coffee Nirvana', price: 120, category: 'coffeelover', image: 'https://i.pinimg.com/1200x/71/a5/62/71a56235307038a80fb3ce4bf5d09a34.jpg', isAvailable: true },
+  { id: 'cl-2', name: 'Espresso 1 Shot', price: 40, category: 'coffeelover', image: 'https://i.pinimg.com/736x/a2/d6/0e/a2d60ee8a87657525de4ecfe1e6b803e.jpg', isAvailable: true },
+  { id: 'cl-3', name: 'Espresso Romano', price: 60, category: 'coffeelover', image: 'https://i.pinimg.com/736x/b1/e6/df/b1e6dfde3da49f5d6534b68ac10918a4.jpg', isAvailable: true },
+  { id: 'cl-4', name: 'Macchiato', price: 70, category: 'coffeelover', image: 'https://i.pinimg.com/1200x/c1/b3/ff/c1b3ffe379a90ef2ddb42f7b6c667a94.jpg', isAvailable: true },
+
   // HOT BEVERAGES
   { id: '1', name: 'Cappuccino', price: 80, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg', isAvailable: true },
   { id: '2', name: 'Latte', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg', isAvailable: true },

@@ -4,6 +4,11 @@ const MenuItem = require('./models/MenuItem');
 const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/cafe-order-sweet-receipts';
 
 const menuItems = [
+  // COFFEE LOVER (NEW)
+  { name: 'Coffee Nirvana', price: 120, imageUrl: 'https://i.pinimg.com/1200x/71/a5/62/71a56235307038a80fb3ce4bf5d09a34.jpg', category: 'Coffee Lover' },
+  { name: 'Espresso 1 Shot', price: 40, imageUrl: 'https://i.pinimg.com/736x/a2/d6/0e/a2d60ee8a87657525de4ecfe1e6b803e.jpg', category: 'Coffee Lover' },
+  { name: 'Espresso Romano', price: 60, imageUrl: 'https://i.pinimg.com/736x/b1/e6/df/b1e6dfde3da49f5d6534b68ac10918a4.jpg', category: 'Coffee Lover' },
+  { name: 'Macchiato', price: 70, imageUrl: 'https://i.pinimg.com/1200x/c1/b3/ff/c1b3ffe379a90ef2ddb42f7b6c667a94.jpg', category: 'Coffee Lover' },
   // HOT BEVERAGES
   { name: 'Cappuccino', price: 0, imageUrl: 'https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg' },
   { name: 'Vennila Cappuccino', price: 0, imageUrl: 'https://i.pinimg.com/736x/5a/6a/08/5a6a085e7aec80da1ffebeac661a109e.jpg' },
