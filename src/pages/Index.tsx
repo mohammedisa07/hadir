@@ -68,6 +68,7 @@ const defaultMenuItems = [
   { id: '18', name: 'Orange Mojito', price: 90, category: 'sparklings', image: 'https://i.pinimg.com/1200x/3f/b2/11/3fb211f15ee6b0cb9342e91bebf3e5ea.jpg', isAvailable: true },
   { id: '19', name: 'Strawberry Mojito', price: 140, category: 'sparklings', image: 'https://i.pinimg.com/1200x/5c/da/e5/5cdae51c7ea99515926e457c128ee225.jpg', isAvailable: true },
   { id: '20', name: 'Strawberry Basil Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/dc/2a/85/dc2a85137fee62793d865c037aeb06d1.jpg', isAvailable: true },
+  { id: '20a', name: 'Sparkling - Mango Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/6e/bd/16/6ebd1623578f88ec60fb0fb8c7882cf8.jpg', isAvailable: true },
   { id: '21', name: 'Blue Lady', price: 120, category: 'sparklings', image: 'https://i.pinimg.com/1200x/4d/c1/17/4dc117d0e99a89100aec3f47d6737f18.jpg', isAvailable: true },
   
   // VEG SNACKS
