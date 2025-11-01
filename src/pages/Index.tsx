@@ -32,6 +32,8 @@ const defaultCategories: Category[] = [
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'spicytenders', name: 'SPICY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
 ];
 
 const defaultMenuItems = [
@@ -178,6 +180,18 @@ const defaultMenuItems = [
   { id: '77a', name: 'Mojito Swap', price: 10, category: 'addons', image: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', isAvailable: true },
   { id: '78', name: 'Small Water Bottle', price: 10, category: 'addons', image: 'https://i.pinimg.com/736x/f4/5e/d5/f45ed52b28cf16c2cf7840f31794c83b.jpg', isAvailable: true },
   { id: '79', name: 'Big Water Bottle', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/35/d3/fb/35d3fb719e4c55f8051d14be92eace47.jpg', isAvailable: true },
+  
+  // CRISPY TENDERS
+  { id: 'ct-1', name: 'Crispy Boneless Strips 3pc', price: 99, category: 'crispytenders', image: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', isAvailable: true },
+  { id: 'ct-2', name: 'Crispy Boneless Strips 6pc', price: 198, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/3a/99/ef/3a99ef5ff6bb13b5933db13a5aaf9d2a.jpg', isAvailable: true },
+  { id: 'ct-3', name: 'Crispy Boneless Strips 9pc', price: 297, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
+  { id: 'ct-4', name: 'Crispy Boneless Strips 12pc', price: 396, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
+  
+  // SPICY TENDERS
+  { id: 'st-1', name: 'Peri Peri Crispy Strips 3pc', price: 120, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-2', name: 'Peri Peri Crispy Strips 6pc', price: 240, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-3', name: 'Peri Peri Crispy Strips 9pc', price: 360, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -218,9 +232,35 @@ const Index = () => {
   }, []);
 
   const [categories, setCategories] = useState(defaultCategories);
-  const [menuItems, setMenuItems] = useState(defaultMenuItems);
+  // Initialize menuItems from localStorage if available, otherwise use defaults
+  const [menuItems, setMenuItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('menuItems');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Only use saved items if they exist and have data
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Remove any strips items that might be incorrectly in addons category
+          const cleaned = parsed.filter((item: any) => {
+            // Remove items with "Strips", "Peri Peri Crispy Strips", or any strips-related items from addons category
+            if (item.category === 'addons' && item.name) {
+              const name = item.name.toLowerCase();
+              if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
+                return false;
+              }
+            }
+            return true;
+          });
+          return cleaned.length > 0 ? cleaned : defaultMenuItems;
+        }
+      }
+    } catch (e) {
+      console.error('Error loading menuItems from localStorage:', e);
+    }
+    return defaultMenuItems;
+  });
 
-  // Dynamically calculate itemCount for each category
+  // Dynamically calculate itemCount for each category (memoized)
   const categoriesWithCounts = categories.map(cat => ({
     ...cat,
     itemCount: menuItems.filter(item =>
@@ -236,6 +276,31 @@ const Index = () => {
         item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
       );
 
+  // Clean up any strips items that might be incorrectly in addons category
+  useEffect(() => {
+    const hasStripsInAddons = menuItems.some((item: any) => {
+      if (item.category === 'addons' && item.name) {
+        // Remove items with "Strips", "strips", "Peri Peri", or any variation in name from addons category
+        return /strips?/i.test(item.name) || /peri.?peri/i.test(item.name);
+      }
+      return false;
+    });
+    
+    if (hasStripsInAddons) {
+      const cleaned = menuItems.filter((item: any) => {
+        // Remove items with "Strips", "Peri Peri Crispy Strips", or any strips-related items from addons category
+        if (item.category === 'addons' && item.name) {
+          const name = item.name.toLowerCase();
+          if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
+            return false;
+          }
+        }
+        return true;
+      });
+      setMenuItems(cleaned);
+    }
+  }, []); // Run once on mount
+
   // Save menuItems to localStorage whenever they change
   useEffect(() => {
     // Only store image as a URL or empty string
@@ -243,7 +308,18 @@ const Index = () => {
       ...item,
       image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
     }));
-    localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
+    // Also filter out any strips or peri peri items from addons before saving
+    const cleaned = safeMenuItems.filter((item: any) => {
+      if (item.category === 'addons' && item.name) {
+        const name = item.name.toLowerCase();
+        // Remove items with "strips", "peri peri crispy strips", or any crispy strips items from addons
+        if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
+          return false;
+        }
+      }
+      return true;
+    });
+    localStorage.setItem('menuItems', JSON.stringify(cleaned));
   }, [menuItems]);
   const { getTotalItems, cart } = useCart();
 

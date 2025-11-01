@@ -143,6 +143,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
           <img 
             src={item.image || '/placeholder.svg'} 
             alt={item.name}
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
             onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
           />
