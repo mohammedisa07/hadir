@@ -106,6 +106,17 @@ const menuItems = [
   { name: 'Cheese', price: 0, imageUrl: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg' },
   { name: 'Mayo', price: 0, imageUrl: 'https://i.pinimg.com/1200x/f1/88/39/f18839bd715a7e845831ae52cbac18dc.jpg' },
   { name: 'Mojito Swap', price: 10, imageUrl: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg' },
+  // CRISPY TENDERS
+  { name: 'Crispy Boneless Strips 3pc', price: 99, imageUrl: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', category: 'crispytenders' },
+  { name: 'Crispy Boneless Strips 6pc', price: 198, imageUrl: 'https://i.pinimg.com/1200x/3a/99/ef/3a99ef5ff6bb13b5933db13a5aaf9d2a.jpg', category: 'crispytenders' },
+  { name: 'Crispy Boneless Strips 9pc', price: 297, imageUrl: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', category: 'crispytenders' },
+  { name: 'Crispy Boneless Strips 12pc', price: 396, imageUrl: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', category: 'crispytenders' },
+  { name: 'Peri Peri Crispy Strips 3pc', price: 120, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
+  { name: 'Peri Peri Crispy Strips 6pc', price: 240, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
+  { name: 'Peri Peri Crispy Strips 9pc', price: 360, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
+  { name: 'Peri Peri Crispy Strips 12pc', price: 480, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
+  { name: 'Crispy Chicken Burger', price: 170, imageUrl: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', category: 'crispytenders' },
+  { name: 'Spicy Crispy Chicken Burger', price: 180, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', category: 'crispytenders' },
 ];
 
 async function seedMenu() {
