@@ -182,10 +182,10 @@ const defaultMenuItems = [
   
   // DIPS - ADD-ONS
   { id: 'dip-1', name: 'Secret 4 Dips', price: 80, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
-  { id: 'dip-2', name: 'Spicy Garlic Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
-  { id: 'dip-3', name: 'Creamy White Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
-  { id: 'dip-4', name: 'Barbeque Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
-  { id: 'dip-5', name: 'Tangy Mayo Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  { id: 'dip-2', name: 'Spicy Garlic Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/2b/32/5a/2b325a431a57c2fc477d0ae06307bd4c.jpg', isAvailable: true },
+  { id: 'dip-3', name: 'Creamy White Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/a6/42/07/a64207d0a090e0115897bc22ec02ea02.jpg', isAvailable: true },
+  { id: 'dip-4', name: 'Barbeque Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/1f/5e/07/1f5e07349f7a464f5d759f1338697545.jpg', isAvailable: true },
+  { id: 'dip-5', name: 'Tangy Mayo Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/7c/e7/22/7ce722d030c82c589857fe11c1f7fba0.jpg', isAvailable: true },
   
   // CRISPY TENDERS
   { id: 'ct-1', name: 'Crispy Boneless Strips 3pc', price: 99, category: 'crispytenders', image: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', isAvailable: true },
@@ -290,6 +290,17 @@ const Index = () => {
               !item.id || !item.id.startsWith('dip-')
             );
             cleaned = [...cleaned, ...dipItems];
+          } else {
+            // Update images for existing dip items if they have old images
+            cleaned = cleaned.map((item: any) => {
+              if (item.id && item.id.startsWith('dip-')) {
+                const defaultItem = defaultMenuItems.find((d: any) => d.id === item.id);
+                if (defaultItem && defaultItem.image !== item.image) {
+                  return { ...item, image: defaultItem.image };
+                }
+              }
+              return item;
+            });
           }
           
           if (!hasBurgerItems) {
@@ -378,7 +389,7 @@ const Index = () => {
         return true;
       });
       
-      // Add dip items if missing
+      // Add dip items if missing, or update their images if they exist
       if (!hasDipItems) {
         const dipItems = defaultMenuItems.filter((item: any) => 
           item.id && item.id.startsWith('dip-')
@@ -388,6 +399,17 @@ const Index = () => {
           !item.id || !item.id.startsWith('dip-')
         );
         uniqueCleaned = [...uniqueCleaned, ...dipItems];
+      } else {
+        // Update images for existing dip items to ensure they have latest images
+        uniqueCleaned = uniqueCleaned.map((item: any) => {
+          if (item.id && item.id.startsWith('dip-')) {
+            const defaultItem = defaultMenuItems.find((d: any) => d.id === item.id);
+            if (defaultItem && defaultItem.image !== item.image) {
+              return { ...item, image: defaultItem.image };
+            }
+          }
+          return item;
+        });
       }
       
       // Add burger items if missing
@@ -404,12 +426,40 @@ const Index = () => {
       
       setMenuItems(uniqueCleaned);
     }
+    
+    // Force update dip item images on mount
+    const updateDipImages = () => {
+      setMenuItems((currentItems: any[]) => {
+        const updated = currentItems.map((item: any) => {
+          if (item.id && item.id.startsWith('dip-')) {
+            const defaultItem = defaultMenuItems.find((d: any) => d.id === item.id);
+            if (defaultItem && defaultItem.image !== item.image) {
+              return { ...item, image: defaultItem.image };
+            }
+          }
+          return item;
+        });
+        return updated;
+      });
+    };
+    updateDipImages();
   }, []); // Run once on mount
 
   // Save menuItems to localStorage whenever they change
   useEffect(() => {
+    // Update dip item images before saving to ensure latest images are stored
+    const updatedMenuItems = menuItems.map((item: any) => {
+      if (item.id && item.id.startsWith('dip-')) {
+        const defaultItem = defaultMenuItems.find((d: any) => d.id === item.id);
+        if (defaultItem && defaultItem.image !== item.image) {
+          return { ...item, image: defaultItem.image };
+        }
+      }
+      return item;
+    });
+    
     // Only store image as a URL or empty string
-    const safeMenuItems = menuItems.map(item => ({
+    const safeMenuItems = updatedMenuItems.map(item => ({
       ...item,
       image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
     }));
