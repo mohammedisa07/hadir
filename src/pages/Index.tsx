@@ -280,6 +280,12 @@ const Index = () => {
             item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
           );
           
+          // Check if all crispy tenders items exist, if not add them
+          const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+          const hasAllCrispyTenders = crispyTendersIds.every(id => 
+            cleaned.some((item: any) => item.id === id)
+          );
+          
           if (!hasDipItems) {
             // Get dip items from defaults
             const dipItems = defaultMenuItems.filter((item: any) => 
@@ -303,16 +309,16 @@ const Index = () => {
             });
           }
           
-          if (!hasBurgerItems) {
-            // Get burger items from defaults
-            const burgerItems = defaultMenuItems.filter((item: any) => 
-              item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+          if (!hasAllCrispyTenders) {
+            // Get all crispy tenders items from defaults
+            const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+              item.id && crispyTendersIds.includes(item.id)
             );
-            // Remove any existing burger items and add new ones
+            // Remove any existing crispy tenders items and add new ones
             cleaned = cleaned.filter((item: any) => 
-              !item.id || (item.id !== 'ct-burger-1' && item.id !== 'ct-burger-2')
+              !item.id || !crispyTendersIds.includes(item.id)
             );
-            cleaned = [...cleaned, ...burgerItems];
+            cleaned = [...cleaned, ...crispyTendersItems];
           }
           
           return cleaned.length > 0 ? cleaned : defaultMenuItems;
@@ -360,7 +366,13 @@ const Index = () => {
       item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
     );
     
-    if (needsCleanup || !hasDipItems || !hasBurgerItems) {
+    // Check if all crispy tenders items exist
+    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+    const hasAllCrispyTenders = crispyTendersIds.every(id => 
+      menuItems.some((item: any) => item.id === id)
+    );
+    
+    if (needsCleanup || !hasDipItems || !hasAllCrispyTenders) {
       const cleaned = menuItems.map((item: any) => {
         if (!item.name) return item;
         const name = item.name.toLowerCase();
@@ -412,16 +424,16 @@ const Index = () => {
         });
       }
       
-      // Add burger items if missing
-      if (!hasBurgerItems) {
-        const burgerItems = defaultMenuItems.filter((item: any) => 
-          item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+      // Add all crispy tenders items if missing
+      if (!hasAllCrispyTenders) {
+        const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+          item.id && crispyTendersIds.includes(item.id)
         );
-        // Remove any existing burger items first
+        // Remove any existing crispy tenders items first
         uniqueCleaned = uniqueCleaned.filter((item: any) => 
-          !item.id || (item.id !== 'ct-burger-1' && item.id !== 'ct-burger-2')
+          !item.id || !crispyTendersIds.includes(item.id)
         );
-        uniqueCleaned = [...uniqueCleaned, ...burgerItems];
+        uniqueCleaned = [...uniqueCleaned, ...crispyTendersItems];
       }
       
       setMenuItems(uniqueCleaned);
@@ -464,7 +476,7 @@ const Index = () => {
       image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
     }));
     // Ensure Peri Peri Crispy Strips items are only in crispytenders category
-    const cleaned = safeMenuItems.map((item: any) => {
+    let cleaned = safeMenuItems.map((item: any) => {
       if (!item.name) return item;
       const name = item.name.toLowerCase();
       const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
@@ -489,6 +501,24 @@ const Index = () => {
       }
       return true;
     });
+    
+    // Ensure all crispy tenders items are included
+    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+    const hasAllCrispyTenders = crispyTendersIds.every(id => 
+      cleaned.some((item: any) => item.id === id)
+    );
+    
+    if (!hasAllCrispyTenders) {
+      const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+        item.id && crispyTendersIds.includes(item.id)
+      );
+      // Remove any existing crispy tenders items and add all from defaults
+      const withoutCrispyTenders = cleaned.filter((item: any) => 
+        !item.id || !crispyTendersIds.includes(item.id)
+      );
+      cleaned = [...withoutCrispyTenders, ...crispyTendersItems];
+    }
+    
     localStorage.setItem('menuItems', JSON.stringify(cleaned));
   }, [menuItems]);
   const { getTotalItems, cart } = useCart();
