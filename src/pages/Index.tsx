@@ -33,7 +33,6 @@ const defaultCategories: Category[] = [
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'spicytenders', name: 'SPICY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
 ];
 
 const defaultMenuItems = [
@@ -181,17 +180,24 @@ const defaultMenuItems = [
   { id: '78', name: 'Small Water Bottle', price: 10, category: 'addons', image: 'https://i.pinimg.com/736x/f4/5e/d5/f45ed52b28cf16c2cf7840f31794c83b.jpg', isAvailable: true },
   { id: '79', name: 'Big Water Bottle', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/35/d3/fb/35d3fb719e4c55f8051d14be92eace47.jpg', isAvailable: true },
   
+  // DIPS - ADD-ONS
+  { id: 'dip-1', name: 'Secret 4 Dips', price: 80, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  { id: 'dip-2', name: 'Spicy Garlic Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  { id: 'dip-3', name: 'Creamy White Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  { id: 'dip-4', name: 'Barbeque Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  { id: 'dip-5', name: 'Tangy Mayo Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
+  
   // CRISPY TENDERS
   { id: 'ct-1', name: 'Crispy Boneless Strips 3pc', price: 99, category: 'crispytenders', image: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', isAvailable: true },
   { id: 'ct-2', name: 'Crispy Boneless Strips 6pc', price: 198, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/3a/99/ef/3a99ef5ff6bb13b5933db13a5aaf9d2a.jpg', isAvailable: true },
   { id: 'ct-3', name: 'Crispy Boneless Strips 9pc', price: 297, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
   { id: 'ct-4', name: 'Crispy Boneless Strips 12pc', price: 396, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
-  
-  // SPICY TENDERS
-  { id: 'st-1', name: 'Peri Peri Crispy Strips 3pc', price: 120, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-2', name: 'Peri Peri Crispy Strips 6pc', price: 240, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-3', name: 'Peri Peri Crispy Strips 9pc', price: 360, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'spicytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-1', name: 'Peri Peri Crispy Strips 3pc', price: 120, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-2', name: 'Peri Peri Crispy Strips 6pc', price: 240, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-3', name: 'Peri Peri Crispy Strips 9pc', price: 360, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'ct-burger-1', name: 'Crispy Chicken Burger', price: 170, category: 'crispytenders', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
+  { id: 'ct-burger-2', name: 'Spicy Crispy Chicken Burger', price: 180, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -240,17 +246,64 @@ const Index = () => {
         const parsed = JSON.parse(saved);
         // Only use saved items if they exist and have data
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Remove any strips items that might be incorrectly in addons category
-          const cleaned = parsed.filter((item: any) => {
-            // Remove items with "Strips", "Peri Peri Crispy Strips", or any strips-related items from addons category
-            if (item.category === 'addons' && item.name) {
-              const name = item.name.toLowerCase();
-              if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
-                return false;
-              }
+          // Remove any Peri Peri Crispy Strips items from all categories except crispytenders
+          let cleaned = parsed.map((item: any) => {
+            const name = item.name ? item.name.toLowerCase() : '';
+            // Check if this is a Peri Peri Crispy Strips item
+            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) || 
+                                    (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+            
+            if (isPeriPeriStrips) {
+              // Move all Peri Peri Crispy Strips items to crispytenders category
+              return { ...item, category: 'crispytenders' };
+            }
+            return item;
+          }).filter((item: any) => {
+            // Remove Peri Peri items from any category that's not crispytenders
+            const name = item.name ? item.name.toLowerCase() : '';
+            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) || 
+                                    (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+            
+            if (isPeriPeriStrips && item.category !== 'crispytenders') {
+              return false; // Remove if it's Peri Peri but not in crispytenders
             }
             return true;
           });
+          
+          // Check if dip items exist, if not add them
+          const hasDipItems = cleaned.some((item: any) => 
+            item.id && item.id.startsWith('dip-')
+          );
+          
+          // Check if burger items exist in crispytenders, if not add them
+          const hasBurgerItems = cleaned.some((item: any) => 
+            item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+          );
+          
+          if (!hasDipItems) {
+            // Get dip items from defaults
+            const dipItems = defaultMenuItems.filter((item: any) => 
+              item.id && item.id.startsWith('dip-')
+            );
+            // Remove any existing dip items and add new ones
+            cleaned = cleaned.filter((item: any) => 
+              !item.id || !item.id.startsWith('dip-')
+            );
+            cleaned = [...cleaned, ...dipItems];
+          }
+          
+          if (!hasBurgerItems) {
+            // Get burger items from defaults
+            const burgerItems = defaultMenuItems.filter((item: any) => 
+              item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+            );
+            // Remove any existing burger items and add new ones
+            cleaned = cleaned.filter((item: any) => 
+              !item.id || (item.id !== 'ct-burger-1' && item.id !== 'ct-burger-2')
+            );
+            cleaned = [...cleaned, ...burgerItems];
+          }
+          
           return cleaned.length > 0 ? cleaned : defaultMenuItems;
         }
       }
@@ -276,28 +329,80 @@ const Index = () => {
         item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
       );
 
-  // Clean up any strips items that might be incorrectly in addons category
+  // Clean up Peri Peri Crispy Strips items and ensure dip items are included
   useEffect(() => {
-    const hasStripsInAddons = menuItems.some((item: any) => {
-      if (item.category === 'addons' && item.name) {
-        // Remove items with "Strips", "strips", "Peri Peri", or any variation in name from addons category
-        return /strips?/i.test(item.name) || /peri.?peri/i.test(item.name);
-      }
-      return false;
+    const needsCleanup = menuItems.some((item: any) => {
+      if (!item.name) return false;
+      const name = item.name.toLowerCase();
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
+                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+      return isPeriPeriStrips && item.category !== 'crispytenders';
     });
     
-    if (hasStripsInAddons) {
-      const cleaned = menuItems.filter((item: any) => {
-        // Remove items with "Strips", "Peri Peri Crispy Strips", or any strips-related items from addons category
-        if (item.category === 'addons' && item.name) {
-          const name = item.name.toLowerCase();
-          if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
-            return false;
-          }
+    // Check if dip items are missing
+    const hasDipItems = menuItems.some((item: any) => 
+      item.id && item.id.startsWith('dip-')
+    );
+    
+    // Check if burger items are missing
+    const hasBurgerItems = menuItems.some((item: any) => 
+      item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+    );
+    
+    if (needsCleanup || !hasDipItems || !hasBurgerItems) {
+      const cleaned = menuItems.map((item: any) => {
+        if (!item.name) return item;
+        const name = item.name.toLowerCase();
+        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
+                                (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+        
+        // Move all Peri Peri Crispy Strips to crispytenders category
+        if (isPeriPeriStrips && item.category !== 'crispytenders') {
+          return { ...item, category: 'crispytenders' };
+        }
+        return item;
+      });
+      
+      // Remove duplicates - keep only items in crispytenders
+      let uniqueCleaned = cleaned.filter((item: any, index: number, self: any[]) => {
+        if (!item.name) return true;
+        const name = item.name.toLowerCase();
+        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
+                                (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+        
+        if (isPeriPeriStrips) {
+          // Keep only if it's in crispytenders and is the first occurrence
+          return item.category === 'crispytenders' && 
+                 self.findIndex((i: any) => i.name === item.name && i.category === 'crispytenders') === index;
         }
         return true;
       });
-      setMenuItems(cleaned);
+      
+      // Add dip items if missing
+      if (!hasDipItems) {
+        const dipItems = defaultMenuItems.filter((item: any) => 
+          item.id && item.id.startsWith('dip-')
+        );
+        // Remove any existing dip items first
+        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+          !item.id || !item.id.startsWith('dip-')
+        );
+        uniqueCleaned = [...uniqueCleaned, ...dipItems];
+      }
+      
+      // Add burger items if missing
+      if (!hasBurgerItems) {
+        const burgerItems = defaultMenuItems.filter((item: any) => 
+          item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
+        );
+        // Remove any existing burger items first
+        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+          !item.id || (item.id !== 'ct-burger-1' && item.id !== 'ct-burger-2')
+        );
+        uniqueCleaned = [...uniqueCleaned, ...burgerItems];
+      }
+      
+      setMenuItems(uniqueCleaned);
     }
   }, []); // Run once on mount
 
@@ -308,14 +413,29 @@ const Index = () => {
       ...item,
       image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
     }));
-    // Also filter out any strips or peri peri items from addons before saving
-    const cleaned = safeMenuItems.filter((item: any) => {
-      if (item.category === 'addons' && item.name) {
-        const name = item.name.toLowerCase();
-        // Remove items with "strips", "peri peri crispy strips", or any crispy strips items from addons
-        if (/strips?/.test(name) || /peri.?peri.*crispy/.test(name) || /crispy.*strips?/.test(name)) {
-          return false;
-        }
+    // Ensure Peri Peri Crispy Strips items are only in crispytenders category
+    const cleaned = safeMenuItems.map((item: any) => {
+      if (!item.name) return item;
+      const name = item.name.toLowerCase();
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
+                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+      
+      // Move all Peri Peri Crispy Strips to crispytenders category
+      if (isPeriPeriStrips && item.category !== 'crispytenders') {
+        return { ...item, category: 'crispytenders' };
+      }
+      return item;
+    }).filter((item: any, index: number, self: any[]) => {
+      // Remove duplicates - keep only items in crispytenders
+      if (!item.name) return true;
+      const name = item.name.toLowerCase();
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
+                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+      
+      if (isPeriPeriStrips) {
+        // Keep only if it's in crispytenders and is the first occurrence
+        return item.category === 'crispytenders' && 
+               self.findIndex((i: any) => i.name === item.name && i.category === 'crispytenders') === index;
       }
       return true;
     });
@@ -396,7 +516,6 @@ const Index = () => {
               userRole={userRole}
               categories={categoriesWithCounts}
               onCategoriesChange={setCategories}
-              menuItems={menuItems}
             />
             <PosSystem 
               selectedCategory={selectedCategory} 
