@@ -17,22 +17,23 @@ interface Category {
 
 const defaultCategories: Category[] = [
   { id: 'hotbeverages', name: 'HOT BEVERAGES', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
-  { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
   { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
+  { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
   { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-  { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'peripericrispytenders', name: 'PERI PERI CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-success' },
   { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
-  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
+  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
 ];
 
 const defaultMenuItems = [
@@ -192,10 +193,10 @@ const defaultMenuItems = [
   { id: 'ct-2', name: 'Crispy Boneless Strips 6pc', price: 198, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/3a/99/ef/3a99ef5ff6bb13b5933db13a5aaf9d2a.jpg', isAvailable: true },
   { id: 'ct-3', name: 'Crispy Boneless Strips 9pc', price: 297, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
   { id: 'ct-4', name: 'Crispy Boneless Strips 12pc', price: 396, category: 'crispytenders', image: 'https://i.pinimg.com/736x/63/aa/4b/63aa4bfeab53ceaa9ff4dc4404ea3b31.jpg', isAvailable: true },
-  { id: 'st-1', name: 'Peri Peri Crispy Strips 3pc', price: 120, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-2', name: 'Peri Peri Crispy Strips 6pc', price: 240, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-3', name: 'Peri Peri Crispy Strips 9pc', price: 360, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
-  { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'crispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-1', name: 'Peri Peri Crispy Strips 3pc', price: 120, category: 'peripericrispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-2', name: 'Peri Peri Crispy Strips 6pc', price: 240, category: 'peripericrispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-3', name: 'Peri Peri Crispy Strips 9pc', price: 360, category: 'peripericrispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
+  { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'peripericrispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
   { id: 'ct-burger-1', name: 'Crispy Chicken Burger', price: 170, category: 'crispytenders', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: 'ct-burger-2', name: 'Spicy Crispy Chicken Burger', price: 180, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
 ];
@@ -246,7 +247,7 @@ const Index = () => {
         const parsed = JSON.parse(saved);
         // Only use saved items if they exist and have data
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Remove any Peri Peri Crispy Strips items from all categories except crispytenders
+          // Remove any Peri Peri Crispy Strips items from all categories except peripericrispytenders
           let cleaned = parsed.map((item: any) => {
             const name = item.name ? item.name.toLowerCase() : '';
             // Check if this is a Peri Peri Crispy Strips item
@@ -254,18 +255,18 @@ const Index = () => {
                                     (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
             
             if (isPeriPeriStrips) {
-              // Move all Peri Peri Crispy Strips items to crispytenders category
-              return { ...item, category: 'crispytenders' };
+              // Move all Peri Peri Crispy Strips items to peripericrispytenders category
+              return { ...item, category: 'peripericrispytenders' };
             }
             return item;
           }).filter((item: any) => {
-            // Remove Peri Peri items from any category that's not crispytenders
+            // Remove Peri Peri items from any category that's not peripericrispytenders
             const name = item.name ? item.name.toLowerCase() : '';
             const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) || 
                                     (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
             
-            if (isPeriPeriStrips && item.category !== 'crispytenders') {
-              return false; // Remove if it's Peri Peri but not in crispytenders
+            if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
+              return false; // Remove if it's Peri Peri but not in peripericrispytenders
             }
             return true;
           });
@@ -281,8 +282,12 @@ const Index = () => {
           );
           
           // Check if all crispy tenders items exist, if not add them
-          const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+          const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
+          const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
           const hasAllCrispyTenders = crispyTendersIds.every(id => 
+            cleaned.some((item: any) => item.id === id)
+          );
+          const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
             cleaned.some((item: any) => item.id === id)
           );
           
@@ -321,6 +326,18 @@ const Index = () => {
             cleaned = [...cleaned, ...crispyTendersItems];
           }
           
+          if (!hasAllPeriPeriCrispyTenders) {
+            // Get all Peri Peri crispy tenders items from defaults
+            const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+              item.id && periPeriCrispyTendersIds.includes(item.id)
+            );
+            // Remove any existing Peri Peri crispy tenders items and add new ones
+            cleaned = cleaned.filter((item: any) => 
+              !item.id || !periPeriCrispyTendersIds.includes(item.id)
+            );
+            cleaned = [...cleaned, ...periperiCrispyTendersItems];
+          }
+          
           return cleaned.length > 0 ? cleaned : defaultMenuItems;
         }
       }
@@ -353,7 +370,7 @@ const Index = () => {
       const name = item.name.toLowerCase();
       const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
                               (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-      return isPeriPeriStrips && item.category !== 'crispytenders';
+      return isPeriPeriStrips && item.category !== 'peripericrispytenders';
     });
     
     // Check if dip items are missing
@@ -367,26 +384,30 @@ const Index = () => {
     );
     
     // Check if all crispy tenders items exist
-    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
+    const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
     const hasAllCrispyTenders = crispyTendersIds.every(id => 
       menuItems.some((item: any) => item.id === id)
     );
+    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
+      menuItems.some((item: any) => item.id === id)
+    );
     
-    if (needsCleanup || !hasDipItems || !hasAllCrispyTenders) {
+    if (needsCleanup || !hasDipItems || !hasAllCrispyTenders || !hasAllPeriPeriCrispyTenders) {
       const cleaned = menuItems.map((item: any) => {
         if (!item.name) return item;
         const name = item.name.toLowerCase();
         const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
                                 (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
         
-        // Move all Peri Peri Crispy Strips to crispytenders category
-        if (isPeriPeriStrips && item.category !== 'crispytenders') {
-          return { ...item, category: 'crispytenders' };
+        // Move all Peri Peri Crispy Strips to peripericrispytenders category
+        if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
+          return { ...item, category: 'peripericrispytenders' };
         }
         return item;
       });
       
-      // Remove duplicates - keep only items in crispytenders
+      // Remove duplicates - keep only items in peripericrispytenders
       let uniqueCleaned = cleaned.filter((item: any, index: number, self: any[]) => {
         if (!item.name) return true;
         const name = item.name.toLowerCase();
@@ -394,9 +415,9 @@ const Index = () => {
                                 (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
         
         if (isPeriPeriStrips) {
-          // Keep only if it's in crispytenders and is the first occurrence
-          return item.category === 'crispytenders' && 
-                 self.findIndex((i: any) => i.name === item.name && i.category === 'crispytenders') === index;
+          // Keep only if it's in peripericrispytenders and is the first occurrence
+          return item.category === 'peripericrispytenders' && 
+                 self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
         }
         return true;
       });
@@ -434,6 +455,18 @@ const Index = () => {
           !item.id || !crispyTendersIds.includes(item.id)
         );
         uniqueCleaned = [...uniqueCleaned, ...crispyTendersItems];
+      }
+      
+      // Add all Peri Peri crispy tenders items if missing
+      if (!hasAllPeriPeriCrispyTenders) {
+        const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+          item.id && periPeriCrispyTendersIds.includes(item.id)
+        );
+        // Remove any existing Peri Peri crispy tenders items first
+        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+          !item.id || !periPeriCrispyTendersIds.includes(item.id)
+        );
+        uniqueCleaned = [...uniqueCleaned, ...periperiCrispyTendersItems];
       }
       
       setMenuItems(uniqueCleaned);
@@ -475,36 +508,40 @@ const Index = () => {
       ...item,
       image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
     }));
-    // Ensure Peri Peri Crispy Strips items are only in crispytenders category
+    // Ensure Peri Peri Crispy Strips items are only in peripericrispytenders category
     let cleaned = safeMenuItems.map((item: any) => {
       if (!item.name) return item;
       const name = item.name.toLowerCase();
       const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
                               (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
       
-      // Move all Peri Peri Crispy Strips to crispytenders category
-      if (isPeriPeriStrips && item.category !== 'crispytenders') {
-        return { ...item, category: 'crispytenders' };
+      // Move all Peri Peri Crispy Strips to peripericrispytenders category
+      if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
+        return { ...item, category: 'peripericrispytenders' };
       }
       return item;
     }).filter((item: any, index: number, self: any[]) => {
-      // Remove duplicates - keep only items in crispytenders
+      // Remove duplicates - keep only items in peripericrispytenders
       if (!item.name) return true;
       const name = item.name.toLowerCase();
       const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
                               (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
       
       if (isPeriPeriStrips) {
-        // Keep only if it's in crispytenders and is the first occurrence
-        return item.category === 'crispytenders' && 
-               self.findIndex((i: any) => i.name === item.name && i.category === 'crispytenders') === index;
+        // Keep only if it's in peripericrispytenders and is the first occurrence
+        return item.category === 'peripericrispytenders' && 
+               self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
       }
       return true;
     });
     
     // Ensure all crispy tenders items are included
-    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'st-1', 'st-2', 'st-3', 'st-4', 'ct-burger-1', 'ct-burger-2'];
+    const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
+    const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
     const hasAllCrispyTenders = crispyTendersIds.every(id => 
+      cleaned.some((item: any) => item.id === id)
+    );
+    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
       cleaned.some((item: any) => item.id === id)
     );
     
@@ -517,6 +554,17 @@ const Index = () => {
         !item.id || !crispyTendersIds.includes(item.id)
       );
       cleaned = [...withoutCrispyTenders, ...crispyTendersItems];
+    }
+    
+    if (!hasAllPeriPeriCrispyTenders) {
+      const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+        item.id && periPeriCrispyTendersIds.includes(item.id)
+      );
+      // Remove any existing Peri Peri crispy tenders items and add all from defaults
+      const withoutPeriPeriCrispyTenders = cleaned.filter((item: any) => 
+        !item.id || !periPeriCrispyTendersIds.includes(item.id)
+      );
+      cleaned = [...withoutPeriPeriCrispyTenders, ...periPeriCrispyTendersItems];
     }
     
     localStorage.setItem('menuItems', JSON.stringify(cleaned));

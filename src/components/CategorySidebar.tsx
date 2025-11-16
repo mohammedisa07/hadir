@@ -77,11 +77,8 @@ export const CategorySidebar = ({ selectedCategory, onCategorySelect, userRole, 
     itemCount: categories.reduce((sum, cat) => sum + (cat.itemCount || 0), 0),
     color: 'bg-primary',
   };
-  // Sort categories alphabetically (excluding 'All Items' which stays at top)
-  const sortedCategories = [...categories].sort((a, b) => {
-    return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
-  });
-  const sidebarCategories = [allItemsCategory, ...sortedCategories];
+  // Keep categories in the order they are provided (no sorting)
+  const sidebarCategories = [allItemsCategory, ...categories];
 
   const sensors = useSensors(useSensor(PointerSensor));
 
