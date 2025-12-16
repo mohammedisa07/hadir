@@ -48,7 +48,7 @@ const menuItems = [
   { name: 'Smiles', price: 70, imageUrl: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg' },
   { name: 'Cheese Garlic Bomb(Korean)', price: 0, imageUrl: 'https://i.pinimg.com/736x/7f/4b/12/7f4b1201b6c8da63a419ab23435a156e.jpg' },
   { name: 'Veg Cheese Balls', price: 80, imageUrl: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg' },
-  { name: 'Veg Fingers', price: 110, imageUrl: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg' },
+  { name: 'Veg Fingers', price: 100, imageUrl: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg' },
   { name: 'Avo Toast', price: 0, imageUrl: 'https://i.pinimg.com/736x/35/07/4f/35074f51b7d779c43f6ff49f43b7d515.jpg' },
   { name: 'Chilli Garlic Bread', price: 0, imageUrl: 'https://i.pinimg.com/1200x/d1/93/e2/d193e2ae90dcc3e24e6f534693e46a93.jpg' },
   { name: 'Cheese Garlic Bread', price: 0, imageUrl: 'https://i.pinimg.com/1200x/1e/ef/f9/1eeff9416fa750e1ecdc32d4c9d3ff43.jpg' },

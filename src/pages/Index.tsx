@@ -85,7 +85,7 @@ const defaultMenuItems = [
   { id: '27', name: 'Spicy Paneer Burger', price: 160, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/5d/7d/5b/5d7d5bbfbaf9cdaf0bdd9fb924d1ef40.jpg', isAvailable: true },
   { id: '28', name: 'Veg Nuggets', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
   { id: '29', name: 'Smiles', price: 70, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg', isAvailable: true },
-  { id: '30', name: 'Veg Fingers', price: 110, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg', isAvailable: true },
+  { id: '30', name: 'Veg Fingers', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg', isAvailable: true },
   { id: '31', name: 'Veg Sandwich', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/c7/9a/6a/c79a6a877165a9ab2df992dd80dc5ec6.jpg', isAvailable: true },
   { id: '32', name: 'Fried Cheese Corn Momos', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/ff/d0/d9/ffd0d958fe1c39ea72bd04838afde4a0.jpg', isAvailable: true },
   { id: '33', name: 'Fried Paneer Momos', price: 110, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/c2/9f/71/c29f71c637f3693f82c19a597dcfd975.jpg', isAvailable: true },
