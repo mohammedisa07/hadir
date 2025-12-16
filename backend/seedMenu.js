@@ -16,8 +16,8 @@ const menuItems = [
   { name: 'Latte', price: 0, imageUrl: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg' },
   { name: 'Vennila Latte', price: 0, imageUrl: 'https://i.pinimg.com/1200x/1c/5b/fb/1c5bfb32fecd0c138b99631a9a160bad.jpg' },
   { name: 'Hazelnut Latte', price: 0, imageUrl: 'https://i.pinimg.com/1200x/cd/9c/46/cd9c46c324127c347798f53b7f55996c.jpg' },
-  { name: 'Hot Mocha', price: 0, imageUrl: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg' },
-  { name: 'Hot Chocolate', price: 0, imageUrl: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg' },
+  { name: 'Hot Mocha', price: 90, imageUrl: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg' },
+  { name: 'Hot Chocolate', price: 120, imageUrl: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg' },
   { name: 'Americano', price: 0, imageUrl: 'https://i.pinimg.com/736x/de/72/1c/de721cf98ef9c6a06906e094fe337f4e.jpg' },
   { name: 'Espresso', price: 0, imageUrl: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg' },
   { name: 'Espresso Romano', price: 0, imageUrl: 'https://i.pinimg.com/736x/db/35/1d/db351d7b69fe2ce291bbde648fcefec7.jpg' },
@@ -45,12 +45,14 @@ const menuItems = [
   { name: 'Strawberry Basil Mojito', price: 160, imageUrl: 'https://i.pinimg.com/736x/dc/2a/85/dc2a85137fee62793d865c037aeb06d1.jpg' },
   { name: 'Blue Lady', price: 120, imageUrl: 'https://i.pinimg.com/1200x/4d/c1/17/4dc117d0e99a89100aec3f47d6737f18.jpg' },
   // VEG SNACKS
+  { name: 'Smiles', price: 70, imageUrl: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg' },
   { name: 'Cheese Garlic Bomb(Korean)', price: 0, imageUrl: 'https://i.pinimg.com/736x/7f/4b/12/7f4b1201b6c8da63a419ab23435a156e.jpg' },
-  { name: 'Cheese Balls', price: 0, imageUrl: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg' },
+  { name: 'Veg Cheese Balls', price: 80, imageUrl: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg' },
+  { name: 'Veg Fingers', price: 110, imageUrl: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg' },
   { name: 'Avo Toast', price: 0, imageUrl: 'https://i.pinimg.com/736x/35/07/4f/35074f51b7d779c43f6ff49f43b7d515.jpg' },
   { name: 'Chilli Garlic Bread', price: 0, imageUrl: 'https://i.pinimg.com/1200x/d1/93/e2/d193e2ae90dcc3e24e6f534693e46a93.jpg' },
   { name: 'Cheese Garlic Bread', price: 0, imageUrl: 'https://i.pinimg.com/1200x/1e/ef/f9/1eeff9416fa750e1ecdc32d4c9d3ff43.jpg' },
-  { name: 'Veg Wrap', price: 0, imageUrl: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg' },
+  { name: 'Veg Wrap', price: 130, imageUrl: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg' },
   { name: 'Veg Burger', price: 0, imageUrl: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg' },
   { name: 'Spicy Veg Burger', price: 0, imageUrl: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg' },
   { name: 'Veg Twin Burger', price: 220, imageUrl: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg' },
@@ -68,6 +70,7 @@ const menuItems = [
   { name: 'Chicky Cheese ball', price: 0, imageUrl: 'https://i.pinimg.com/736x/c8/cd/a9/c8cda9673f5e3a4ade8369db5bc22894.jpg' },
   { name: 'Non-Veg Twin Burger', price: 260, imageUrl: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg' },
   { name: 'Spicy Non-Veg Twin Burger', price: 280, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg' },
+  { name: 'Fish Fingers 5Pc', price: 150, imageUrl: 'https://i.pinimg.com/736x/e6/4a/ed/e64aed4f4df1749a9be0f9fd00cb4127.jpg' },
   // VEG FRIES
   { name: 'French Fries', price: 0, imageUrl: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg' },
   { name: 'Cheesy Fries', price: 0, imageUrl: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg' },
@@ -90,7 +93,8 @@ const menuItems = [
   { name: 'Figgy Hon-Crisp Bowl', price: 0, imageUrl: 'https://i.pinimg.com/1200x/40/d4/9d/40d49d59a7152f609118e2b720145b64.jpg' },
   { name: 'Banana Hon-Crisp Bowl', price: 0, imageUrl: 'https://i.pinimg.com/736x/83/82/2d/83822d410173f2ef2de7b82a7ebde00a.jpg' },
   { name: 'Brownie', price: 0, imageUrl: 'https://i.pinimg.com/1200x/3f/b0/eb/3fb0eb836ff71a4bb8c0a32824e58a85.jpg' },
-  { name: 'Brownie with Ice Cream', price: 80, imageUrl: 'https://i.pinimg.com/1200x/8f/8a/16/8f8a16aacb8e5b550dd34961dc3d932d.jpg' },
+  { name: 'Big Brownie', price: 60, imageUrl: 'https://i.pinimg.com/1200x/3f/b0/eb/3fb0eb836ff71a4bb8c0a32824e58a85.jpg' },
+  { name: 'Big Brownie with Ice Cream', price: 90, imageUrl: 'https://i.pinimg.com/1200x/8f/8a/16/8f8a16aacb8e5b550dd34961dc3d932d.jpg' },
   { name: 'Mango Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/ae/38/58/ae3858a073993023932bcf972bace1fe.jpg' },
   { name: 'Strawberry Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/c0/4a/30/c04a309a82b8026a6f2e8a356fac37ea.jpg' },
   { name: 'Choco Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/99/cf/42/99cf42f264127766fc5626f81d321efe.jpg' },
@@ -117,6 +121,12 @@ const menuItems = [
   { name: 'Peri Peri Crispy Strips 12pc', price: 480, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
   { name: 'Crispy Chicken Burger', price: 170, imageUrl: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', category: 'crispytenders' },
   { name: 'Spicy Crispy Chicken Burger', price: 180, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', category: 'crispytenders' },
+  // NOODLES
+  { name: 'Classic Noodles', price: 70, imageUrl: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', category: 'noodles' },
+  { name: 'Peri Peri Noodles', price: 80, imageUrl: 'https://i.pinimg.com/736x/5f/05/36/5f0536935fa39bc3d935613e584d6274.jpg', category: 'noodles' },
+  { name: 'Cheesy Noodles', price: 90, imageUrl: 'https://i.pinimg.com/736x/69/dd/9c/69dd9c9e524f44c7322f439305e6ee1b.jpg', category: 'noodles' },
+  { name: 'Veg Noodles', price: 100, imageUrl: 'https://i.pinimg.com/736x/96/95/4e/96954eb94676911480996ac1799651f3.jpg', category: 'noodles' },
+  { name: 'Chicken Noodles', price: 120, imageUrl: 'https://i.pinimg.com/1200x/1b/b6/79/1bb6793189c4ae7ed17723f95c3ec39d.jpg', category: 'noodles' },
 ];
 
 async function seedMenu() {

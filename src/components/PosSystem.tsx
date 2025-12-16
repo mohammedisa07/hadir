@@ -5,9 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { 
-  Search, 
-  Plus, 
+import {
+  Search,
+  Plus,
   Minus,
   Star,
   Settings,
@@ -110,7 +110,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
     setNodeRef,
     transform,
     transition,
-  } = useSortable({id: item.id});
+  } = useSortable({ id: item.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -118,18 +118,17 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
   };
 
   return (
-    <Card 
+    <Card
       ref={setNodeRef}
       style={style}
-      className={`cursor-pointer hover:shadow-md transition-all duration-200 group relative overflow-hidden h-full ${
-        !item.isAvailable ? 'opacity-50 grayscale' : ''
-      } ${userRole === 'admin' ? 'admin-card' : ''}`}
+      className={`cursor-pointer hover:shadow-md transition-all duration-200 group relative overflow-hidden h-full ${!item.isAvailable ? 'opacity-50 grayscale' : ''
+        } ${userRole === 'admin' ? 'admin-card' : ''}`}
       onClick={() => item.isAvailable && onAddToCart(item)}
     >
       <CardContent className="p-0 h-full flex flex-col">
         {/* Drag Handle for Admin */}
         {userRole === 'admin' && (
-          <div 
+          <div
             {...attributes}
             {...listeners}
             className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity z-10 bg-white/80 rounded p-1 cursor-grab"
@@ -140,8 +139,8 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
 
         {/* Image */}
         <div className="relative h-32 bg-muted overflow-hidden flex-shrink-0">
-          <img 
-            src={item.image || '/placeholder.svg'} 
+          <img
+            src={item.image || '/placeholder.svg'}
             alt={item.name}
             loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
@@ -156,12 +155,12 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
               </div>
             </div>
           )}
-          
+
           {/* Admin Controls */}
           {userRole === 'admin' && (
             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-1">
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 variant={item.isAvailable ? "destructive" : "default"}
                 className="h-6 w-6 p-0"
                 onClick={(e) => {
@@ -171,13 +170,13 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
               >
                 <AlertTriangle className="h-3 w-3" />
               </Button>
-              <MenuItemForm 
-                item={item} 
+              <MenuItemForm
+                item={item}
                 onSave={onEdit}
                 categories={categories}
                 trigger={
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     variant="secondary"
                     className="h-6 w-6 p-0"
                     onClick={(e) => e.stopPropagation()}
@@ -189,16 +188,37 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
             </div>
           )}
         </div>
-        
+
         {/* Content */}
         <div className="p-4 flex-1 flex flex-col justify-between">
           <div className="flex-1">
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-1">
+                <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                     {item.name}
                   </h3>
+                  <div className={`border-2 ${(item.category?.toLowerCase().includes('non') ||
+                      item.category?.toLowerCase().includes('crispytenders') ||
+                      item.name.toLowerCase().includes('chicken') ||
+                      item.name.toLowerCase().includes('fish') ||
+                      item.name.toLowerCase().includes('egg') ||
+                      item.name.toLowerCase().includes('sausage') ||
+                      item.name.toLowerCase().includes('chicky'))
+                      ? 'border-red-600'
+                      : 'border-green-600'
+                    } h-4 w-4 min-w-[16px] flex items-center justify-center p-0.5 rounded-sm`}>
+                    <div className={`rounded-full h-full w-full ${(item.category?.toLowerCase().includes('non') ||
+                        item.category?.toLowerCase().includes('crispytenders') ||
+                        item.name.toLowerCase().includes('chicken') ||
+                        item.name.toLowerCase().includes('fish') ||
+                        item.name.toLowerCase().includes('egg') ||
+                        item.name.toLowerCase().includes('sausage') ||
+                        item.name.toLowerCase().includes('chicky'))
+                        ? 'bg-red-600'
+                        : 'bg-green-600'
+                      }`} />
+                  </div>
                   {item.isPopular && (
                     <Badge variant="secondary" className="text-xs bg-cafe-gold text-white flex-shrink-0">
                       <Star className="h-3 w-3 mr-1" />
@@ -217,15 +237,15 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between mt-auto pt-2">
             <span className="text-lg font-bold text-primary">₹{item.price}</span>
             {item.isAvailable && (
               <div className="flex items-center space-x-2">
                 {cartQuantity > 0 && (
                   <>
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       variant="outline"
                       className="h-6 w-6 p-0 flex-shrink-0"
                       onClick={(e) => {
@@ -240,8 +260,8 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
                     </Badge>
                   </>
                 )}
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   className="h-6 w-6 p-0 flex-shrink-0"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -262,7 +282,7 @@ const SortableMenuItem = ({ item, onEdit, onToggleAvailability, userRole, onAddT
 export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories = [], menuItems, setMenuItems }: PosSystemProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showOutOfStock, setShowOutOfStock] = useState(false);
-  
+
   const { addToCart, cart, updateQuantity } = useCart();
   const { toast } = useToast();
 
@@ -283,8 +303,8 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   }).slice().sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
 
   // Get only out of stock items
-  const outOfStockItems = menuItems.filter(item => 
-    !item.isAvailable && 
+  const outOfStockItems = menuItems.filter(item =>
+    !item.isAvailable &&
     (selectedCategory === 'all' || (item.category && item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase())) &&
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   ).slice().sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
@@ -292,12 +312,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   // New functions for enhanced features
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
-    
+
     if (active.id !== over.id) {
       setMenuItems((items) => {
         const oldIndex = items.findIndex(item => item.id === active.id || item._id === active.id);
         const newIndex = items.findIndex(item => item.id === over.id || item._id === over.id);
-        
+
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -385,7 +405,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
                 className="pl-10"
               />
             </div>
-            
+
             {userRole === 'admin' && (
               <div className="flex gap-2">
                 <Button
@@ -405,12 +425,12 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
 
       {/* Menu Grid with Drag & Drop */}
       <ScrollArea className="flex-1 px-6 pb-6">
-        <DndContext 
+        <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <SortableContext 
+          <SortableContext
             items={filteredItems.map(item => item.id || item._id || '')}
             strategy={verticalListSortingStrategy}
           >
@@ -419,7 +439,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
                 // Find the cart item for this menu item
                 const cartItem = cart.find(cartItem => (cartItem.id && cartItem.id === item.id) || (cartItem._id && cartItem._id === item._id));
                 const cartQuantity = cartItem ? cartItem.quantity : 0;
-                
+
                 return (
                   <SortableMenuItem
                     key={item.id || item._id || ''}
@@ -449,7 +469,7 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
               {outOfStockItems.map((item) => {
                 const cartItem = cart.find(cartItem => cartItem.id === item.id || cartItem._id === item._id);
                 const cartQuantity = cartItem ? cartItem.quantity : 0;
-                
+
                 return (
                   <SortableMenuItem
                     key={item.id || item._id || ''}

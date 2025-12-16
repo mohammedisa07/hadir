@@ -20,18 +20,18 @@ const defaultCategories: Category[] = [
   { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
   { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
   { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'peripericrispytenders', name: 'PERI PERI CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-success' },
-  { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'peripericrispytenders', name: 'PERI PERI CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
   { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-success' },
-  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-  { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
+  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
   { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
 ];
@@ -46,13 +46,13 @@ const defaultMenuItems = [
   // HOT BEVERAGES
   { id: '1', name: 'Cappuccino', price: 80, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg', isAvailable: true },
   { id: '2', name: 'Latte', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg', isAvailable: true },
-  { id: '3', name: 'Hot Mocha', price: 70, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg', isAvailable: true },
+  { id: '3', name: 'Hot Mocha', price: 90, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg', isAvailable: true },
   { id: '4', name: 'Wippy Hot Mocha', price: 90, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/80/af/5f/80af5f93e6c721249c7f4ef83f1583d1.jpg', isAvailable: true },
   { id: '5', name: 'Americano', price: 60, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/de/72/1c/de721cf98ef9c6a06906e094fe337f4e.jpg', isAvailable: true },
-  { id: '6', name: 'Hot Chocolate', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg', isAvailable: true },
+  { id: '6', name: 'Hot Chocolate', price: 120, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg', isAvailable: true },
   { id: '6a', name: 'Instant Coffee', price: 20, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg', isAvailable: true },
   { id: '6b', name: 'Milk', price: 15, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg', isAvailable: true },
-  
+
   // COLD BEVERAGES
   { id: '7', name: 'Cold Coffee', price: 120, category: 'coldbeverages', image: 'https://i.pinimg.com/1200x/db/ae/64/dbae64ad1529f3f9b74b91b19f21620a.jpg', isAvailable: true },
   { id: '8', name: 'Iced Latte', price: 120, category: 'coldbeverages', image: 'https://i.pinimg.com/736x/1e/67/b7/1e67b7c6fcbd33018697e88fafdd8f7c.jpg', isAvailable: true },
@@ -62,7 +62,7 @@ const defaultMenuItems = [
   { id: '12', name: 'Mango Frappe', price: 200, category: 'coldbeverages', image: 'https://i.pinimg.com/736x/44/0e/83/440e838cc4c2991fbefbf38a5f8fe3ee.jpg', isAvailable: true },
   { id: '13', name: 'Choco Frappe', price: 180, category: 'coldbeverages', image: 'https://i.pinimg.com/736x/8c/3c/fd/8c3cfd6d32b634ab37c6b6e874b69928.jpg', isAvailable: true },
   { id: '14', name: 'Peanut Choco Frappe', price: 200, category: 'coldbeverages', image: 'https://i.pinimg.com/1200x/dd/a1/67/dda1677e7f1a2473e3c9c26ded5d203b.jpg', isAvailable: true },
-  
+
   // SPARKLINGS
   { id: '15', name: 'Iced Americano', price: 80, category: 'sparklings', image: 'https://i.pinimg.com/1200x/e8/06/81/e8068186818ad7f0223acf7732643d98.jpg', isAvailable: true },
   { id: '16', name: 'Mojito', price: 80, category: 'sparklings', image: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', isAvailable: true },
@@ -72,10 +72,10 @@ const defaultMenuItems = [
   { id: '20', name: 'Strawberry Basil Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/dc/2a/85/dc2a85137fee62793d865c037aeb06d1.jpg', isAvailable: true },
   { id: '20a', name: 'Sparkling - Mango Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/6e/bd/16/6ebd1623578f88ec60fb0fb8c7882cf8.jpg', isAvailable: true },
   { id: '21', name: 'Blue Lady', price: 120, category: 'sparklings', image: 'https://i.pinimg.com/1200x/4d/c1/17/4dc117d0e99a89100aec3f47d6737f18.jpg', isAvailable: true },
-  
+
   // VEG SNACKS
-  { id: '22', name: 'Cheese Balls', price: 70, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg', isAvailable: true },
-  { id: '23', name: 'Veg Wrap', price: 120, category: 'vegwraps', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
+  { id: '22', name: 'Veg Cheese Balls', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg', isAvailable: true },
+  { id: '23', name: 'Veg Wrap', price: 130, category: 'vegwraps', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
   { id: '97', name: 'Paneer Sandwich', price: 120, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/a2/d6/08/a2d608bb67a4f42013b2f11cba2aea1d.jpg', isAvailable: true },
   { id: '24', name: 'Veg Burger', price: 130, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/dc/41/0c/dc410c7fc60c5847d07243482a4fb1ad.jpg', isAvailable: true },
   { id: '25', name: 'Spicy Veg Burger', price: 140, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2e/cd/ff/2ecdffe0cff2de575ec82f0f188debac.jpg', isAvailable: true },
@@ -84,12 +84,12 @@ const defaultMenuItems = [
   { id: '26', name: 'Paneer Burger', price: 150, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/2c/cf/52/2ccf52d754ae38b340585cbe4ebb265d.jpg', isAvailable: true },
   { id: '27', name: 'Spicy Paneer Burger', price: 160, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/5d/7d/5b/5d7d5bbfbaf9cdaf0bdd9fb924d1ef40.jpg', isAvailable: true },
   { id: '28', name: 'Veg Nuggets', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
-  { id: '29', name: 'Smiles', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg', isAvailable: true },
-  { id: '30', name: 'Veg Fingers', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg', isAvailable: true },
+  { id: '29', name: 'Smiles', price: 70, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg', isAvailable: true },
+  { id: '30', name: 'Veg Fingers', price: 110, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/f7/af/f0/f7aff0682ffd984fc1dd1eca4d81899c.jpg', isAvailable: true },
   { id: '31', name: 'Veg Sandwich', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/1200x/c7/9a/6a/c79a6a877165a9ab2df992dd80dc5ec6.jpg', isAvailable: true },
   { id: '32', name: 'Fried Cheese Corn Momos', price: 100, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/ff/d0/d9/ffd0d958fe1c39ea72bd04838afde4a0.jpg', isAvailable: true },
   { id: '33', name: 'Fried Paneer Momos', price: 110, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/c2/9f/71/c29f71c637f3693f82c19a597dcfd975.jpg', isAvailable: true },
-  
+
   // NON-VEG SNACKS
   { id: '34', name: 'Chicky Wrap', price: 140, category: 'nonvegwraps', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
   { id: '35', name: 'Eggbell Wrap', price: 130, category: 'nonvegwraps', image: 'https://i.pinimg.com/736x/3a/79/1d/3a791dbf354995dbbd437a4623690642.jpg', isAvailable: true },
@@ -104,7 +104,8 @@ const defaultMenuItems = [
   { id: '42a', name: 'Non-Veg Twin Burger', price: 260, category: 'twinburgers', image: 'https://i.pinimg.com/736x/d2/70/98/d27098ae7beb12f3f1c94bde4375e11f.jpg', isAvailable: true },
   { id: '42b', name: 'Spicy Non-Veg Twin Burger', price: 280, category: 'twinburgers', image: 'https://i.pinimg.com/736x/ff/f8/cc/fff8ccdb4c7f126a14a360eae66b6860.jpg', isAvailable: true },
   { id: '43', name: 'Chicky Sandwich', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/1200x/77/cb/b6/77cbb655512caf7fd795f0270ba3a86c.jpg', isAvailable: true },
-  
+  { id: '43a', name: 'Fish Fingers 5Pc', price: 150, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/e6/4a/ed/e64aed4f4df1749a9be0f9fd00cb4127.jpg', isAvailable: true },
+
   // VEG COMBOS
   { id: '80', name: 'Veg Burger Meal', price: 250, category: 'vegcombos', image: 'https://i.pinimg.com/736x/ee/58/d6/ee58d6013ca86038af534f14a26de222.jpg', isAvailable: true },
   { id: '81', name: 'Spicy Veg Burger Meal', price: 260, category: 'vegcombos', image: 'https://i.pinimg.com/736x/fe/9c/26/fe9c26a3564d920d3378a60b0a8200f3.jpg', isAvailable: true },
@@ -120,11 +121,11 @@ const defaultMenuItems = [
   { id: '100', name: 'Sausage Wrap Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
 
   // NOODLES
-  { id: '88', name: 'Classic Noodles', price: 40, category: 'noodles', image: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', isAvailable: true },
-  { id: '89', name: 'Spicy Noodles', price: 50, category: 'noodles', image: 'https://i.pinimg.com/736x/5f/05/36/5f0536935fa39bc3d935613e584d6274.jpg', isAvailable: true },
-  { id: '90', name: 'Cheesy Noodles', price: 60, category: 'noodles', image: 'https://i.pinimg.com/736x/69/dd/9c/69dd9c9e524f44c7322f439305e6ee1b.jpg', isAvailable: true },
-  { id: '91', name: 'Veg Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/736x/96/95/4e/96954eb94676911480996ac1799651f3.jpg', isAvailable: true },
-  { id: '92', name: 'Chicken Noodles', price: 80, category: 'noodles', image: 'https://i.pinimg.com/1200x/1b/b6/79/1bb6793189c4ae7ed17723f95c3ec39d.jpg', isAvailable: true },
+  { id: '88', name: 'Classic Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', isAvailable: true },
+  { id: '89', name: 'Peri Peri Noodles', price: 80, category: 'noodles', image: 'https://i.pinimg.com/736x/5f/05/36/5f0536935fa39bc3d935613e584d6274.jpg', isAvailable: true },
+  { id: '90', name: 'Cheesy Noodles', price: 90, category: 'noodles', image: 'https://i.pinimg.com/736x/69/dd/9c/69dd9c9e524f44c7322f439305e6ee1b.jpg', isAvailable: true },
+  { id: '91', name: 'Veg Noodles', price: 100, category: 'noodles', image: 'https://i.pinimg.com/736x/96/95/4e/96954eb94676911480996ac1799651f3.jpg', isAvailable: true },
+  { id: '92', name: 'Chicken Noodles', price: 120, category: 'noodles', image: 'https://i.pinimg.com/1200x/1b/b6/79/1bb6793189c4ae7ed17723f95c3ec39d.jpg', isAvailable: true },
 
   // VEG WRAPS
   { id: '93', name: 'Paneer Wrap', price: 140, category: 'vegwraps', image: 'https://i.pinimg.com/736x/f9/49/0c/f9490cf828b14d3fd47991d534b1f8bb.jpg', isAvailable: true },
@@ -139,23 +140,24 @@ const defaultMenuItems = [
   { id: '45', name: 'Cheesy Fries', price: 100, category: 'vegfries', image: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg', isAvailable: true },
   { id: '46', name: 'Peri Peri Fries', price: 120, category: 'vegfries', image: 'https://i.pinimg.com/736x/fe/00/47/fe00473ee205b8562ffbf6ec8f06682f.jpg', isAvailable: true },
   { id: '47', name: 'Veg Loaded Fries', price: 150, category: 'vegfries', image: 'https://i.pinimg.com/736x/23/7d/5e/237d5ed01014de9bc47b366119ce3a77.jpg', isAvailable: true },
-  
+
   // NON-VEG FRIES
   { id: '48', name: 'Chicky Loaded Fries', price: 160, category: 'nonvegfries', image: 'https://i.pinimg.com/736x/86/9c/52/869c528679862d37f1cce6027939a39f.jpg', isAvailable: true },
   { id: '49', name: 'Peri Peri Chicky Loaded Fries', price: 170, category: 'nonvegfries', image: 'https://i.pinimg.com/1200x/b1/9f/5b/b19f5ba8ffd27b07a7ab1044b1e174ae.jpg', isAvailable: true },
   { id: '50', name: 'Chicky Garlic Loaded Fries', price: 180, category: 'nonvegfries', image: 'https://i.pinimg.com/1200x/b5/19/bb/b519bb5ff1996d4ef64b5f126a26e46e.jpg', isAvailable: true },
   { id: '51', name: 'Sausage Loaded Fries', price: 200, category: 'nonvegfries', image: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', isAvailable: true },
-  
+
   // DESSERTS - YUMMY CUPS
-  { id: '52', name: 'Vennila Scope', price: 30, category: 'desserts', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
+  { id: '52', name: 'Vennila Scoop', price: 30, category: 'desserts', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
   { id: '53', name: 'Vennila Honey', price: 40, category: 'desserts', image: 'https://i.pinimg.com/1200x/03/dc/85/03dc852b6e8c72737baa73a8cd12bc74.jpg', isAvailable: true },
   { id: '54', name: 'Brownie', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/3f/b0/eb/3fb0eb836ff71a4bb8c0a32824e58a85.jpg', isAvailable: true },
+  { id: '54a', name: 'Big Brownie', price: 60, category: 'desserts', image: 'https://i.pinimg.com/1200x/3f/b0/eb/3fb0eb836ff71a4bb8c0a32824e58a85.jpg', isAvailable: true },
   { id: '55', name: 'Mango Topped Ice Cream', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/ae/38/58/ae3858a073993023932bcf972bace1fe.jpg', isAvailable: true },
   { id: '56', name: 'Strawberry Topped Ice Cream', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/c0/4a/30/c04a309a82b8026a6f2e8a356fac37ea.jpg', isAvailable: true },
-  { id: '57', name: 'Brownie with Ice Cream', price: 80, category: 'desserts', image: 'https://i.pinimg.com/1200x/8f/8a/16/8f8a16aacb8e5b550dd34961dc3d932d.jpg', isAvailable: true },
+  { id: '57', name: 'Big Brownie with Ice Cream', price: 90, category: 'desserts', image: 'https://i.pinimg.com/1200x/8f/8a/16/8f8a16aacb8e5b550dd34961dc3d932d.jpg', isAvailable: true },
   { id: '58', name: 'Choco Topped Ice Cream', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/99/cf/42/99cf42f264127766fc5626f81d321efe.jpg', isAvailable: true },
   { id: '59', name: 'Affogato', price: 60, category: 'desserts', image: 'https://i.pinimg.com/736x/3e/72/a4/3e72a46e744028f3f3087adebdcb6e15.jpg', isAvailable: true },
-  
+
   // PREMIUM CUPS
   { id: '60', name: 'Coffee Crisp Bowl', price: 150, category: 'desserts', image: 'https://i.pinimg.com/1200x/a7/db/00/a7db005dbdb7be6cacb77d736e99c054.jpg', isAvailable: true },
   { id: '61', name: 'Banana Hon-Crisp Bowl', price: 150, category: 'desserts', image: 'https://i.pinimg.com/736x/83/82/2d/83822d410173f2ef2de7b82a7ebde00a.jpg', isAvailable: true },
@@ -165,7 +167,7 @@ const defaultMenuItems = [
   { id: '65', name: 'Strawberry Crisp Bowl', price: 200, category: 'desserts', image: 'https://i.pinimg.com/736x/02/ca/31/02ca31e9169188bb65b452bdab3e77eb.jpg', isAvailable: true },
   { id: '66', name: 'Nutty Hon-Crisp Bowl', price: 200, category: 'desserts', image: 'https://i.pinimg.com/736x/b1/4d/27/b14d27738e9ba1d4375553722469994f.jpg', isAvailable: true },
   { id: '67', name: 'Figgy Hon-Crisp Bowl', price: 200, category: 'desserts', image: 'https://i.pinimg.com/1200x/40/d4/9d/40d49d59a7152f609118e2b720145b64.jpg', isAvailable: true },
-  
+
   // ADD-ONS - 20rs/-
   { id: '68', name: 'Chocolate Sauce', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/86/ac/70/86ac7052f9acf98e1b77a60fea5b28b6.jpg', isAvailable: true },
   { id: '69', name: 'Mango Sauce', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/e8/aa/cf/e8aacf2b9fdf2e4f54b3f915162fc638.jpg', isAvailable: true },
@@ -174,20 +176,20 @@ const defaultMenuItems = [
   { id: '72', name: 'Biscoff', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/4f/77/27/4f7727f267edb731b1e7be749a6b643e.jpg', isAvailable: true },
   { id: '73', name: 'Orea', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/d8/76/fc/d876fc2380c6af9d6b4ffeb3c799848a.jpg', isAvailable: true },
   { id: '74', name: 'Fresh Cream', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg', isAvailable: true },
-  { id: '75', name: 'Vennila Scope', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
+  { id: '75', name: 'Vennila Scoop', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/36/40/1c/36401c4cf41352071947d62c40afaa19.jpg', isAvailable: true },
   { id: '76', name: 'Cheese', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/a9/e5/15/a9e5153870538e36ffe90553ef5ffeb6.jpg', isAvailable: true },
   { id: '77', name: 'Mayo', price: 20, category: 'addons', image: 'https://i.pinimg.com/1200x/f1/88/39/f18839bd715a7e845831ae52cbac18dc.jpg', isAvailable: true },
   { id: '77a', name: 'Mojito Swap', price: 10, category: 'addons', image: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', isAvailable: true },
   { id: '78', name: 'Small Water Bottle', price: 10, category: 'addons', image: 'https://i.pinimg.com/736x/f4/5e/d5/f45ed52b28cf16c2cf7840f31794c83b.jpg', isAvailable: true },
   { id: '79', name: 'Big Water Bottle', price: 20, category: 'addons', image: 'https://i.pinimg.com/736x/35/d3/fb/35d3fb719e4c55f8051d14be92eace47.jpg', isAvailable: true },
-  
+
   // DIPS - ADD-ONS
   { id: 'dip-1', name: 'Secret 4 Dips', price: 80, category: 'addons', image: 'https://i.pinimg.com/736x/93/8a/cd/938acdc7949db2992a83b65ab28af787.jpg', isAvailable: true },
   { id: 'dip-2', name: 'Spicy Garlic Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/2b/32/5a/2b325a431a57c2fc477d0ae06307bd4c.jpg', isAvailable: true },
   { id: 'dip-3', name: 'Creamy White Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/a6/42/07/a64207d0a090e0115897bc22ec02ea02.jpg', isAvailable: true },
   { id: 'dip-4', name: 'Barbeque Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/1f/5e/07/1f5e07349f7a464f5d759f1338697545.jpg', isAvailable: true },
   { id: 'dip-5', name: 'Tangy Mayo Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/7c/e7/22/7ce722d030c82c589857fe11c1f7fba0.jpg', isAvailable: true },
-  
+
   // CRISPY TENDERS
   { id: 'ct-1', name: 'Crispy Boneless Strips 3pc', price: 99, category: 'crispytenders', image: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', isAvailable: true },
   { id: 'ct-2', name: 'Crispy Boneless Strips 6pc', price: 198, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/3a/99/ef/3a99ef5ff6bb13b5933db13a5aaf9d2a.jpg', isAvailable: true },
@@ -218,7 +220,7 @@ const Index = () => {
   });
   const [currentView, setCurrentView] = useState<'pos' | 'dashboard'>('pos');
   const [userName] = useState('Mohammed Haris T A');
-  
+
   // Initialize user role in localStorage
   useEffect(() => {
     localStorage.setItem('userRole', userRole);
@@ -251,9 +253,9 @@ const Index = () => {
           let cleaned = parsed.map((item: any) => {
             const name = item.name ? item.name.toLowerCase() : '';
             // Check if this is a Peri Peri Crispy Strips item
-            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) || 
-                                    (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-            
+            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) ||
+              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
             if (isPeriPeriStrips) {
               // Move all Peri Peri Crispy Strips items to peripericrispytenders category
               return { ...item, category: 'peripericrispytenders' };
@@ -262,42 +264,42 @@ const Index = () => {
           }).filter((item: any) => {
             // Remove Peri Peri items from any category that's not peripericrispytenders
             const name = item.name ? item.name.toLowerCase() : '';
-            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) || 
-                                    (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-            
+            const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(name) ||
+              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
             if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
               return false; // Remove if it's Peri Peri but not in peripericrispytenders
             }
             return true;
           });
-          
+
           // Check if dip items exist, if not add them
-          const hasDipItems = cleaned.some((item: any) => 
+          const hasDipItems = cleaned.some((item: any) =>
             item.id && item.id.startsWith('dip-')
           );
-          
+
           // Check if burger items exist in crispytenders, if not add them
-          const hasBurgerItems = cleaned.some((item: any) => 
+          const hasBurgerItems = cleaned.some((item: any) =>
             item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
           );
-          
+
           // Check if all crispy tenders items exist, if not add them
           const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
           const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
-          const hasAllCrispyTenders = crispyTendersIds.every(id => 
+          const hasAllCrispyTenders = crispyTendersIds.every(id =>
             cleaned.some((item: any) => item.id === id)
           );
-          const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
+          const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id =>
             cleaned.some((item: any) => item.id === id)
           );
-          
+
           if (!hasDipItems) {
             // Get dip items from defaults
-            const dipItems = defaultMenuItems.filter((item: any) => 
+            const dipItems = defaultMenuItems.filter((item: any) =>
               item.id && item.id.startsWith('dip-')
             );
             // Remove any existing dip items and add new ones
-            cleaned = cleaned.filter((item: any) => 
+            cleaned = cleaned.filter((item: any) =>
               !item.id || !item.id.startsWith('dip-')
             );
             cleaned = [...cleaned, ...dipItems];
@@ -313,32 +315,53 @@ const Index = () => {
               return item;
             });
           }
-          
+
           if (!hasAllCrispyTenders) {
             // Get all crispy tenders items from defaults
-            const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+            const crispyTendersItems = defaultMenuItems.filter((item: any) =>
               item.id && crispyTendersIds.includes(item.id)
             );
             // Remove any existing crispy tenders items and add new ones
-            cleaned = cleaned.filter((item: any) => 
+            cleaned = cleaned.filter((item: any) =>
               !item.id || !crispyTendersIds.includes(item.id)
             );
             cleaned = [...cleaned, ...crispyTendersItems];
           }
-          
+
           if (!hasAllPeriPeriCrispyTenders) {
             // Get all Peri Peri crispy tenders items from defaults
-            const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+            const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) =>
               item.id && periPeriCrispyTendersIds.includes(item.id)
             );
             // Remove any existing Peri Peri crispy tenders items and add new ones
-            cleaned = cleaned.filter((item: any) => 
+            cleaned = cleaned.filter((item: any) =>
               !item.id || !periPeriCrispyTendersIds.includes(item.id)
             );
-            cleaned = [...cleaned, ...periperiCrispyTendersItems];
+            cleaned = [...cleaned, ...periPeriCrispyTendersItems];
           }
-          
-          return cleaned.length > 0 ? cleaned : defaultMenuItems;
+
+          // Sync updated prices and details from defaultMenuItems
+          const syncedItems = cleaned.map((item: any) => {
+            const defaultItem = defaultMenuItems.find((d: any) => d.id === item.id);
+            if (defaultItem) {
+              return {
+                ...item,
+                price: defaultItem.price,
+                name: defaultItem.name,
+                category: defaultItem.category,
+                image: (defaultItem.image !== item.image && !item.image?.startsWith('data:')) ? defaultItem.image : item.image
+              };
+            }
+            return item;
+          });
+
+          // Also check for new items in defaultMenuItems that might be missing in localStorage
+          const existingIds = new Set(syncedItems.map((item: any) => item.id));
+          const newDefaultItems = defaultMenuItems.filter((item: any) => !existingIds.has(item.id));
+
+          const finalItems = [...syncedItems, ...newDefaultItems];
+
+          return finalItems.length > 0 ? finalItems : defaultMenuItems;
         }
       }
     } catch (e) {
@@ -359,76 +382,76 @@ const Index = () => {
   const filteredMenuItems = selectedCategory === 'all'
     ? menuItems
     : menuItems.filter(item =>
-        item.category &&
-        item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
-      );
+      item.category &&
+      item.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
+    );
 
   // Clean up Peri Peri Crispy Strips items and ensure dip items are included
   useEffect(() => {
     const needsCleanup = menuItems.some((item: any) => {
       if (!item.name) return false;
       const name = item.name.toLowerCase();
-      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
-                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) ||
+        (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
       return isPeriPeriStrips && item.category !== 'peripericrispytenders';
     });
-    
+
     // Check if dip items are missing
-    const hasDipItems = menuItems.some((item: any) => 
+    const hasDipItems = menuItems.some((item: any) =>
       item.id && item.id.startsWith('dip-')
     );
-    
+
     // Check if burger items are missing
-    const hasBurgerItems = menuItems.some((item: any) => 
+    const hasBurgerItems = menuItems.some((item: any) =>
       item.id && (item.id === 'ct-burger-1' || item.id === 'ct-burger-2')
     );
-    
+
     // Check if all crispy tenders items exist
     const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
     const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
-    const hasAllCrispyTenders = crispyTendersIds.every(id => 
+    const hasAllCrispyTenders = crispyTendersIds.every(id =>
       menuItems.some((item: any) => item.id === id)
     );
-    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
+    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id =>
       menuItems.some((item: any) => item.id === id)
     );
-    
+
     if (needsCleanup || !hasDipItems || !hasAllCrispyTenders || !hasAllPeriPeriCrispyTenders) {
       const cleaned = menuItems.map((item: any) => {
         if (!item.name) return item;
         const name = item.name.toLowerCase();
-        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
-                                (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-        
+        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) ||
+          (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
         // Move all Peri Peri Crispy Strips to peripericrispytenders category
         if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
           return { ...item, category: 'peripericrispytenders' };
         }
         return item;
       });
-      
+
       // Remove duplicates - keep only items in peripericrispytenders
       let uniqueCleaned = cleaned.filter((item: any, index: number, self: any[]) => {
         if (!item.name) return true;
         const name = item.name.toLowerCase();
-        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
-                                (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-        
+        const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) ||
+          (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
         if (isPeriPeriStrips) {
           // Keep only if it's in peripericrispytenders and is the first occurrence
-          return item.category === 'peripericrispytenders' && 
-                 self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
+          return item.category === 'peripericrispytenders' &&
+            self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
         }
         return true;
       });
-      
+
       // Add dip items if missing, or update their images if they exist
       if (!hasDipItems) {
-        const dipItems = defaultMenuItems.filter((item: any) => 
+        const dipItems = defaultMenuItems.filter((item: any) =>
           item.id && item.id.startsWith('dip-')
         );
         // Remove any existing dip items first
-        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+        uniqueCleaned = uniqueCleaned.filter((item: any) =>
           !item.id || !item.id.startsWith('dip-')
         );
         uniqueCleaned = [...uniqueCleaned, ...dipItems];
@@ -444,34 +467,34 @@ const Index = () => {
           return item;
         });
       }
-      
+
       // Add all crispy tenders items if missing
       if (!hasAllCrispyTenders) {
-        const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+        const crispyTendersItems = defaultMenuItems.filter((item: any) =>
           item.id && crispyTendersIds.includes(item.id)
         );
         // Remove any existing crispy tenders items first
-        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+        uniqueCleaned = uniqueCleaned.filter((item: any) =>
           !item.id || !crispyTendersIds.includes(item.id)
         );
         uniqueCleaned = [...uniqueCleaned, ...crispyTendersItems];
       }
-      
+
       // Add all Peri Peri crispy tenders items if missing
       if (!hasAllPeriPeriCrispyTenders) {
-        const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+        const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) =>
           item.id && periPeriCrispyTendersIds.includes(item.id)
         );
         // Remove any existing Peri Peri crispy tenders items first
-        uniqueCleaned = uniqueCleaned.filter((item: any) => 
+        uniqueCleaned = uniqueCleaned.filter((item: any) =>
           !item.id || !periPeriCrispyTendersIds.includes(item.id)
         );
-        uniqueCleaned = [...uniqueCleaned, ...periperiCrispyTendersItems];
+        uniqueCleaned = [...uniqueCleaned, ...periPeriCrispyTendersItems];
       }
-      
+
       setMenuItems(uniqueCleaned);
     }
-    
+
     // Force update dip item images on mount
     const updateDipImages = () => {
       setMenuItems((currentItems: any[]) => {
@@ -502,7 +525,7 @@ const Index = () => {
       }
       return item;
     });
-    
+
     // Only store image as a URL or empty string
     const safeMenuItems = updatedMenuItems.map(item => ({
       ...item,
@@ -512,9 +535,9 @@ const Index = () => {
     let cleaned = safeMenuItems.map((item: any) => {
       if (!item.name) return item;
       const name = item.name.toLowerCase();
-      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
-                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-      
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) ||
+        (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
       // Move all Peri Peri Crispy Strips to peripericrispytenders category
       if (isPeriPeriStrips && item.category !== 'peripericrispytenders') {
         return { ...item, category: 'peripericrispytenders' };
@@ -524,49 +547,49 @@ const Index = () => {
       // Remove duplicates - keep only items in peripericrispytenders
       if (!item.name) return true;
       const name = item.name.toLowerCase();
-      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) || 
-                              (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
-      
+      const isPeriPeriStrips = /peri.?peri.*crispy.*strips?/i.test(item.name) ||
+        (name.includes('peri') && name.includes('peri') && name.includes('crispy') && name.includes('strips'));
+
       if (isPeriPeriStrips) {
         // Keep only if it's in peripericrispytenders and is the first occurrence
-        return item.category === 'peripericrispytenders' && 
-               self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
+        return item.category === 'peripericrispytenders' &&
+          self.findIndex((i: any) => i.name === item.name && i.category === 'peripericrispytenders') === index;
       }
       return true;
     });
-    
+
     // Ensure all crispy tenders items are included
     const crispyTendersIds = ['ct-1', 'ct-2', 'ct-3', 'ct-4', 'ct-burger-1', 'ct-burger-2'];
     const periPeriCrispyTendersIds = ['st-1', 'st-2', 'st-3', 'st-4'];
-    const hasAllCrispyTenders = crispyTendersIds.every(id => 
+    const hasAllCrispyTenders = crispyTendersIds.every(id =>
       cleaned.some((item: any) => item.id === id)
     );
-    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id => 
+    const hasAllPeriPeriCrispyTenders = periPeriCrispyTendersIds.every(id =>
       cleaned.some((item: any) => item.id === id)
     );
-    
+
     if (!hasAllCrispyTenders) {
-      const crispyTendersItems = defaultMenuItems.filter((item: any) => 
+      const crispyTendersItems = defaultMenuItems.filter((item: any) =>
         item.id && crispyTendersIds.includes(item.id)
       );
       // Remove any existing crispy tenders items and add all from defaults
-      const withoutCrispyTenders = cleaned.filter((item: any) => 
+      const withoutCrispyTenders = cleaned.filter((item: any) =>
         !item.id || !crispyTendersIds.includes(item.id)
       );
       cleaned = [...withoutCrispyTenders, ...crispyTendersItems];
     }
-    
+
     if (!hasAllPeriPeriCrispyTenders) {
-      const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) => 
+      const periPeriCrispyTendersItems = defaultMenuItems.filter((item: any) =>
         item.id && periPeriCrispyTendersIds.includes(item.id)
       );
       // Remove any existing Peri Peri crispy tenders items and add all from defaults
-      const withoutPeriPeriCrispyTenders = cleaned.filter((item: any) => 
+      const withoutPeriPeriCrispyTenders = cleaned.filter((item: any) =>
         !item.id || !periPeriCrispyTendersIds.includes(item.id)
       );
       cleaned = [...withoutPeriPeriCrispyTenders, ...periPeriCrispyTendersItems];
     }
-    
+
     localStorage.setItem('menuItems', JSON.stringify(cleaned));
   }, [menuItems]);
   const { getTotalItems, cart } = useCart();
@@ -626,7 +649,7 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen flex flex-col ${userRole === 'admin' ? 'admin-dark' : 'bg-background'}`}>
-      <Navbar 
+      <Navbar
         userRole={userRole}
         onRoleChange={setUserRole}
         onViewChange={setCurrentView}
@@ -638,15 +661,15 @@ const Index = () => {
       <div className="flex flex-1 overflow-hidden">
         {currentView === 'pos' && (
           <>
-            <CategorySidebar 
+            <CategorySidebar
               selectedCategory={selectedCategory}
               onCategorySelect={setSelectedCategory}
               userRole={userRole}
               categories={categoriesWithCounts}
               onCategoriesChange={setCategories}
             />
-            <PosSystem 
-              selectedCategory={selectedCategory} 
+            <PosSystem
+              selectedCategory={selectedCategory}
               userRole={userRole}
               onCashEarned={handleCashEarned}
               categories={categoriesWithCounts}
