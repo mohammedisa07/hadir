@@ -33,6 +33,7 @@ const defaultCategories: Category[] = [
   { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-green-600 text-white' },
   { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
   { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'kulfi80ml', name: 'KULFI 80ML', icon: Cookie, itemCount: 0, color: 'bg-primary' },
   { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
 ];
 
@@ -201,6 +202,12 @@ const defaultMenuItems = [
   { id: 'st-4', name: 'Peri Peri Crispy Strips 12pc', price: 480, category: 'peripericrispytenders', image: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', isAvailable: true },
   { id: 'ct-burger-1', name: 'Crispy Chicken Burger', price: 170, category: 'crispytenders', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: 'ct-burger-2', name: 'Spicy Crispy Chicken Burger', price: 180, category: 'crispytenders', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
+
+  // KULFI 80ML
+  { id: 'ku-1', name: 'Pista', price: 60, category: 'kulfi80ml', image: '/images/kulfi/pista_kulfi.png', isAvailable: true },
+  { id: 'ku-2', name: 'Blackcurrant', price: 60, category: 'kulfi80ml', image: '/images/kulfi/blackcurrant_kulfi.png', isAvailable: true },
+  { id: 'ku-3', name: 'Fig Honey', price: 60, category: 'kulfi80ml', image: '/images/kulfi/fig_honey_kulfi.png', isAvailable: true },
+  { id: 'ku-4', name: 'Custard Apple', price: 60, category: 'kulfi80ml', image: '/images/kulfi/custard_apple_kulfi.png', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {

@@ -127,6 +127,11 @@ const menuItems = [
   { name: 'Cheesy Noodles', price: 90, imageUrl: 'https://i.pinimg.com/736x/69/dd/9c/69dd9c9e524f44c7322f439305e6ee1b.jpg', category: 'noodles' },
   { name: 'Veg Noodles', price: 100, imageUrl: 'https://i.pinimg.com/736x/96/95/4e/96954eb94676911480996ac1799651f3.jpg', category: 'noodles' },
   { name: 'Chicken Noodles', price: 120, imageUrl: 'https://i.pinimg.com/1200x/1b/b6/79/1bb6793189c4ae7ed17723f95c3ec39d.jpg', category: 'noodles' },
+  // KULFI 80ML
+  { name: 'Pista', price: 60, imageUrl: '/images/kulfi/pista_kulfi.png', category: 'Kulfi 80ML' },
+  { name: 'Blackcurrant', price: 60, imageUrl: '/images/kulfi/blackcurrant_kulfi.png', category: 'Kulfi 80ML' },
+  { name: 'Fig Honey', price: 60, imageUrl: '/images/kulfi/fig_honey_kulfi.png', category: 'Kulfi 80ML' },
+  { name: 'Custard Apple', price: 60, imageUrl: '/images/kulfi/custard_apple_kulfi.png', category: 'Kulfi 80ML' },
 ];
 
 async function seedMenu() {
