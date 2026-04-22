@@ -92,6 +92,7 @@ const defaultMenuItems = [
   { id: '33', name: 'Fried Paneer Momos', price: 110, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/c2/9f/71/c29f71c637f3693f82c19a597dcfd975.jpg', isAvailable: true },
 
   // NON-VEG SNACKS
+  { id: '101', name: 'Smoked Sausage Sandwich', price: 140, category: 'nonvegsnacks', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Po%27Boy_Preservation_Festival_Hot_Sausage_Sandwich.jpg/500px-Po%27Boy_Preservation_Festival_Hot_Sausage_Sandwich.jpg', isAvailable: true },
   { id: '34', name: 'Chicky Wrap', price: 140, category: 'nonvegwraps', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
   { id: '35', name: 'Eggbell Wrap', price: 130, category: 'nonvegwraps', image: 'https://i.pinimg.com/736x/3a/79/1d/3a791dbf354995dbbd437a4623690642.jpg', isAvailable: true },
   { id: '98', name: 'Fried Chicken Momos', price: 120, category: 'nonvegsnacks', image: 'https://i.pinimg.com/736x/5d/37/c4/5d37c4c6614b0935f3982e0c7d935b01.jpg', isAvailable: true },
