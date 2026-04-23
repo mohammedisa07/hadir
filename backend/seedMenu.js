@@ -98,6 +98,7 @@ const menuItems = [
   { name: 'Mango Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/ae/38/58/ae3858a073993023932bcf972bace1fe.jpg' },
   { name: 'Strawberry Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/c0/4a/30/c04a309a82b8026a6f2e8a356fac37ea.jpg' },
   { name: 'Choco Topped Ice Cream', price: 0, imageUrl: 'https://i.pinimg.com/1200x/99/cf/42/99cf42f264127766fc5626f81d321efe.jpg' },
+  { name: 'Butter Scotch Topped', price: 50, imageUrl: 'https://i.pinimg.com/736x/e3/b7/63/e3b763e82e44b5d5b1b85e3b92d3c3f4.jpg' },
   // ADD-ONS
   { name: 'Chocolate Sauce', price: 0, imageUrl: 'https://i.pinimg.com/736x/86/ac/70/86ac7052f9acf98e1b77a60fea5b28b6.jpg' },
   { name: 'Mango Sauce', price: 0, imageUrl: 'https://i.pinimg.com/1200x/e8/aa/cf/e8aacf2b9fdf2e4f54b3f915162fc638.jpg' },

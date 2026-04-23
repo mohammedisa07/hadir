@@ -158,6 +158,7 @@ const defaultMenuItems = [
   { id: '56', name: 'Strawberry Topped Ice Cream', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/c0/4a/30/c04a309a82b8026a6f2e8a356fac37ea.jpg', isAvailable: true },
   { id: '57', name: 'Big Brownie with Ice Cream', price: 90, category: 'desserts', image: 'https://i.pinimg.com/1200x/8f/8a/16/8f8a16aacb8e5b550dd34961dc3d932d.jpg', isAvailable: true },
   { id: '58', name: 'Choco Topped Ice Cream', price: 50, category: 'desserts', image: 'https://i.pinimg.com/1200x/99/cf/42/99cf42f264127766fc5626f81d321efe.jpg', isAvailable: true },
+  { id: '58a', name: 'Butter Scotch Topped', price: 50, category: 'desserts', image: 'https://i.pinimg.com/736x/e3/b7/63/e3b763e82e44b5d5b1b85e3b92d3c3f4.jpg', isAvailable: true },
   { id: '59', name: 'Affogato', price: 60, category: 'desserts', image: 'https://i.pinimg.com/736x/3e/72/a4/3e72a46e744028f3f3087adebdcb6e15.jpg', isAvailable: true },
 
   // PREMIUM CUPS
