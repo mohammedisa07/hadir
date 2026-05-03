@@ -40,16 +40,16 @@ const defaultCategories: Category[] = [
 const defaultMenuItems = [
   // COFFEE LOVER
   { id: 'cl-1', name: 'Coffee Nirvana', price: 120, category: 'coffeelover', image: 'https://i.pinimg.com/1200x/71/a5/62/71a56235307038a80fb3ce4bf5d09a34.jpg', isAvailable: true },
-  { id: 'cl-2', name: 'Espresso 1 Shot', price: 40, category: 'coffeelover', image: 'https://i.pinimg.com/736x/a2/d6/0e/a2d60ee8a87657525de4ecfe1e6b803e.jpg', isAvailable: true },
-  { id: 'cl-3', name: 'Espresso Romano', price: 60, category: 'coffeelover', image: 'https://i.pinimg.com/736x/b1/e6/df/b1e6dfde3da49f5d6534b68ac10918a4.jpg', isAvailable: true },
+  { id: 'cl-2', name: 'Espresso 1 Shot', price: 50, category: 'coffeelover', image: 'https://i.pinimg.com/736x/a2/d6/0e/a2d60ee8a87657525de4ecfe1e6b803e.jpg', isAvailable: true },
+  { id: 'cl-3', name: 'Espresso Romano', price: 70, category: 'coffeelover', image: 'https://i.pinimg.com/736x/b1/e6/df/b1e6dfde3da49f5d6534b68ac10918a4.jpg', isAvailable: true },
   { id: 'cl-4', name: 'Macchiato', price: 70, category: 'coffeelover', image: 'https://i.pinimg.com/1200x/c1/b3/ff/c1b3ffe379a90ef2ddb42f7b6c667a94.jpg', isAvailable: true },
 
   // HOT BEVERAGES
-  { id: '1', name: 'Cappuccino', price: 80, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg', isAvailable: true },
-  { id: '2', name: 'Latte', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg', isAvailable: true },
-  { id: '3', name: 'Hot Mocha', price: 90, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg', isAvailable: true },
+  { id: '1', name: 'Cappuccino', price: 100, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg', isAvailable: true },
+  { id: '2', name: 'Latte', price: 120, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg', isAvailable: true },
+  { id: '3', name: 'Hot Mocha', price: 110, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg', isAvailable: true },
   { id: '4', name: 'Wippy Hot Mocha', price: 90, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/80/af/5f/80af5f93e6c721249c7f4ef83f1583d1.jpg', isAvailable: true },
-  { id: '5', name: 'Americano', price: 60, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/de/72/1c/de721cf98ef9c6a06906e094fe337f4e.jpg', isAvailable: true },
+  { id: '5', name: 'Americano', price: 80, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/de/72/1c/de721cf98ef9c6a06906e094fe337f4e.jpg', isAvailable: true },
   { id: '6', name: 'Hot Chocolate', price: 120, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/92/4d/da/924ddab4f7ad7192b593baab3603c1d5.jpg', isAvailable: true },
   { id: '6a', name: 'Instant Coffee', price: 20, category: 'hotbeverages', image: 'https://i.pinimg.com/736x/b4/f5/ad/b4f5ad1461dec75462325d2a30264c04.jpg', isAvailable: true },
   { id: '6b', name: 'Milk', price: 15, category: 'hotbeverages', image: 'https://i.pinimg.com/1200x/10/1b/12/101b12bb1461e61f9de2c1eb840db9fe.jpg', isAvailable: true },
@@ -192,6 +192,7 @@ const defaultMenuItems = [
   { id: 'dip-3', name: 'Creamy White Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/a6/42/07/a64207d0a090e0115897bc22ec02ea02.jpg', isAvailable: true },
   { id: 'dip-4', name: 'Barbeque Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/736x/1f/5e/07/1f5e07349f7a464f5d759f1338697545.jpg', isAvailable: true },
   { id: 'dip-5', name: 'Tangy Mayo Dip 1Pc', price: 25, category: 'addons', image: 'https://i.pinimg.com/1200x/7c/e7/22/7ce722d030c82c589857fe11c1f7fba0.jpg', isAvailable: true },
+  { id: 'addon-spicy', name: 'Extra Spicy', price: 15, category: 'addons', image: 'https://i.pinimg.com/736x/a2/49/20/a24920476013ee891be18321e3a6a53e.jpg', isAvailable: true },
 
   // CRISPY TENDERS
   { id: 'ct-1', name: 'Crispy Boneless Strips 3pc', price: 99, category: 'crispytenders', image: 'https://i.pinimg.com/736x/9a/d7/8e/9ad78ec39fbcab37a1416e395236b721.jpg', isAvailable: true },
