@@ -73,6 +73,8 @@ const defaultMenuItems = [
   { id: '20', name: 'Strawberry Basil Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/dc/2a/85/dc2a85137fee62793d865c037aeb06d1.jpg', isAvailable: true },
   { id: '20a', name: 'Sparkling - Mango Mojito', price: 150, category: 'sparklings', image: 'https://i.pinimg.com/736x/6e/bd/16/6ebd1623578f88ec60fb0fb8c7882cf8.jpg', isAvailable: true },
   { id: '21', name: 'Blue Lady', price: 120, category: 'sparklings', image: 'https://i.pinimg.com/1200x/4d/c1/17/4dc117d0e99a89100aec3f47d6737f18.jpg', isAvailable: true },
+  { id: '21a', name: 'Sprite', price: 50, category: 'sparklings', image: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', isAvailable: true },
+  { id: '21b', name: 'Fanta', price: 50, category: 'sparklings', image: 'https://i.pinimg.com/1200x/3f/b2/11/3fb211f15ee6b0cb9342e91bebf3e5ea.jpg', isAvailable: true },
 
   // VEG SNACKS
   { id: '22', name: 'Veg Cheese Balls', price: 80, category: 'vegsnacks', image: 'https://i.pinimg.com/736x/2b/f1/24/2bf124a8ae1c13c73d9ddb3e05176c18.jpg', isAvailable: true },

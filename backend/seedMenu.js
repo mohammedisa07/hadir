@@ -44,6 +44,8 @@ const menuItems = [
   { name: 'Strawberry Mojito', price: 150, imageUrl: 'https://i.pinimg.com/1200x/5c/da/e5/5cdae51c7ea99515926e457c128ee225.jpg' },
   { name: 'Strawberry Basil Mojito', price: 160, imageUrl: 'https://i.pinimg.com/736x/dc/2a/85/dc2a85137fee62793d865c037aeb06d1.jpg' },
   { name: 'Blue Lady', price: 120, imageUrl: 'https://i.pinimg.com/1200x/4d/c1/17/4dc117d0e99a89100aec3f47d6737f18.jpg' },
+  { name: 'Sprite', price: 50, imageUrl: 'https://i.pinimg.com/1200x/57/cd/dd/57cddd925ee9c23164c2cfb69faf0e92.jpg', category: 'Sparklings' },
+  { name: 'Fanta', price: 50, imageUrl: 'https://i.pinimg.com/1200x/3f/b2/11/3fb211f15ee6b0cb9342e91bebf3e5ea.jpg', category: 'Sparklings' },
   // VEG SNACKS
   { name: 'Smiles', price: 70, imageUrl: 'https://i.pinimg.com/736x/4c/26/e2/4c26e215f6e7744be2600c4fd17ea990.jpg' },
   { name: 'Cheese Garlic Bomb(Korean)', price: 0, imageUrl: 'https://i.pinimg.com/736x/7f/4b/12/7f4b1201b6c8da63a419ab23435a156e.jpg' },
