@@ -124,7 +124,7 @@ const menuItems = [
   { name: 'Spicy Crispy Chicken Burger', price: 180, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', category: 'crispytenders' },
   // COMBOS
   { name: 'French Fries and Drink', price: 120, imageUrl: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', category: 'Veg Combos' },
-  { name: 'French Fries and Veg Nuggets', price: 140, imageUrl: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', category: 'Veg Combos' },
+  { name: 'Veg Nuggets and French Fries', price: 140, imageUrl: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', category: 'Veg Combos' },
   { name: 'French Fries and Smoked Sausage', price: 140, imageUrl: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', category: 'Non-Veg Combos' },
   // NOODLES
   { name: 'Classic Noodles', price: 70, imageUrl: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', category: 'noodles' },

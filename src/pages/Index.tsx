@@ -115,7 +115,7 @@ const defaultMenuItems = [
   { id: '83', name: 'Spicy Paneer Veg Burger Meal', price: 280, category: 'vegcombos', image: 'https://i.pinimg.com/736x/94/67/50/946750ea3f0a6ea7c80e011b3edb36c6.jpg', isAvailable: true },
   { id: '99', name: 'Paneer Wrap Meal', price: 290, category: 'vegcombos', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
   { id: '102', name: 'French Fries and Drink', price: 120, category: 'vegcombos', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
-  { id: '104', name: 'French Fries and Veg Nuggets', price: 140, category: 'vegcombos', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
+  { id: '104', name: 'Veg Nuggets and French Fries', price: 140, category: 'vegcombos', image: 'https://i.pinimg.com/736x/d4/29/e8/d429e802340dd3ea7465182adfba959f.jpg', isAvailable: true },
 
   // NON-VEG COMBOS
   { id: '84', name: 'Chicken Wrap Meal', price: 260, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
