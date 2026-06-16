@@ -122,6 +122,9 @@ const menuItems = [
   { name: 'Peri Peri Crispy Strips 12pc', price: 480, imageUrl: 'https://i.pinimg.com/736x/1b/54/58/1b5458e5c2afb1c9301908770a7c6b66.jpg', category: 'crispytenders' },
   { name: 'Crispy Chicken Burger', price: 170, imageUrl: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', category: 'crispytenders' },
   { name: 'Spicy Crispy Chicken Burger', price: 180, imageUrl: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', category: 'crispytenders' },
+  // COMBOS
+  { name: 'French Fries and Drink', price: 120, imageUrl: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', category: 'Veg Combos' },
+  { name: 'French Fries and Smoked Sausage', price: 140, imageUrl: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', category: 'Non-Veg Combos' },
   // NOODLES
   { name: 'Classic Noodles', price: 70, imageUrl: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', category: 'noodles' },
   { name: 'Peri Peri Noodles', price: 80, imageUrl: 'https://i.pinimg.com/736x/5f/05/36/5f0536935fa39bc3d935613e584d6274.jpg', category: 'noodles' },
@@ -133,6 +136,8 @@ const menuItems = [
   { name: 'Blackcurrant', price: 60, imageUrl: '/images/kulfi/blackcurrant_kulfi.png', category: 'Kulfi 80ML' },
   { name: 'Fig Honey', price: 60, imageUrl: '/images/kulfi/fig_honey_kulfi.png', category: 'Kulfi 80ML' },
   { name: 'Custard Apple', price: 60, imageUrl: '/images/kulfi/custard_apple_kulfi.png', category: 'Kulfi 80ML' },
+  { name: 'Malai Kulfi', price: 60, imageUrl: '/images/kulfi/pista_kulfi.png', category: 'Kulfi 80ML' },
+  { name: 'Mango Kulfi', price: 60, imageUrl: '/images/kulfi/custard_apple_kulfi.png', category: 'Kulfi 80ML' },
 ];
 
 async function seedMenu() {

@@ -114,6 +114,7 @@ const defaultMenuItems = [
   { id: '82', name: 'Paneer Veg Burger Meal', price: 270, category: 'vegcombos', image: 'https://i.pinimg.com/1200x/8a/63/d9/8a63d9e97a2f917d7fcd90f75f0a2a29.jpg', isAvailable: true },
   { id: '83', name: 'Spicy Paneer Veg Burger Meal', price: 280, category: 'vegcombos', image: 'https://i.pinimg.com/736x/94/67/50/946750ea3f0a6ea7c80e011b3edb36c6.jpg', isAvailable: true },
   { id: '99', name: 'Paneer Wrap Meal', price: 290, category: 'vegcombos', image: 'https://i.pinimg.com/1200x/b5/9e/76/b59e76ba0980d92413a0ed8add3b5f90.jpg', isAvailable: true },
+  { id: '102', name: 'French Fries and Drink', price: 120, category: 'vegcombos', image: 'https://i.pinimg.com/736x/7c/af/e9/7cafe93e17792d26f12919260b380f2a.jpg', isAvailable: true },
 
   // NON-VEG COMBOS
   { id: '84', name: 'Chicken Wrap Meal', price: 260, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
@@ -121,6 +122,7 @@ const defaultMenuItems = [
   { id: '86', name: 'Chicky Burger Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: '87', name: 'Spicy Chicky Burger Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '100', name: 'Sausage Wrap Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
+  { id: '103', name: 'French Fries and Smoked Sausage', price: 140, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', isAvailable: true },
 
   // NOODLES
   { id: '88', name: 'Classic Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', isAvailable: true },
@@ -211,6 +213,8 @@ const defaultMenuItems = [
   { id: 'ku-2', name: 'Blackcurrant', price: 60, category: 'kulfi80ml', image: '/images/kulfi/blackcurrant_kulfi.png', isAvailable: true },
   { id: 'ku-3', name: 'Fig Honey', price: 60, category: 'kulfi80ml', image: '/images/kulfi/fig_honey_kulfi.png', isAvailable: true },
   { id: 'ku-4', name: 'Custard Apple', price: 60, category: 'kulfi80ml', image: '/images/kulfi/custard_apple_kulfi.png', isAvailable: true },
+  { id: 'ku-5', name: 'Malai Kulfi', price: 60, category: 'kulfi80ml', image: '/images/kulfi/pista_kulfi.png', isAvailable: true },
+  { id: 'ku-6', name: 'Mango Kulfi', price: 60, category: 'kulfi80ml', image: '/images/kulfi/custard_apple_kulfi.png', isAvailable: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
