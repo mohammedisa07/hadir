@@ -52,7 +52,6 @@ function SortableCategoryItem({ category, isSelected, onCategorySelect }) {
       ref={sortable.setNodeRef}
       style={style}
       {...sortable.attributes}
-      {...sortable.listeners}
       className={`group relative flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${
         isSelected ? 'bg-primary text-primary-foreground shadow-md' : 'hover:bg-muted/50'
       }`}
@@ -60,7 +59,15 @@ function SortableCategoryItem({ category, isSelected, onCategorySelect }) {
     >
       <div className="flex items-center space-x-3 flex-1">
         {category.id !== 'all' && (
-          <GripVertical className="h-4 w-4 mr-2 cursor-grab text-muted-foreground opacity-60 group-hover:opacity-100" />
+          <button
+            type="button"
+            className="mr-2 cursor-grab rounded p-1 text-muted-foreground opacity-60 hover:bg-muted active:cursor-grabbing group-hover:opacity-100"
+            aria-label={`Reorder ${category.name}`}
+            onClick={(event) => event.stopPropagation()}
+            {...sortable.listeners}
+          >
+            <GripVertical className="h-4 w-4" />
+          </button>
         )}
         <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary-foreground/20' : category.color} transition-colors`}>
           <IconComponent className={`h-4 w-4 ${isSelected ? 'text-primary-foreground' : 'text-white'}`} />
