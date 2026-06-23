@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { CategorySidebar } from '@/components/CategorySidebar';
 import { PosSystem } from '@/components/PosSystem';
 import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
 import { useCart } from '@/hooks/useCart';
 import { Coffee, Cookie, Sandwich, Salad, Wine, ChefHat } from "lucide-react";
+import { getSupabaseMenuItems, isSupabaseConfigured, saveSupabaseMenuItems } from '@/lib/supabaseMenu';
 // REMOVE: import { getMenuItems } from '../lib/api';
 
 interface Category {
@@ -258,6 +259,7 @@ const Index = () => {
   }, []);
 
   const [categories, setCategories] = useState(defaultCategories);
+  const supabaseReadyRef = useRef(false);
   // Initialize menuItems from localStorage if available, otherwise use defaults
   const [menuItems, setMenuItems] = useState(() => {
     try {
@@ -386,6 +388,35 @@ const Index = () => {
     }
     return defaultMenuItems;
   });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadSupabaseMenu() {
+      try {
+        const remoteItems = await getSupabaseMenuItems();
+
+        if (cancelled) return;
+
+        if (remoteItems.length > 0) {
+          setMenuItems(remoteItems);
+        } else {
+          await saveSupabaseMenuItems(defaultMenuItems);
+          setMenuItems(defaultMenuItems);
+        }
+      } catch (error) {
+        console.error('Error syncing menu from Supabase:', error);
+      } finally {
+        supabaseReadyRef.current = true;
+      }
+    }
+
+    loadSupabaseMenu();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Dynamically calculate itemCount for each category (memoized)
   const categoriesWithCounts = categories.map(cat => ({
@@ -608,6 +639,12 @@ const Index = () => {
     }
 
     localStorage.setItem('menuItems', JSON.stringify(cleaned));
+
+    if (supabaseReadyRef.current) {
+      saveSupabaseMenuItems(cleaned).catch((error) => {
+        console.error('Error saving menu to Supabase:', error);
+      });
+    }
   }, [menuItems]);
   const { getTotalItems, cart } = useCart();
 
