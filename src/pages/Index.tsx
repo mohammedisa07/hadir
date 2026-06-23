@@ -5,38 +5,65 @@ import { PosSystem } from '@/components/PosSystem';
 import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
 import { useCart } from '@/hooks/useCart';
 import { Coffee, Cookie, Sandwich, Salad, Wine, ChefHat } from "lucide-react";
-import { getSupabaseMenuItems, isSupabaseConfigured, saveSupabaseMenuItems } from '@/lib/supabaseMenu';
+import { getSupabaseMenuCategories, getSupabaseMenuItems, saveSupabaseMenuCategories, saveSupabaseMenuItems } from '@/lib/supabaseMenu';
 // REMOVE: import { getMenuItems } from '../lib/api';
 
 interface Category {
   id: string;
   name: string;
   icon: React.ComponentType<{ className?: string }>;
+  iconName?: string;
   itemCount: number;
   color: string;
 }
 
 const defaultCategories: Category[] = [
-  { id: 'hotbeverages', name: 'HOT BEVERAGES', icon: ChefHat, itemCount: 0, color: 'bg-primary' },
-  { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-  { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, itemCount: 0, color: 'bg-cafe-espresso' },
-  { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, itemCount: 0, color: 'bg-cafe-gold' },
-  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'peripericrispytenders', name: 'PERI PERI CRISPY TENDERS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, itemCount: 0, color: 'bg-green-600 text-white' },
-  { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-green-600 text-white' },
-  { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'noodles', name: 'NOODLES', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-  { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, itemCount: 0, color: 'bg-accent' },
-  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, itemCount: 0, color: 'bg-green-600 text-white' },
-  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, itemCount: 0, color: 'bg-green-600 text-white' },
-  { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, itemCount: 0, color: 'bg-red-600 text-white' },
-  { id: 'desserts', name: 'DESSERTS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
-  { id: 'kulfi80ml', name: 'KULFI 80ML', icon: Cookie, itemCount: 0, color: 'bg-primary' },
-  { id: 'addons', name: 'ADD-ONS', icon: Cookie, itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'hotbeverages', name: 'HOT BEVERAGES', icon: ChefHat, iconName: 'chefhat', itemCount: 0, color: 'bg-primary' },
+  { id: 'coldbeverages', name: 'COLD BEVERAGES', icon: Wine, iconName: 'wine', itemCount: 0, color: 'bg-cafe-gold' },
+  { id: 'coffeelover', name: 'COFFEE LOVER', icon: Coffee, iconName: 'coffee', itemCount: 0, color: 'bg-cafe-espresso' },
+  { id: 'sparklings', name: 'SPARKLINGS', icon: Wine, iconName: 'wine', itemCount: 0, color: 'bg-cafe-gold' },
+  { id: 'crispytenders', name: 'CRISPY TENDERS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'peripericrispytenders', name: 'PERI PERI CRISPY TENDERS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegsnacks', name: 'VEG SNACKS', icon: Salad, iconName: 'salad', itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegsnacks', name: 'NON-VEG SNACKS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegwraps', name: 'VEG WRAPS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegwraps', name: 'NON-VEG WRAPS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'noodles', name: 'NOODLES', icon: Cookie, iconName: 'cookie', itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'twinburgers', name: 'TWIN BURGERS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-accent' },
+  { id: 'vegcombos', name: 'VEG COMBOS', icon: Salad, iconName: 'salad', itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegcombos', name: 'NON-VEG COMBOS', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'vegfries', name: 'VEG FRIES', icon: Cookie, iconName: 'cookie', itemCount: 0, color: 'bg-green-600 text-white' },
+  { id: 'nonvegfries', name: 'NON-VEG FRIES', icon: Sandwich, iconName: 'sandwich', itemCount: 0, color: 'bg-red-600 text-white' },
+  { id: 'desserts', name: 'DESSERTS', icon: Cookie, iconName: 'cookie', itemCount: 0, color: 'bg-cafe-cinnamon' },
+  { id: 'kulfi80ml', name: 'KULFI 80ML', icon: Cookie, iconName: 'cookie', itemCount: 0, color: 'bg-primary' },
+  { id: 'addons', name: 'ADD-ONS', icon: Cookie, iconName: 'cookie', itemCount: 0, color: 'bg-cafe-cinnamon' },
 ];
+
+const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  chefhat: ChefHat,
+  coffee: Coffee,
+  cookie: Cookie,
+  salad: Salad,
+  sandwich: Sandwich,
+  wine: Wine,
+};
+
+const normalizeCategory = (category: any): Category => ({
+  id: category.id,
+  name: category.name,
+  icon: categoryIconMap[category.iconName || category.icon] || Salad,
+  iconName: category.iconName || category.icon || 'salad',
+  itemCount: category.itemCount || 0,
+  color: category.color || 'bg-green-600 text-white',
+});
+
+const serializeCategories = (categories: Category[]) =>
+  categories.map(({ id, name, iconName, color }) => ({
+    id,
+    name,
+    icon: iconName || 'salad',
+    color,
+  }));
 
 const defaultMenuItems = [
   // COFFEE LOVER
@@ -395,8 +422,15 @@ const Index = () => {
     async function loadSupabaseMenu() {
       try {
         const remoteItems = await getSupabaseMenuItems();
+        const remoteCategories = await getSupabaseMenuCategories();
 
         if (cancelled) return;
+
+        if (remoteCategories.length > 0) {
+          setCategories(remoteCategories.map(normalizeCategory));
+        } else {
+          await saveSupabaseMenuCategories(serializeCategories(defaultCategories));
+        }
 
         if (remoteItems.length > 0) {
           setMenuItems(remoteItems);
@@ -646,6 +680,14 @@ const Index = () => {
       });
     }
   }, [menuItems]);
+
+  useEffect(() => {
+    if (supabaseReadyRef.current) {
+      saveSupabaseMenuCategories(serializeCategories(categories)).catch((error) => {
+        console.error('Error saving categories to Supabase:', error);
+      });
+    }
+  }, [categories]);
   const { getTotalItems, cart } = useCart();
 
   // Fetch menu items from backend on load
@@ -720,7 +762,7 @@ const Index = () => {
               onCategorySelect={setSelectedCategory}
               userRole={userRole}
               categories={categoriesWithCounts}
-              onCategoriesChange={setCategories}
+              onCategoriesChange={(updatedCategories) => setCategories(updatedCategories.map(normalizeCategory))}
             />
             <PosSystem
               selectedCategory={selectedCategory}

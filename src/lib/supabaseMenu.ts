@@ -10,9 +10,18 @@ export interface SupabaseMenuItem {
   isAvailable?: boolean;
 }
 
+export interface SupabaseMenuCategory {
+  id: string;
+  name: string;
+  icon?: string;
+  color?: string;
+  itemCount?: number;
+}
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const TABLE_NAME = 'menu_items';
+const MENU_TABLE_NAME = 'menu_items';
+const CATEGORY_TABLE_NAME = 'menu_categories';
 
 export const isSupabaseConfigured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 
@@ -60,10 +69,29 @@ function fromSupabaseRow(row: any): SupabaseMenuItem {
   };
 }
 
+function toCategoryRow(category: SupabaseMenuCategory, index: number) {
+  return {
+    id: category.id,
+    name: category.name,
+    icon: category.icon || 'salad',
+    color: category.color || 'bg-green-600 text-white',
+    sort_order: index,
+  };
+}
+
+function fromCategoryRow(row: any): SupabaseMenuCategory {
+  return {
+    id: row.id,
+    name: row.name,
+    icon: row.icon || 'salad',
+    color: row.color || 'bg-green-600 text-white',
+  };
+}
+
 export async function getSupabaseMenuItems(): Promise<SupabaseMenuItem[]> {
   assertSupabaseConfigured();
 
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=*&order=sort_order.asc`, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${MENU_TABLE_NAME}?select=*&order=sort_order.asc`, {
     headers: headers(),
   });
 
@@ -79,7 +107,7 @@ export async function saveSupabaseMenuItems(items: SupabaseMenuItem[]) {
   assertSupabaseConfigured();
 
   const rows = items.map(toSupabaseRow);
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?on_conflict=id`, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${MENU_TABLE_NAME}?on_conflict=id`, {
     method: 'POST',
     headers: {
       ...headers(),
@@ -90,5 +118,38 @@ export async function saveSupabaseMenuItems(items: SupabaseMenuItem[]) {
 
   if (!response.ok) {
     throw new Error(`Supabase menu save failed: ${response.status} ${response.statusText}`);
+  }
+}
+
+export async function getSupabaseMenuCategories(): Promise<SupabaseMenuCategory[]> {
+  assertSupabaseConfigured();
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${CATEGORY_TABLE_NAME}?select=*&order=sort_order.asc`, {
+    headers: headers(),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase category load failed: ${response.status} ${response.statusText}`);
+  }
+
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows.map(fromCategoryRow) : [];
+}
+
+export async function saveSupabaseMenuCategories(categories: SupabaseMenuCategory[]) {
+  assertSupabaseConfigured();
+
+  const rows = categories.map(toCategoryRow);
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${CATEGORY_TABLE_NAME}?on_conflict=id`, {
+    method: 'POST',
+    headers: {
+      ...headers(),
+      Prefer: 'resolution=merge-duplicates,return=minimal',
+    },
+    body: JSON.stringify(rows),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase category save failed: ${response.status} ${response.statusText}`);
   }
 }
