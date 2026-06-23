@@ -125,7 +125,7 @@ const defaultMenuItems = [
   { id: '86', name: 'Chicky Burger Meal', price: 270, category: 'nonvegcombos', image: 'https://i.pinimg.com/736x/7f/ca/38/7fca38e9d231422f59433ffa7411f3cd.jpg', isAvailable: true },
   { id: '87', name: 'Spicy Chicky Burger Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/8b/5e/0b/8b5e0b79be294df37ed82917b60861c9.jpg', isAvailable: true },
   { id: '100', name: 'Sausage Wrap Meal', price: 280, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/b3/36/d1/b336d18b22b9263a02d7f0fe17f42d4c.jpg', isAvailable: true },
-  { id: '103', name: 'French Fries and Smoked Sausage', price: 140, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', isAvailable: true },
+  { id: '103', name: 'Sausage & Fries Combo', price: 150, category: 'nonvegcombos', image: 'https://i.pinimg.com/1200x/a1/18/6e/a1186e7835954ec02cf3f4edcb5abed3.jpg', isAvailable: true },
 
   // NOODLES
   { id: '88', name: 'Classic Noodles', price: 70, category: 'noodles', image: 'https://i.pinimg.com/1200x/67/0e/d0/670ed014298036db1853ea3e5c582b0f.jpg', isAvailable: true },
