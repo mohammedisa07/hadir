@@ -328,10 +328,10 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
       const updated = prev.map(item =>
         item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
       );
-      // Only store image as a URL or empty string
+      // Preserve uploaded/custom images when saving locally.
       const safeMenuItems = updated.map(item => ({
         ...item,
-        image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+        image: item.image || ''
       }));
       localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
       return updated;
@@ -349,10 +349,10 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
         const updated = prev.map(item =>
           item.id === itemData.id ? { ...itemData, id: itemData.id } as MenuItem : item
         );
-        // Only store image as a URL or empty string
+        // Preserve uploaded/custom images when saving locally.
         const safeMenuItems = updated.map(item => ({
           ...item,
-          image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+          image: item.image || ''
         }));
         localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
         return updated;
@@ -365,10 +365,10 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
       };
       setMenuItems(prev => {
         const updated = [...prev, newItem];
-        // Only store image as a URL or empty string
+        // Preserve uploaded/custom images when saving locally.
         const safeMenuItems = updated.map(item => ({
           ...item,
-          image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+          image: item.image || ''
         }));
         localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
         return updated;
@@ -380,10 +380,10 @@ export const PosSystem = ({ selectedCategory, userRole, onCashEarned, categories
   const handleDeleteMenuItem = (id: string) => {
     setMenuItems(prev => {
       const updated = prev.filter(item => item.id !== id);
-      // Only store image as a URL or empty string
+      // Preserve uploaded/custom images when saving locally.
       const safeMenuItems = updated.map(item => ({
         ...item,
-        image: (typeof item.image === 'string' && item.image.startsWith('data:')) ? '' : (item.image || '')
+        image: item.image || ''
       }));
       localStorage.setItem('menuItems', JSON.stringify(safeMenuItems));
       return updated;

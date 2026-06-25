@@ -48,7 +48,7 @@ function toSupabaseRow(item: SupabaseMenuItem, index: number) {
     name: item.name,
     price: Number(item.price) || 0,
     category: item.category,
-    image: typeof item.image === 'string' && item.image.startsWith('data:') ? '' : item.image || '',
+    image: item.image || '',
     description: item.description || '',
     is_popular: Boolean(item.isPopular),
     is_available: item.isAvailable !== false,
