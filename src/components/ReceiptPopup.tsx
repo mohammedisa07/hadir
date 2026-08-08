@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock, User, X, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getActiveReceiptTemplate } from "@/hooks/useReceiptTemplates";
 
 interface CartItem {
   id: string;
@@ -48,6 +49,8 @@ export const ReceiptPopup = ({
   const { toast } = useToast();
 
   if (!receipt) return null;
+
+  const template = getActiveReceiptTemplate();
 
   const handlePrint = () => {
     window.print();
@@ -247,22 +250,26 @@ export const ReceiptPopup = ({
               <CardContent className="p-4 space-y-2 text-black print-receipt-content">
                 {/* Header with Logo */}
                 <div className="print-header text-center space-y-1">
-                  <div className="flex justify-center mb-1">
-                    <img 
-                      src="/logo.jpg" 
-                      alt="Hadir's Cafe Logo" 
-                      className="h-28 w-28 object-contain"
-                    />
-                  </div>
+                  {template.showLogo && (
+                    <div className="flex justify-center mb-1">
+                      <img 
+                        src={template.logo} 
+                        alt={`${template.shopName} Logo`} 
+                        className="h-28 w-28 object-contain"
+                      />
+                    </div>
+                  )}
                   <div>
-                    <h1 className="print-title text-xl font-bold tracking-wide text-black">HADIR'S CAFE</h1>
-                    <p className="text-xs text-gray-600">"Love at First Sip"</p>
+                    <h1 className="print-title text-xl font-bold tracking-wide text-black">{template.shopName}</h1>
+                    {template.showTagline && <p className="text-xs text-gray-600">{template.tagline}</p>}
                   </div>
-                  <div className="space-y-0.5 text-xs font-bold text-black">
-                    <p>No.8/117, Sudha Residency, Metro Nagar 4th Avenue</p>
-                    <p>Alapakkam, Chennai, Tamil Nadu 600116</p>
-                    <p>Phone: +91 99418 39385</p>
-                  </div>
+                  {template.showAddress && (
+                    <div className="space-y-0.5 text-xs font-bold text-black">
+                      <p>{template.addressLine1}</p>
+                      <p>{template.addressLine2}</p>
+                      <p>Phone: {template.phone}</p>
+                    </div>
+                  )}
                   <div className="print-separator py-2">
                     <Separator className="border-dashed" />
                   </div>
@@ -287,10 +294,12 @@ export const ReceiptPopup = ({
                       <span>Time:</span>
                       <span>{receipt.timestamp.toLocaleTimeString('en-IN', { hour12: true })}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Cashier:</span>
-                      <span>{receipt.cashier}</span>
-                    </div>
+                    {template.showCashier && (
+                      <div className="flex justify-between">
+                        <span>Cashier:</span>
+                        <span>{receipt.cashier}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="print-separator">
@@ -298,29 +307,33 @@ export const ReceiptPopup = ({
                   </div>
 
                   {/* Customer Details */}
-                  <div className="space-y-1">
-                    <h4 className="font-semibold text-xs border-b pb-1 text-black">CUSTOMER DETAILS</h4>
-                    <div className="space-y-0.5 text-xs text-black">
-                      <div className="flex justify-between">
-                        <span>Name:</span>
-                        <span className="font-medium">{receipt.customerDetails.name}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Phone:</span>
-                        <span className="font-medium">{receipt.customerDetails.phone}</span>
-                      </div>
-                      {receipt.customerDetails.email && (
-                        <div className="flex justify-between">
-                          <span>Email:</span>
-                          <span className="font-medium">{receipt.customerDetails.email}</span>
+                  {template.showCustomerDetails && (
+                    <>
+                      <div className="space-y-1">
+                        <h4 className="font-semibold text-xs border-b pb-1 text-black">CUSTOMER DETAILS</h4>
+                        <div className="space-y-0.5 text-xs text-black">
+                          <div className="flex justify-between">
+                            <span>Name:</span>
+                            <span className="font-medium">{receipt.customerDetails.name}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Phone:</span>
+                            <span className="font-medium">{receipt.customerDetails.phone}</span>
+                          </div>
+                          {receipt.customerDetails.email && (
+                            <div className="flex justify-between">
+                              <span>Email:</span>
+                              <span className="font-medium">{receipt.customerDetails.email}</span>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  </div>
+                      </div>
 
-                  <div className="print-separator">
-                    <Separator className="border-dashed" />
-                  </div>
+                      <div className="print-separator">
+                        <Separator className="border-dashed" />
+                      </div>
+                    </>
+                  )}
 
                   {/* Items Table */}
                   <div className="print-items">
@@ -390,17 +403,21 @@ export const ReceiptPopup = ({
                   </div>
 
                   {/* Footer */}
-                  <div className="text-center space-y-1">
-                    <p className="text-xs font-bold text-black">Thank you for visiting Hadir's Cafe!</p>
-                    <p className="text-xs text-gray-600">We hope to see you again soon</p>
-                    <p className="text-xs text-gray-600">
-                      For any queries, call: +91 99418 39385
-                    </p>
-                    <div className="text-xs text-gray-600 space-y-0.5 mt-2">
-                      <p>Follow us on social media @hadirscafe</p>
-                      <p>★ Rate us on Google & Zomato ★</p>
+                  {template.showFooter && (
+                    <div className="text-center space-y-1">
+                      <p className="text-xs font-bold text-black">{template.footerMessage}</p>
+                      <p className="text-xs text-gray-600">{template.footerSubMessage}</p>
+                      <p className="text-xs text-gray-600">
+                        For any queries, call: {template.phone}
+                      </p>
+                      {template.showSocialMedia && (
+                        <div className="text-xs text-gray-600 space-y-0.5 mt-2">
+                          <p>{template.socialMedia}</p>
+                          <p>{template.socialRating}</p>
+                        </div>
+                      )}
                     </div>
-                  </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

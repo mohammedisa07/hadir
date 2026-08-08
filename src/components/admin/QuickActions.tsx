@@ -9,8 +9,10 @@ import {
   BarChart3,
   Package,
   Users,
-  Lock
+  Lock,
+  Receipt
 } from "lucide-react";
+import { ReceiptTemplateEditor } from "./ReceiptTemplateEditor";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from 'jspdf';
 import { useState } from 'react';
@@ -38,6 +40,7 @@ export const QuickActions = ({
   // Add state for modals
   const [showCashierModal, setShowCashierModal] = useState(false);
   const [showAdminPwModal, setShowAdminPwModal] = useState(false);
+  const [showReceiptTemplatesModal, setShowReceiptTemplatesModal] = useState(false);
 
   // Cashier management state
   const [cashiers, setCashiers] = useState(() => {
@@ -318,6 +321,10 @@ export const QuickActions = ({
       case 'reset-password':
         setShowAdminPwModal(true);
         break;
+
+      case 'receipt-templates':
+        setShowReceiptTemplatesModal(true);
+        break;
     }
   };
 
@@ -375,6 +382,16 @@ export const QuickActions = ({
         </div>
 
         <div className="space-y-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full justify-start"
+            onClick={() => handleQuickAction('receipt-templates')}
+          >
+            <Receipt className="h-4 w-4 mr-2 text-primary" />
+            Receipt Templates
+          </Button>
+
           <Button 
             variant="outline" 
             size="sm" 
@@ -469,6 +486,14 @@ export const QuickActions = ({
             {pwError && <div className="text-destructive text-sm">{pwError}</div>}
             <div className="flex justify-end"><Button onClick={handleAdminPwChange}>Change Password</Button></div>
           </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={showReceiptTemplatesModal} onOpenChange={setShowReceiptTemplatesModal}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto p-4">
+          <DialogHeader>
+            <DialogTitle>Receipt Template Settings</DialogTitle>
+          </DialogHeader>
+          <ReceiptTemplateEditor />
         </DialogContent>
       </Dialog>
     </Card>

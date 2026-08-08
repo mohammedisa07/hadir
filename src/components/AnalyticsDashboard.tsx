@@ -32,6 +32,7 @@ import { DateComparison } from "./admin/DateComparison";
 import { ProductSalesAnalysis } from "./admin/ProductSalesAnalysis";
 import { QuickStats } from "./admin/QuickStats";
 import { QuickActions } from "./admin/QuickActions";
+import { ReceiptTemplateEditor } from "./admin/ReceiptTemplateEditor";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { UnifiedReceiptPopup } from './UnifiedReceiptPopup';
 import { ReceiptPopup } from './ReceiptPopup';
@@ -297,6 +298,9 @@ export const AnalyticsDashboard = ({ onResetTodaysSales }: AnalyticsDashboardPro
         <TaxSettings />
         <ExportOptions />
       </div>
+
+      {/* Receipt Customization */}
+      <ReceiptTemplateEditor />
 
       {/* Date-wise and Yesterday's Sale Controls */}
       <div className="flex space-x-2 mb-4">

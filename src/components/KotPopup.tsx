@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Clock, User, X, Printer, ChefHat, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { getActiveReceiptTemplate } from "@/hooks/useReceiptTemplates";
 
 interface CartItem {
   id: string;
@@ -41,6 +42,8 @@ export const KotPopup = ({
   const { toast } = useToast();
 
   if (!kotData) return null;
+
+  const template = getActiveReceiptTemplate();
 
   const handlePrint = () => {
     window.print();
@@ -176,15 +179,15 @@ export const KotPopup = ({
                   <div className="flex justify-center mb-2">
                     <div className="kot-logo h-12 w-12 bg-white rounded-lg flex items-center justify-center p-1 border">
                       <img 
-                        src="/logo.jpg" 
-                        alt="Hadir's Cafe Logo" 
+                        src={template.logo} 
+                        alt={`${template.shopName} Logo`} 
                         className="w-full h-full object-contain" 
                         onError={e => { e.currentTarget.src = '/placeholder.svg'; }}
                       />
                     </div>
                   </div>
                   <div>
-                    <h1 className="kot-title text-xl font-bold tracking-wide">HADIR'S CAFE</h1>
+                    <h1 className="kot-title text-xl font-bold tracking-wide">{template.shopName}</h1>
                     <h2 className="text-lg font-bold text-orange-600">KITCHEN ORDER TICKET</h2>
                   </div>
                   <div className="kot-separator">
