@@ -24,7 +24,7 @@ import { useCart } from "@/hooks/useCart";
 import { UnifiedReceiptPopup } from "@/components/UnifiedReceiptPopup";
 import { PasswordDialog } from "@/components/PasswordDialog";
 import { Link, useNavigate } from "react-router-dom";
-// REMOVE: import { placeOrder } from '../lib/api';
+import { getActiveReceiptTemplate } from "@/hooks/useReceiptTemplates";
 
 interface MenuItem {
   id: string;
@@ -197,6 +197,7 @@ const Cart = () => {
   };
 
   const handlePrintReceipt = (receiptData: any) => {
+    const template = getActiveReceiptTemplate();
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
       console.error("Could not open print window");
@@ -207,16 +208,22 @@ const Cart = () => {
     const customerReceipt = `
       <div class="receipt-container receipt-section">
         <div class="header">
-          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
-            <img src="/logo.jpg" alt="Hadir's Cafe Logo" style="height: 100px; width: 100px; object-fit: contain;" />
-          </div>
-          <div class="cafe-name">HADIR'S CAFE</div>
-          <div class="tagline">Love at First Sip</div>
-          <div class="address" style="font-weight: bold; color: #000000;">
-            No.8/117, Sudha Residency, Metro Nagar 4th Avenue,<br>
-            Alapakkam, Chennai, Tamil Nadu 600116<br>
-            Phone: +91 99418 39385
-          </div>
+          ${template.showLogo && template.logo ? `
+            <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
+              <img src="${template.logo}" alt="Logo" style="height: 80px; width: 80px; object-fit: contain;" />
+            </div>
+          ` : ''}
+          <div class="cafe-name">${template.shopName}</div>
+          ${template.showTagline && template.tagline ? `
+            <div class="tagline">${template.tagline}</div>
+          ` : ''}
+          ${template.showAddress ? `
+            <div class="address" style="font-weight: bold; color: #000000;">
+              ${template.addressLine1 ? `${template.addressLine1}<br>` : ''}
+              ${template.addressLine2 ? `${template.addressLine2}<br>` : ''}
+              ${template.phone ? `Phone: ${template.phone}` : ''}
+            </div>
+          ` : ''}
         </div>
         <div class="separator"></div>
         <div class="receipt-details">
@@ -232,32 +239,36 @@ const Cart = () => {
             <span>Time:</span>
             <span>${receiptData.timestamp.toLocaleTimeString()}</span>
           </div>
-          <div class="detail-row">
-            <span>Cashier:</span>
-            <span>${receiptData.cashier}</span>
-          </div>
-        </div>
-        <div class="separator"></div>
-        <div class="customer-section">
-          <div><strong>Customer Details</strong></div>
-          <div class="detail-row">
-            <span>Name:</span>
-            <span>${receiptData.customerDetails.name}</span>
-          </div>
-          <div class="detail-row">
-            <span>Phone:</span>
-            <span>${receiptData.customerDetails.phone}</span>
-          </div>
-          ${receiptData.customerDetails.email ? `
+          ${template.showCashier ? `
             <div class="detail-row">
-              <span>Email:</span>
-              <span>${receiptData.customerDetails.email}</span>
+              <span>Cashier:</span>
+              <span>${receiptData.cashier}</span>
             </div>
           ` : ''}
         </div>
+        ${template.showCustomerDetails ? `
+          <div class="separator"></div>
+          <div class="customer-section">
+            <div><strong>Customer Details</strong></div>
+            <div class="detail-row">
+              <span>Name:</span>
+              <span>${receiptData.customerDetails.name}</span>
+            </div>
+            <div class="detail-row">
+              <span>Phone:</span>
+              <span>${receiptData.customerDetails.phone}</span>
+            </div>
+            ${receiptData.customerDetails.email ? `
+              <div class="detail-row">
+                <span>Email:</span>
+                <span>${receiptData.customerDetails.email}</span>
+              </div>
+            ` : ''}
+          </div>
+        ` : ''}
         <div class="separator"></div>
         <div class="items-section">
-          ${receiptData.items.map(item => `
+          ${receiptData.items.map((item: any) => `
             <div class="item">
               <div class="detail-row">
                 <span class="item-name">${item.name}</span>
@@ -292,11 +303,17 @@ const Cart = () => {
             <span>${receiptData.paymentMethod.toUpperCase()}</span>
           </div>
         </div>
-        <div class="separator"></div>
-        <div class="footer">
-          <div style="font-weight: bold; color: #000000;">Thank you for visiting!</div>
-          <div style="color: #000000;">Visit us again soon.</div>
-        </div>
+        ${template.showFooter ? `
+          <div class="separator"></div>
+          <div class="footer">
+            <div style="font-weight: bold; color: #000000;">${template.footerMessage}</div>
+            ${template.footerSubMessage ? `<div style="color: #000000;">${template.footerSubMessage}</div>` : ''}
+            ${template.showSocialMedia ? `
+              ${template.socialMedia ? `<div style="margin-top: 4px; font-size: 11px;">${template.socialMedia}</div>` : ''}
+              ${template.socialRating ? `<div style="font-size: 11px;">${template.socialRating}</div>` : ''}
+            ` : ''}
+          </div>
+        ` : ''}
       </div>
     `;
 
@@ -365,6 +382,7 @@ const Cart = () => {
   };
 
   const handlePrintKOT = (receiptData: any) => {
+    const template = getActiveReceiptTemplate();
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
       console.error("Could not open print window");
@@ -375,10 +393,12 @@ const Cart = () => {
     const kot = `
       <div class="receipt-container kot-section">
         <div class="header">
-          <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
-            <img src="/logo.jpg" alt="Hadir's Cafe Logo" style="height: 100px; width: 100px; object-fit: contain;" />
-          </div>
-          <div class="cafe-name">HADIR'S CAFE - KOT</div>
+          ${template.showLogo && template.logo ? `
+            <div class="print-logo" style="display: flex; justify-content: center; margin-bottom: 4px;">
+              <img src="${template.logo}" alt="Logo" style="height: 80px; width: 80px; object-fit: contain;" />
+            </div>
+          ` : ''}
+          <div class="cafe-name">${template.shopName} - KOT</div>
         </div>
         <div class="separator"></div>
         <div class="receipt-details">
@@ -402,7 +422,7 @@ const Cart = () => {
         <div class="separator"></div>
         <div class="items-section">
           <div><strong>Order Items</strong></div>
-          ${receiptData.items.map(item => `
+          ${receiptData.items.map((item: any) => `
             <div class="item">
               <div class="detail-row">
                 <span class="item-name">${item.name}</span>
